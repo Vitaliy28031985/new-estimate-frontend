@@ -44,7 +44,7 @@ h1 {
 
 .card {
 width: 290px;
-height: 254px; 
+height: 315px; 
 padding-left: 10px;
 padding-right: 10px;
 padding-top: 30px;
@@ -57,7 +57,7 @@ background: rgb(244, 243, 240);
 
 @media screen and (min-width: 768px) {
     width: 320px;
-    height: 254px;  
+    height: 304px;  
 }
 
 @media screen and (min-width: 1200px) {
@@ -124,7 +124,7 @@ height: 254px;
 
 .link {
     display: inline-block;
-    margin-top: 50px;
+    margin-top: 15px;
     color: rgb(58, 95, 86);
     font-size: 17px;
     font-weight: 400;

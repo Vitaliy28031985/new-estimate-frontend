@@ -1,12 +1,11 @@
-
 .container {
-    width: 280px;
+    width: 300px;
     padding: 10px;
     border:  1px solid rgb(58, 95, 86);
     border-radius: 10px;
 
     @media screen and (min-width: 768px) {
-        width: 500px;
+        width: 520px;
      }
 }
 
