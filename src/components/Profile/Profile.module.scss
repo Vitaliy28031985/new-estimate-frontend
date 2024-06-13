@@ -1,0 +1,305 @@
+h1 {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: -10px;
+    margin-top: 10px;
+
+    color: rgb(58, 95, 86);
+    font-size: 35px;
+    font-weight: 900;
+    line-height: 28.8px;  
+    background: rgba(255, 255, 255, 0.5);
+}
+.container {
+    width: 320px;
+    border-radius: 5px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 34px 135px rgba(0, 0, 0, 0.1), 0px 13.0963px 43px rgba(0, 0, 0, 0.0242963), 0px 2.77037px 11px rgba(0, 0, 0, 0.0157037);
+    @media screen and (min-width: 768px) {
+       width: 768px;
+    }
+    @media screen and (min-width: 1200px) {
+        width: 1200px;
+    }
+}
+.userDataContainer {
+
+padding-left: 20px;
+padding-right: 20px;
+@media screen and (min-width: 768px) {  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+@media screen and (min-width: 1200px) {
+    gap: 60px;
+}
+}
+.avatarContainer {
+width: 280px;
+height: 369px;
+margin-bottom: 16px;
+border-radius: 50px;
+background: rgb(196, 196, 196);
+overflow: hidden;
+@media screen and (min-width: 768px) {  
+    width: 180px;
+    height: 269px;
+    margin-bottom: 0;
+}
+@media screen and (min-width: 1200px) {  
+    width: 280px;
+    height: 369px;
+}
+}
+
+.avatarContainer img {
+width: 280px;
+height: 369px;
+border-radius: 50px; 
+@media screen and (min-width: 768px) {  
+    width: 180px;
+    height: 269px;
+}
+@media screen and (min-width: 1200px) {  
+    width: 280px;
+    height: 369px;
+}
+
+}
+.data {
+    margin-bottom: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border:  solid rgb(58, 95, 86) 1px ;
+    @media screen and (min-width: 768px) {  
+       margin-bottom: 0; 
+    }
+}
+.dataItem {
+
+width: 260px;
+height: 50px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 10px;
+gap: 10px;
+border-radius: 500px;
+background: rgb(58, 95, 86);
+@media screen and (min-width: 768px) {  
+    width: 220px;
+    height: 50px;
+}
+@media screen and (min-width: 1200px) {
+    width: 420px;
+    height: 70px;
+}
+}
+
+.dataItem:first-child {
+    margin-top: 0;
+}
+
+.dataTitle {
+color: rgb(255, 255, 255);
+font-size: 13px;
+font-weight: 400;
+line-height: 1.2;
+text-align: left;
+@media screen and (min-width: 1200px) {
+    font-size: 18px;
+    font-weight: 500;
+}
+}
+
+.dataContent {
+color: rgb(255, 255, 255);
+font-size: 12px;
+font-weight: 400;
+line-height: 1.2%;
+text-align: left;
+@media screen and (min-width: 1200px) {
+    font-size: 16px;
+    font-weight: 400;
+}
+}
+
+.adminFunction {
+    padding: 10px;
+    border-radius: 10px;
+    border:  solid rgb(58, 95, 86) 1px ;  
+}
+.adminFunction h3 {
+    color: rgb(58, 95, 86);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28.8px;
+    text-align: center;
+}
+
+.input label {
+    display: block;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: rgb(41, 44, 50);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 5.3px;
+}
+.input input {
+    width: 240px;
+    height: 25px;
+    padding-left: 10px;
+    border-radius: 500px;
+    border-width: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2%;
+    color: rgb(58, 95, 86);
+    @media screen and (min-width: 768px) {  
+        width: 200px; 
+     }
+}
+
+.adminFunction button {
+    width: 240px;
+    height: 35px;
+    margin-top: 20px;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2%;
+    color: rgb(58, 95, 86);
+    border-color: rgb(58, 95, 86);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 250ms background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+
+    @media screen and (min-width: 768px) {  
+        width: 200px; 
+     }
+
+    &:hover, &:focus {
+        background: rgb(58, 95, 86);
+        color: rgb(255, 255, 255);
+    }
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cardContent{
+    display: grid;
+    grid-row-gap: 8px;
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 300px 300px;
+        grid-gap: 20px;
+        }
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: 320px 320px 320px;
+        grid-gap: 20px;
+    } 
+}
+
+.card {
+    width: 280px;
+    height: 200px; 
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.03);
+    background: rgb(244, 243, 240);
+}
+
+.card div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    margin-bottom: 10px;
+}
+.button {
+    width: 38px;
+    height: 38px;
+    border-radius: 24px;
+    background: rgba(58, 95, 86, 0.1);
+    border-color: transparent;
+    cursor: pointer;
+    transition: border-color 250ms background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+    
+    &:hover, &:focus {
+        background: transparent;
+        border-color: rgba(58, 95, 86, 0.1);
+    }
+}
+
+.button svg {
+    fill: rgb(58, 95, 86);
+}
+
+.title {
+    color: rgb(58, 95, 86);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28.8px;
+}
+
+.titleData {
+    color: rgb(41, 44, 50);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22.4px;
+}
+
+.address {
+    color: rgb(58, 95, 86);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28.8px;
+}
+
+.addressData {
+    color: rgb(41, 44, 50);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22.4px;
+}
+
+.link {
+    display: inline-block;
+    color: rgb(58, 95, 86);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 23.8px;
+    transition: color 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+    &:hover, &:focus {
+        color: rgb(8, 62, 158);
+    }
+}
+
+.link svg {
+    margin-left: 7px;
+    fill: currentColor;
+}
