@@ -37,7 +37,7 @@ function AddDiscount() {
         <div className={s.container}>
             <form onSubmit={handleSubmit}>
             <div className={s.inputContainer}>
-                    <label  for="discount">Знижка</label>
+                    <label  for="discount">Формування знижки</label>
                     <input type="number" name="discount" id="discount" onChange={handleChange}  value={discount}  
                     placeholder="Введіть сюди  відсоток знижки" />
                 </div>

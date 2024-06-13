@@ -52,7 +52,7 @@ const emails = ["vitaliy4@i.ua", "David@i.ua", "socil@i.ua"];
         <div className={s.container}>
             <form onSubmit={handleSubmit}>
                 <div className={s.inputContainer}>
-                    <label  for="email">Email користувача якому потрібно обновити  дані дозволу до кошторису</label>
+                    <label  for="email">Обновлення даних дозволу до кошторису користувача</label>
                     <select  name="email" id="email" onChange={handleChange}>
                         {emails?.map(email =>
                            (<option value={email} >{email}</option>))}
@@ -82,17 +82,17 @@ const emails = ["vitaliy4@i.ua", "David@i.ua", "socil@i.ua"];
                 <div>
                     <input className={s.real} type="radio"  name="UpdateLookAt" id="updateAarge" onChange={handleChange} checked={lookAt === "large"} value="large"/>
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="updateAarge">До загального</label>
+                    <label className={s.label} name="lookAt"  for="updateAarge">загального</label>
                 </div>
                 <div>
                     <input className={s.real} type="radio"  id="updateAmall" name="UpdateLookAt" onChange={handleChange} checked={lookAt === "small"}   value="small"  />
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="updateAmall">До меншого</label>
+                    <label className={s.label} name="lookAt"  for="updateAmall">меншого</label>
                 </div>
                 <div>
                     <input className={s.real} type="radio"  id="updateAll" name="UpdateLookAt" onChange={handleChange} checked={lookAt === "all"} value="all"  />
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="updateAll">До всіх</label>
+                    <label className={s.label} name="lookAt"  for="updateAll">всіх</label>
                 </div>
                 </div>
                 </div>

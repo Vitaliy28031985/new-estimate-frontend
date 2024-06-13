@@ -53,7 +53,7 @@ function AddAllow() {
         <div className={s.container}>
             <form onSubmit={handleSubmit}>
                 <div className={s.inputContainer}>
-                    <label  for="email">Email користувача якому потрібно надати дозвіл до кошторису</label>
+                    <label  for="email">Надання доступу до кошторису користувачеві</label>
                     <input type="email" name="email" id="email" onChange={handleChange}  value={email}  placeholder="Введіть сюди email користувача" />
                 </div>
 
@@ -79,17 +79,17 @@ function AddAllow() {
                 <div>
                     <input className={s.real} type="radio"  name="lookAt" id="large" onChange={handleChange} checked={lookAt === "large"} value="large"/>
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="large">До загального</label>
+                    <label className={s.label} name="lookAt"  for="large">загального</label>
                 </div>
                 <div>
                     <input className={s.real} type="radio"  id="small" name="lookAt" onChange={handleChange} checked={lookAt === "small"}   value="small"  />
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="small">До меншого</label>
+                    <label className={s.label} name="lookAt"  for="small">меншого</label>
                 </div>
                 <div>
                     <input className={s.real} type="radio"  id="all" name="lookAt" onChange={handleChange} checked={lookAt === "all"} value="all"  />
                     <span className={s.falseness}></span>
-                    <label className={s.label} name="lookAt"  for="all">До всіх</label>
+                    <label className={s.label} name="lookAt"  for="all">всіх</label>
                 </div>
                 </div>
                 </div>

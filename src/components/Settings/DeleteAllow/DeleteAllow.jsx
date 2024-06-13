@@ -39,7 +39,7 @@ function DeleteAllow() {
         <div className={s.container}>
             <form onSubmit={handleSubmit}>
             <div className={s.inputContainer}>
-                    <label  for="email">Email користувача, якому потрібно забрати доступ до кошторису</label>
+                    <label  for="email">Забрати доступ до кошторису у користувача</label>
                     <select  name="email" id="email" onChange={handleChange}>
                         {emails?.map(email =>
                            (<option value={email} >{email}</option>))}

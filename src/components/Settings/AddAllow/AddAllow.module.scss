@@ -17,9 +17,12 @@
 .radioContainer {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 5px;
     margin-top: 10px;
     margin-bottom: 20px;
+    @media screen and (min-width: 768px) {
+        gap: 18px;
+     }
 }
 
 
@@ -62,11 +65,16 @@
 }
 
 .label {
-margin-left: 10px;
+margin-left: 5px;
 color: rgb(58, 95, 86);
-font-size: 18px;
+font-size: 15px;
 font-weight: 400;
 cursor: pointer;
+@media screen and (min-width: 768px) {
+    font-size: 18px;
+    margin-left: 10px;
+ }
+
 }
 .titleRadio {
 display: block;
@@ -99,8 +107,8 @@ text-align: left;
     }
 
 .inputContainer input {
-width: 290px;
-height: 52px;
+width: 280px;
+height: 72px;
 padding: 20px;
 margin: 15px auto;
 box-sizing: border-box;
