@@ -1,14 +1,30 @@
-import s from "./Projects.module.scss";
+import { useState } from 'react';
+import AddProject from '../AddModals/AddProject/AddProject';
+import Modal from '../Modal/Modal';
 import Line from "../Icons/Line/Line";
+import Add from "../Icons/Add/Add";
 import Update from "../Icons/Update/UpdateIcon";
 import Delete from "../Icons/Delete/Delete";
+
+import s from "./Projects.module.scss";
+
 function ProjectsComponent () {
+
+    const [toggle, setToggle] = useState(false);
+
+    const handleToggle = () => {
+        setToggle(toggle => !toggle);
+    }
 
     return (
         <div>
-            <h1>Список кошторисів</h1>
-        
+            <div className={s.title}>
+            <h1>Список кошторисів</h1> 
+            <button onClick={handleToggle} className={s.addButton}><Add width={"28"} height={"28"}/></button>
+            </div>
         <div className={s.container}>
+            
+           
          
          <ul className={s.cardContainer}>
             <li className={s.card}>
@@ -109,6 +125,7 @@ function ProjectsComponent () {
             </li>
            </ul>
         </div>
+        {toggle && (<Modal onModal={handleToggle}><AddProject onModal={handleToggle}/></Modal>)}
         </div>
     )
 }

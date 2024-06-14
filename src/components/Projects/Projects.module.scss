@@ -1,5 +1,12 @@
+.title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+   
+}
 h1 {
     display: inline-block;
+    width: 250px;
     padding: 5px;
     border-radius: 10px;
     margin-bottom: -10px;
@@ -10,9 +17,13 @@ h1 {
     font-weight: 900;
     line-height: 28.8px;  
     background: rgba(255, 255, 255, 0.5);
+     @media screen and (min-width: 768px) {
+        width: 350px;
+     }
 }
 .container {
     width: 320px;
+    position: relative;
     display: flex;
     justify-content: center;
     border-radius: 5px;
@@ -27,6 +38,33 @@ h1 {
     @media screen and (min-width: 1200px) {
         width: 1200px;
     }
+}
+.addButton {
+    position: relative;
+    display: inline-block;
+    margin-top: 15px;
+    width: 33px;
+    height: 33px;
+    border-radius: 24px;
+    background: rgb(58, 95, 86);
+    color: rgb(244, 243, 240);
+    border-color: transparent;
+    cursor: pointer;
+    transition: border-color 250ms background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+    
+    &:hover, &:focus {
+        background: rgb(244, 243, 240);
+        color: rgb(58, 95, 86);
+        border-color: rgb(58, 95, 86);
+    }
+}
+
+.addButton svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    fill: currentColor;
 }
 
 .cardContainer {

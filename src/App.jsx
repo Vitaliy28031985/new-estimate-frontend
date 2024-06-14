@@ -18,6 +18,7 @@ const Settings = lazy(() => import('./Pages/SettingsPage/SettingsPage' /* webpac
 
 function App() {
   return (
+    <div className={s.body}>
     <div className={s.container}>
       <ToastContainer />
       <Header/>
@@ -33,6 +34,7 @@ function App() {
         <Route path="*" element={<p>NotFoundPage</p>} />
       </Routes>
       </Suspense>
+    </div>
     </div>
   );
 }

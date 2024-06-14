@@ -11,12 +11,12 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: linear-gradient(rgba(47, 48, 58, 0.4), 
+  /* background-image: linear-gradient(rgba(47, 48, 58, 0.4), 
   rgba(47, 48, 58, 0.4)), url('./img/fon.png'); 
   background-size: cover; 
   background-repeat: no-repeat; 
   background-position: center; 
-  background-attachment: fixed;
+  background-attachment: fixed; */
 }
 
 code {
