@@ -1,5 +1,7 @@
 import { useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import AdminFunctions from './AdminFunctions/AdminFunctions';
+import Unit from './Unit/Unit';
 import Line from "../Icons/Line/Line";
 import Update from "../Icons/Update/UpdateIcon";
 import Delete from "../Icons/Delete/Delete";
@@ -7,18 +9,19 @@ import Setting from "../Icons/Setting/Setting";
 import s from "./Profile.module.scss";
 import Modal from "../Modal/Modal";
 
-
+const admin = true; 
 
 function ProfileComponent() {
-    const [showMenu, setShowMenu] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
 
 
     const handleToggle = () => {
-        setShowMenu(showMenu => !showMenu);
+        setIsAdmin(isAdmin => !isAdmin);
         
       }
+      const yesToggle = admin && isAdmin;
 
 
     return(
@@ -47,20 +50,11 @@ function ProfileComponent() {
             <p className={s.dataContent}>Адміністратор</p>
         </li> 
         </ul>
-        <div className={s.adminFunction}>
-            <h3>Доступ користувачів</h3>
-            <form >
-                <div className={s.input}>
-                <label id="data">Кількість днів</label>
-                <input type="number" name="data" />
-                </div>
-                <div className={s.input}>
-                <label id="email">Email</label>
-                <input type="email" name="email" />
-                </div>
-                <button type="submit">Надати</button>
-            </form>
-        </div>
+        {admin ? (<div >
+            {isAdmin ? (<AdminFunctions/>) : (<Unit />)} 
+            <button className={s.toggleButton} type='button' onClick={handleToggle}>{isAdmin ? "До одиниць" : "До дозволу"}</button>
+        </div>) : (<Unit />)}
+       
         </div>
 
         <div className={s.cardContainer}>
@@ -69,7 +63,11 @@ function ProfileComponent() {
             <div className={s.buttons}>
             <button className={s.button}><Update width={"20"} height={"20"}/></button>
             <button className={s.button}><Delete width={"20"} height={"20"}/></button>
-            <button className={s.button}><Setting width={"20"} height={"20"}/></button>
+            <button className={s.button}>
+              <NavLink to="/project/settings/12">
+               <Setting width={"20"} height={"20"}/>
+              </NavLink>
+            </button>
             </div>
                 <div>
                 <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>Андрій Сихів</p>

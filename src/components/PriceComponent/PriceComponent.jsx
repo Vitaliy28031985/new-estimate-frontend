@@ -7,13 +7,17 @@ import UpdateOk from "../Icons/UpdateOk/UpdateOk";
 import Delete from "../Icons/Delete/Delete";
 import s from "./PriceComponent.module.scss";
 
+import DeleteModal from "../DeleteModal/DeleteModal"
+
 import price from "../../db/price.json";
 
 function PriceComponent() {
+    const [currentData, setCurrentData] = useState({});
     const [data, setData] = useState(price);
     const [operations, setOperations] = useState('');
     const [filter, setFilter] = useState('')
     const [showModal, serShowModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const [showAddUnit, setShowAddUnit] = useState(false);
     
     const filterChange = e => setFilter(e.target.value);
@@ -26,6 +30,11 @@ function PriceComponent() {
     const handleToggle = (operation) => {
         if(operation === "price" || operations === "price") {
             serShowModal(toggle => !toggle); 
+            setOperations(operation);
+           return;
+        }
+        if(operation === "delete" || operations === "delete") {
+            setDeleteModal(toggle => !toggle); 
             setOperations(operation);
            return;
         }
@@ -72,7 +81,12 @@ function PriceComponent() {
     
 
 
+// const currentData = (item) => { 
+//     console.log(item);
+// return item;
+// };
 
+// console.log(currentData)
 
     return(
         <div>
@@ -81,22 +95,26 @@ function PriceComponent() {
                     onChange={filterChange} value={filter}  
                     placeholder="Введіть сюди що Ви шукаєте" />
             </div>
-            <h3>Прайс робіт</h3>
 
+            <div className={s.titleContainer}>
+            <h3>Прайс робіт</h3>
+            <button onClick={() => handleToggle("price")} className={s.buttonAdd}><Add width={"27"} height={"27"}/></button>
+            </div> 
             
          <table className={s.iksweb}>
 	<tbody>
 		<tr className={s.tableMin}>
 			<td className={s.rowOne}> <p>Найменування робіт</p>
-            <button 
-            onClick={() => handleToggle("price")}
-             className={s.buttonAdd}><Add width={"27"} height={"27"}/></button>
+            
             </td>
 			<td className={s.twoRow}>Ціна за одиницю в грн.</td>
 		</tr>
         {data && filteredContacts?.map(({_id, title, price, isShow = false, isDelete = false}) => (
+           
         <tr key={_id}>
+             
 			<td className={s.rowOne} >
+                
                    <button  
                   className={s.buttonUpdate}
                   onClick={() => {
@@ -126,9 +144,13 @@ function PriceComponent() {
                <button className={s.buttonDelete} onClick={() => {
                 isDelete = !isDelete;
                 addIsToggle(_id, isDelete, 'delete');
+                setCurrentData({_id, title}); 
+                handleToggle("delete");
             }}>
                 <Delete width={"24"} height={"24"}/>
+                
                 </button>
+               
                 {/* {isDelete && (
                   <div className={s.deleteModalContainer}>
                     <h4>{`Ви справді бажаєте видалити: ${title}`}</h4>
@@ -149,16 +171,22 @@ function PriceComponent() {
                     </ul>
                 </div>   
                 )} */}
-               
+                 
             </td>
+          
 		</tr>    
         ))}
 		
 	</tbody>
 </table>
+{deleteModal && (<DeleteModal data={currentData} nameComponent={"price"} onModal={handleToggle}/>)}
 {showModal && (<Modal onModal={handleToggle}><AddPrice onModal={handleToggle}/></Modal>)}
+
+
         </div>
     )
 }
 
 export default PriceComponent;
+
+
