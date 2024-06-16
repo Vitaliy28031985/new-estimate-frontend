@@ -66,7 +66,7 @@ function ProfileComponent() {
             <button className={s.button}><Update width={"20"} height={"20"}/></button>
             <button className={s.button}><Delete width={"20"} height={"20"}/></button>
             <button className={s.button}>
-              <NavLink to="/project/settings/12">
+              <NavLink to={`/project/settings/${_id}`}>
                <Setting width={"20"} height={"20"}/>
               </NavLink>
             </button>
