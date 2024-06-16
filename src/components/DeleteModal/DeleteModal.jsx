@@ -1,4 +1,5 @@
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
@@ -7,7 +8,7 @@ function DeleteModal({data, nameComponent, onModal}) {
 
     const deleteFunction = () => {
         if(nameComponent === "price") {
-            console.log("delete price");
+            toast(`"${data.title}" успішно видалена!`);
             onModal();
             return;
         }

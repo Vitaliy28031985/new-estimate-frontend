@@ -9,13 +9,13 @@ import Setting from "../Icons/Setting/Setting";
 import s from "./Profile.module.scss";
 import Modal from "../Modal/Modal";
 
+import projects from "../../db/projects.json";
+
 const admin = true; 
 
 function ProfileComponent() {
+    const [data, setData] = useState(projects);
     const [isAdmin, setIsAdmin] = useState(false);
-
-
-
 
     const handleToggle = () => {
         setIsAdmin(isAdmin => !isAdmin);
@@ -56,11 +56,13 @@ function ProfileComponent() {
         </div>) : (<Unit />)}
        
         </div>
-
-        <div className={s.cardContainer}>
+        {data && (
+         <div className={s.cardContainer}>
         <ul className={s.cardContent}>
-        <li className={s.card}>
-            <div className={s.buttons}>
+
+        {data && data.map(({_id, title, description, total}) => (
+            <li className={s.card} key={_id} id={_id}>
+             <div className={s.buttons}>
             <button className={s.button}><Update width={"20"} height={"20"}/></button>
             <button className={s.button}><Delete width={"20"} height={"20"}/></button>
             <button className={s.button}>
@@ -70,69 +72,23 @@ function ProfileComponent() {
             </button>
             </div>
                 <div>
-                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>Андрій Сихів</p>
+                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>{title}</p>
                 </div>
                 <div>
-                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>Шевченка, 40</p>
+                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>{description}</p>
                 </div>
                 <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>70679</p>
+                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>{total}</p>
                 </div>
-                < NavLink to="/project/settings/12" className={s.link} href="">Детальніше <Line/></ NavLink >
-        </li>
-        <li className={s.card}>
-            <div className={s.buttons}>
-            <button className={s.button}><Update width={"20"} height={"20"}/></button>
-            <button className={s.button}><Delete width={"20"} height={"20"}/></button>
-            <button className={s.button}><Setting width={"20"} height={"20"}/></button>
-            </div>
-                <div>
-                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>Андрій Сихів</p>
-                </div>
-                <div>
-                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>Шевченка, 40</p>
-                </div>
-                <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>70679</p>
-                </div>
-                <a className={s.link} href="">Детальніше <Line/></a>
-        </li>
-        <li className={s.card}>
-            <div className={s.buttons}>
-            <button className={s.button}><Update width={"20"} height={"20"}/></button>
-            <button className={s.button}><Delete width={"20"} height={"20"}/></button>
-            <button className={s.button}><Setting width={"20"} height={"20"}/></button>
-            </div>
-                <div>
-                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>Андрій Сихів</p>
-                </div>
-                <div>
-                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>Шевченка, 40</p>
-                </div>
-                <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>70679</p>
-                </div>
-                <a className={s.link} href="">Детальніше <Line/></a>
-        </li>
-        <li className={s.card}>
-            <div className={s.buttons}>
-            <button className={s.button}><Update width={"20"} height={"20"}/></button>
-            <button className={s.button}><Delete width={"20"} height={"20"}/></button>
-            <button className={s.button}><Setting width={"20"} height={"20"}/></button>
-            </div>
-                <div>
-                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>Андрій Сихів</p>
-                </div>
-                <div>
-                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>Шевченка, 40</p>
-                </div>
-                <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>70679</p>
-                </div>
-                <a className={s.link} href="">Детальніше <Line/></a>
-        </li>
+                <NavLink  className={s.link} to={`/project/${_id}`}>Детальніше <Line/></NavLink >
+        </li>  ))
+
+        }
+      
         </ul>
-        </div>
+        </div>   
+        )}
+        
        </div> 
        </div>
     )

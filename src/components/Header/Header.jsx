@@ -14,6 +14,8 @@ function Header () {
         setShowMenu(showMenu => !showMenu);
       }
 
+      console.log();
+
 return (<div className={s.content}>
     <header className={s.header}>
         
