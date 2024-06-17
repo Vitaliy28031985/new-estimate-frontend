@@ -2,10 +2,16 @@ import { useParams  } from 'react-router-dom';
 import { useState} from 'react';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Add from "../Icons/Add/Add"
 import Update from "../Icons/Update/UpdateIcon";
 import UpdateOk from "../Icons/UpdateOk/UpdateOk";
 import Delete from "../Icons/Delete/Delete";
+import Modal from "../Modal/Modal";
+import AddEstimate from '../AddModals/AddEstimate/AddEstimate';
+import AddPosition from "../AddModals/AddPosition/AddPosition";
+import DeleteModal from '../DeleteModal/DeleteModal';
 import s from "./ProjectItem.module.scss";
 
 import projects from "../../db/projects.json";
@@ -15,7 +21,44 @@ function ProjectItem() {
     const projectId = projects.filter(({_id}) => _id === id);
     const project = projectId[0];
     const[data, setData] = useState(project);
+    const [currentData, setCurrentData] = useState({});
+    const [deleteEstimate, setDeleteEstimate] = useState(false);
+    const [deletePosition, setDeletePosition] = useState(false);
+    const [operations, setOperations] = useState('');
+    const [showEstimateAdd, setShowEstimateAdd ] = useState(false);
+    const [showPositionAdd, setShowPositionAdd] = useState(false);
+    
 
+    const handleToggle = (operation, data) => {
+   
+      if(operation === "estimate" || operations === "estimate") {
+        setShowEstimateAdd(toggle => !toggle); 
+          setOperations(operation);
+         return;
+      }
+      if(operation === "position" || operations === "position") {
+          setShowPositionAdd(toggle => !toggle); 
+          setOperations(operation);
+          
+          if(data) {
+            if(data.title !== undefined) {
+             toast(`Позицію ${data.title} успішно додано`)
+            console.log(data)
+          }  
+         return;
+      }   
+  }
+  if(operation === "deleteEstimate" || operations === "deleteEstimate") {
+    setDeleteEstimate(toggle => !toggle); 
+    setOperations(operation);
+   return; 
+  }
+  if(operation === "deletePosition" || operations === "deletePosition") {
+    setDeletePosition(toggle => !toggle); 
+    setOperations(operation);
+   return; 
+  }
+  }
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const generatePdf = () => {
@@ -135,8 +178,9 @@ const onChange = (e) => {
         onClick={generatePdf}
         >Створити PDF файл</button>
        {/* {userRole && ( */}
-         <button type='button' className={s.createPdfFileButton} 
-       //   onClick={handleToggleEstimate}
+         <button type='button' 
+         className={s.createPdfFileButton} 
+         onClick={() => handleToggle("estimate")}
          >Додати таблицю</button>
        {/* )} */}
        
@@ -145,9 +189,7 @@ const onChange = (e) => {
        
         {data && (
           <>
-       
-          
-    
+        
             {data.estimates && data.estimates.map(item => (
               <div key={item._id}>
                 <div className={s.buttonAddContainer}>
@@ -155,11 +197,17 @@ const onChange = (e) => {
                 {/* {userRole && ( */}
                     <>
                  <button type='button' className={s.buttonAddTitle} 
-                //  onClick={() => onDeleteEstimate(data?._id, item?._id)}
+                 
+                 onClick={() => {
+                  handleToggle("deleteEstimate");
+                  setCurrentData({id: item?._id, title: item?.title})
+                  // onDeleteEstimate(data?._id, item?._id)
+                }}
                  >
                   <Delete width={"24"} height={"24"}/>
                   </button>
                   <button className={s.buttonUpdateEstimate}
+                 
                 //   onClick={() => updateEstimate(data?._id, item?._id, item?.title)}
                   >
                     <Update width='28' height='28'/>
@@ -177,6 +225,7 @@ const onChange = (e) => {
                    <td className={s.twoRow}>Назва 
                    {/* {userRole && ( */}
                    <button type='button' 
+                    onClick={() => handleToggle('position', {id: item._id})}
                 //    onClick={() => data && item._id && handleTogglePosition(item._id, data._id)}
                     className={s.buttonAdd}>
                    <Add width={"24"} height={"24"}/>
@@ -253,6 +302,8 @@ const onChange = (e) => {
                     onClick={() => {
                       isDelete = !isDelete;
                       console.log(_id, isDelete)
+                      handleToggle("deletePosition");
+                      setCurrentData({estimateId: _id, positionId: id, title})
                       // addIsToggle(_id, isDelete, 'delete');
                     }
                     }
@@ -310,8 +361,10 @@ const onChange = (e) => {
           {data?.general && (
           <p>{data?.general}</p>)}
         </div> 
-        
-        
+        {deleteEstimate && (<DeleteModal data={currentData} nameComponent={"deleteEstimate"} onModal={handleToggle}/>)}
+        {deletePosition && (<DeleteModal data={currentData} nameComponent={"deletePosition"} onModal={handleToggle}/>)}
+        {showEstimateAdd && (<Modal onModal={handleToggle}><AddEstimate onModal={handleToggle}/></Modal>)}
+        {showPositionAdd && (<Modal onModal={handleToggle}><AddPosition onModal={handleToggle}/></Modal>)}
        
 {/*        
         {showPosition && (

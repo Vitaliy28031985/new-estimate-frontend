@@ -1,14 +1,32 @@
+import { useParams  } from 'react-router-dom';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
-
-    console.log(data)
+    const {id} = useParams();
+    
 
     const deleteFunction = () => {
         if(nameComponent === "price") {
             toast(`"${data.title}" успішно видалена!`);
+            console.log(data)
+            onModal();
+            return;
+        }
+
+        if(nameComponent === "deleteEstimate") {
+            toast(`"${data.title}" успішно видалена!`);
+            const deleteEstimate = {projectId: id, estimateId: data.id}
+            console.log(deleteEstimate)
+            onModal();
+            return;
+        }
+
+        if(nameComponent === "deletePosition") {
+            toast(`"${data.title}" успішно видалена!`);
+            const deletePosition = {projectId: id, estimateId: data.estimateId, positionId: data.positionId}
+            console.log(deletePosition)
             onModal();
             return;
         }

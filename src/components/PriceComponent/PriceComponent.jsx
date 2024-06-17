@@ -18,7 +18,7 @@ function PriceComponent() {
     const [filter, setFilter] = useState('')
     const [showModal, serShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const [showAddUnit, setShowAddUnit] = useState(false);
+  
     
     const filterChange = e => setFilter(e.target.value);
 

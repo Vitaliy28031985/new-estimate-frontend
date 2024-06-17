@@ -41,22 +41,15 @@
 
    @media screen and (min-width: 768px) {
       display:  flex;
-      gap: 26px; 
+      gap: 16px; 
    }
    
    @media screen and (min-width: 1200px) {
-      gap: 36px; 
+      gap: 26px; 
   }
 }
 
-.link {
-font-style: normal;
-font-weight: 400;
-font-size: 19px;
-line-height: 16px;
-color: #083E9E;
 
-}
 .buttons {
    display: flex;
    align-items: center;
@@ -81,10 +74,6 @@ color: #083E9E;
 fill: rgb(8, 62, 158);
 }
 
-
-
-
-
 .button {
 display: none;
 box-sizing: border-box;
@@ -92,7 +81,6 @@ border: 1px solid rgb(58, 95, 86);
 border-radius: 4px;
 background: transparent;
 color: rgb(8, 62, 158);
-font-family: Josefin Sans;
 font-size: 20px;
 font-weight: 400;
 line-height: -1px;
@@ -119,7 +107,29 @@ transition: color 250ms background 250ms  cubic-bezier(0.4, 0, 0.2, 1);
 }
 }
 
+.link{
+   padding-top: 14px;
+   padding-bottom: 14px;
+   padding-left: 15px;
+   padding-right: 15px;
+   font-weight: 400;
+   font-size: 19px;
+   line-height: 16px;
+   color: #083E9E;
+   transition: color 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+   &:hover, &:focus {
+      border: solid rgb(58, 95, 86) 1px;
+      color:  rgb(58, 95, 86);
+      border-radius: 3px;
+   }
 
+ }
+
+ .link-min {
+   border: solid rgb(58, 95, 86) 1px;
+   color:  rgb(58, 95, 86);
+   border-radius: 3px;
+ }
 
 
 

@@ -1,384 +1,527 @@
 [
     {
-        "_id": "659d5a627d35cfc11bb444af",
-        "title": "Львів-Брюховичі",
-        "description": "вул. Лісна, 2",
-        "total": 71097,
-        "owner": "659d58127d35cfc11bb44489",
-        "estimates": [
+        "_id": "665d953e37ebd8c811143ef4",
+        "title": "Paris",
+        "description": "вул. Лісна, 4",
+        "total": 39150,
+        "price": [
             {
-                "title": "Спальня",
-                "positions": [
-                    {
-                        "id": "827b41df-3cf2-43b9-98c9-eb3d79a00d74",
-                        "title": "Штукатурка стін",
-                        "unit": "м.кв",
-                        "number": 41.4,
-                        "price": 200,
-                        "result": 8280,
-                        "_id": "659d5a7f7d35cfc11bb444bf"
-                    },
-                    {
-                        "id": "f9945329-e049-4c31-8467-6d8a444e1d73",
-                        "title": "Шпаклювання стін під шпалери",
-                        "unit": "м.кв",
-                        "number": 21.5,
-                        "price": 170,
-                        "result": 3655,
-                        "_id": "659d5c0a7d35cfc11bb4451f"
-                    },
-                    {
-                        "id": "bb02fc48-b911-496c-adfc-ee12a21635c7",
-                        "title": "Шпаклювання стін під фарбування",
-                        "unit": "м.кв",
-                        "number": 20,
-                        "price": 200,
-                        "result": 4000,
-                        "_id": "659d5c1b7d35cfc11bb4453f"
-                    },
-                    {
-                        "id": "5911d3ae-bee0-4257-ba50-9d7830a4c1f3",
-                        "title": "Грунтування",
-                        "unit": "м.кв",
-                        "number": 41.5,
-                        "price": 30,
-                        "result": 1245,
-                        "_id": "659d5c3e7d35cfc11bb44565"
-                    },
-                    {
-                        "id": "8b133fa5-7cf1-46cd-bcc8-b974e87a8d81",
-                        "title": "Наклеювання шпалер на стіни",
-                        "unit": "м.кв",
-                        "number": 21.5,
-                        "price": 150,
-                        "result": 3225,
-                        "_id": "659d5c587d35cfc11bb44591"
-                    },
-                    {
-                        "id": "aba12fc8-9809-4013-b55a-a5b5d4e56c6d",
-                        "title": "Фарбування стін",
-                        "unit": "м.кв",
-                        "number": 20,
-                        "price": 90,
-                        "result": 1800,
-                        "_id": "659d5c687d35cfc11bb445c3"
-                    },
-                    {
-                        "id": "4fce81eb-0c5f-469d-a7d7-2375f6f29b1e",
-                        "title": "Штукатурка відкосів",
-                        "unit": "м/п",
-                        "number": 10,
-                        "price": 200,
-                        "result": 2000,
-                        "_id": "659d5c877d35cfc11bb445fb"
-                    },
-                    {
-                        "id": "845e5e18-6d7f-4953-b50e-e39cdbacae03",
-                        "title": "Шпаклювання відкосів під фарбування",
-                        "unit": "м/п",
-                        "number": 10,
-                        "price": 200,
-                        "result": 2000,
-                        "_id": "659d5ca47d35cfc11bb44639"
-                    }
-                ],
-                "total": 26205,
-                "_id": "659d5a6e7d35cfc11bb444b6"
+                "title": "Шпаклювання",
+                "price": 170,
+                "owner": "665b1abcbf0bad8dc4cb55f5",
+                "_id": "665b27a470e2686f618e9c40",
+                "createdAt": "2024-06-08T15:23:16.573Z",
+                "updatedAt": "2024-06-08T15:23:16.573Z"
             },
             {
-                "title": "Вітальня",
-                "positions": [
-                    {
-                        "id": "3f91fe69-a630-41c3-a5dd-1da8edcd8718",
-                        "title": "Штукатурка стін34",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 200,
-                        "result": 14360,
-                        "_id": "659d5cc97d35cfc11bb446c7"
-                    },
-                    {
-                        "id": "dbca3017-eeef-4aff-8ac8-0e3f4630ca4b",
-                        "title": "Шпаклювання стін під шпалери",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 160,
-                        "result": 11488,
-                        "_id": "659d5cd77d35cfc11bb44717"
-                    },
-                    {
-                        "id": "96f2e947-4ea0-4b70-a85f-2297e57ad963",
-                        "title": "Грунтування",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 30,
-                        "result": 2154,
-                        "_id": "659d5cec7d35cfc11bb4476d"
-                    },
-                    {
-                        "id": "8cf59969-c949-4c16-8a10-750f00f74427",
-                        "title": "Наклеювання шпалер на стіни",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 150,
-                        "result": 10770,
-                        "_id": "659d5d007d35cfc11bb447c9"
-                    },
-                    {
-                        "id": "2f551fea-ae42-4ae9-bd21-959f719fffbd",
-                        "title": "Штукатурка відкосів",
-                        "unit": "м/п",
-                        "number": 12,
-                        "price": 200,
-                        "result": 2400,
-                        "_id": "659d5d0d7d35cfc11bb4482b"
-                    },
-                    {
-                        "id": "441669fe-b0ce-457c-b536-53b0fb8ad098",
-                        "title": "Шпаклювання відкосів під шпалери",
-                        "unit": "м/п",
-                        "number": 12,
-                        "price": 160,
-                        "result": 1920,
-                        "_id": "659d5d1a7d35cfc11bb44893"
-                    },
-                    {
-                        "id": "73a82b2c-e409-481d-891f-6b0ff13ae00a",
-                        "title": "Наклеювання шпалер на відкоси",
-                        "unit": "м/п",
-                        "number": 12,
-                        "price": 150,
-                        "result": 1800,
-                        "_id": "659d5d277d35cfc11bb44901"
-                    }
-                ],
-                "total": 44892,
-                "_id": "659d5aca7d35cfc11bb444d0"
+                "title": "Штукатурка",
+                "price": 200,
+                "owner": "665b1abcbf0bad8dc4cb55f5",
+                "_id": "665b27c470e2686f618e9c46",
+                "createdAt": "2024-06-08T15:23:16.573Z",
+                "updatedAt": "2024-06-08T15:23:16.573Z"
+            },
+            {
+                "title": "Фарування",
+                "price": 100,
+                "owner": "665b1abcbf0bad8dc4cb55f5",
+                "_id": "665b27ee70e2686f618e9c49",
+                "createdAt": "2024-06-08T15:23:16.573Z",
+                "updatedAt": "2024-06-08T15:23:16.573Z"
+            },
+            {
+                "title": "Демонтаж набілу",
+                "price": 140,
+                "_id": "666048b3baba13df590694c8",
+                "createdAt": "2024-06-08T15:23:16.573Z",
+                "updatedAt": "2024-06-08T15:23:16.573Z"
             }
         ],
-        "createdAt": "2024-01-09T14:38:26.931Z",
-        "updatedAt": "2024-06-02T16:23:01.565Z",
-        "general": 56097,
-        "materials": [],
-        "materialsTotal": 0,
+        "discount": 4698,
+        "discountPercentage": 0.12,
+        "materialsTotal": 240,
+        "advancesTotal": 2000,
+        "general": 32692,
+        "lowTotal": 34650,
+        "lowGeneral": 32890,
         "allowList": [
-            "65a235b685b1d5fbea01a73a",
-            "65f46f31fa236f7b56bbaf32",
-            "66084985adcf9c9c1a84cdf1"
+            "665d953e37ebd8c811143ef4"
         ],
-        "advances": [
-            {
-                "id": "4540792a-7171-4bb3-b0e1-5664a551eeb7",
-                "comment": "Дали на об'єкті",
-                "date": "2024-03-13",
-                "sum": 15000,
-                "_id": "65f59c8efa2ae297309f72f7"
-            }
-        ],
-        "advancesTotal": 15000
-    },
-    {
-        "_id": "65c243354577219e7f0f9db8",
-        "title": "Дубляни-Львів",
-        "description": "Шевченка, 9",
-        "total": 63678,
-        "owner": "659d58127d35cfc11bb44489",
+        "owner": "665b1abcbf0bad8dc4cb55f5",
         "estimates": [
-            {
-                "title": "Спальня",
-                "positions": [
-                    {
-                        "id": "fe9fb2b3-2923-427e-9661-749669743d69",
-                        "title": "Штукатурка стін",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 200,
-                        "result": 14360,
-                        "_id": "65e9ef2fc5ab2b7fd71ab095"
-                    },
-                    {
-                        "id": "5898e595-d842-412f-915c-fd4f1c9fb819",
-                        "title": "Шпаклювання стін під фарбування",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 200,
-                        "result": 14360,
-                        "_id": "65eafb53e56eac53d81cc35f"
-                    },
-                    {
-                        "id": "449a81f9-1a25-4b4d-a501-8dab5d609389",
-                        "title": "Фарбування стін в кімнаті",
-                        "unit": "м.кв",
-                        "number": 71.8,
-                        "price": 100,
-                        "result": 7180,
-                        "_id": "65eb027fe56eac53d81cd3dc"
-                    },
-                    {
-                        "id": "1bf82975-3a7c-4f5e-bfd0-3f90479f452c",
-                        "title": "Штукатурка відкосів",
-                        "unit": "м/п",
-                        "number": 15.37,
-                        "price": 200,
-                        "result": 3074,
-                        "_id": "65eb084d6fa98c02a40782da"
-                    },
-                    {
-                        "id": "741a2251-7e95-482a-8b01-f7189f4413bd",
-                        "title": "Шпаклювання відкосів під фарбування",
-                        "unit": "м/п",
-                        "number": 15.37,
-                        "price": 200,
-                        "result": 3074,
-                        "_id": "65eb08866fa98c02a4078385"
-                    },
-                    {
-                        "id": "ce554161-a112-417e-aa68-d483526a8bde",
-                        "title": "Фарбування відкосів",
-                        "unit": "м/п",
-                        "number": 15.33,
-                        "price": 100,
-                        "result": 1533,
-                        "_id": "65eb08b36fa98c02a4078436"
-                    }
-                ],
-                "total": 43581,
-                "_id": "65c243554577219e7f0f9e01"
-            },
             {
                 "title": "Вітальня",
                 "positions": [
                     {
-                        "id": "1c5bddba-8e94-4cc0-895d-938e7560dc0b",
-                        "title": "Штукатурка стін",
-                        "unit": "м².",
-                        "number": 34.65,
-                        "price": 200,
-                        "result": 6930,
-                        "_id": "66114bd387d365cc65cb079c"
+                        "id": "921892dc-d5cf-4eb6-bc8b-be1be63a0278",
+                        "title": "Шпаклювання",
+                        "unit": "м.кв",
+                        "number": 45,
+                        "price": 170,
+                        "result": 7650,
+                        "_id": "665d95f737ebd8c811143f2d"
                     },
                     {
-                        "id": "a9c88319-b361-4642-a8ca-30df470fb4f6",
-                        "title": "Шпаклювання стін під шпалери",
-                        "unit": "м².",
-                        "number": 34.65,
-                        "price": 160,
-                        "result": 5544,
-                        "_id": "66114c5087d365cc65cb0885"
-                    },
-                    {
-                        "id": "e9e0459a-3590-45e7-ae3c-0f6378ba0219",
-                        "title": "Грунтування ",
-                        "unit": "м².",
-                        "number": 34.65,
-                        "price": 30,
-                        "result": 1039.5,
-                        "_id": "66114c6f87d365cc65cb0970"
-                    },
-                    {
-                        "id": "1ac5afac-22f6-4cad-bc29-3af1f338bad7",
-                        "title": "Наклеювання шпалер на стіни",
-                        "unit": "м².",
-                        "number": 34.65,
-                        "price": 190,
-                        "result": 6583.5,
-                        "_id": "66114c8c87d365cc65cb0a63"
+                        "id": "b733253a-2e19-4f5d-8bb4-bfe30bb4a282",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 170,
+                        "result": 8500,
+                        "_id": "665d963537ebd8c811143f75"
                     }
                 ],
-                "total": 20097,
-                "_id": "66114bae87d365cc65cb06e7"
-            }
-        ],
-        "createdAt": "2024-02-06T14:33:25.263Z",
-        "updatedAt": "2024-06-15T12:27:09.300Z",
-        "general": 63678,
-        "materials": [],
-        "materialsTotal": 0,
-        "allowList": [],
-        "advances": [],
-        "advancesTotal": 0
-    },
-    {
-        "_id": "65ec7fcdd492c0b3a0f62b35",
-        "title": "Lviv",
-        "description": "Шевченка 100",
-        "total": 54200,
-        "materialsTotal": 44468,
-        "advancesTotal": 25000,
-        "general": 73668,
-        "owner": "659d58127d35cfc11bb44489",
-        "estimates": [
+                "total": 16150,
+                "_id": "665d95a537ebd8c811143f0a"
+            },
             {
-                "title": "Їдальня",
+                "title": "bathroom",
                 "positions": [
                     {
-                        "id": "98deddc7-7658-4ff7-9b35-cd76a7e02862",
-                        "title": "Штукатурка стін",
-                        "unit": "м.кв",
-                        "number": 100,
-                        "price": 200,
-                        "result": 20000,
-                        "_id": "65f044dd9c6e57ab3e25bb83"
+                        "id": "1a9d3a60-bb91-414a-ac6f-0ea4c41ea45b",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 170,
+                        "result": 8500,
+                        "_id": "665d995c551a989f38c904d0"
                     },
                     {
-                        "id": "7e06dee7-e394-4d97-8a60-231ff8df95df",
-                        "title": "Шпаклювання стін під шпалери",
-                        "unit": "м",
-                        "number": 120,
-                        "price": 160,
-                        "result": 19200,
-                        "_id": "65f044f09c6e57ab3e25bc99"
+                        "id": "321c262c-0eb5-4ec1-a3ab-fd6f76910e2f",
+                        "title": "Фарування",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 100,
+                        "result": 5000,
+                        "_id": "6660200729074e43d541c89b"
                     },
                     {
-                        "id": "2a6d8872-3e65-424a-98a9-629c2ef529eb",
-                        "title": "Наклеювання шпалер на стіни",
-                        "unit": "м",
-                        "number": 100,
-                        "price": 150,
-                        "result": 15000,
-                        "_id": "65f045009c6e57ab3e25bdb7"
+                        "id": "a13765c5-6097-4d39-881e-2de972c1f0a4",
+                        "title": "Фарування",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 100,
+                        "result": 5000,
+                        "_id": "666321a5e936fd5b1ebbc629"
+                    },
+                    {
+                        "id": "1a06de41-1317-4719-9c59-7bd69b48eb84",
+                        "title": "Фарування",
+                        "unit": "м/п.",
+                        "number": 45,
+                        "price": 100,
+                        "result": 4500,
+                        "_id": "6664633b3606841abc78218d"
                     }
                 ],
-                "total": 54200,
-                "_id": "65f044c99c6e57ab3e25babc"
+                "total": 23000,
+                "_id": "665d9915551a989f38c90485"
+            }
+        ],
+        "lowEstimates": [
+            {
+                "title": "living room",
+                "positions": [
+                    {
+                        "id": "921892dc-d5cf-4eb6-bc8b-be1be63a0278",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 153,
+                        "result": 7650,
+                        "_id": "665d95f737ebd8c811143f2d"
+                    },
+                    {
+                        "id": "b733253a-2e19-4f5d-8bb4-bfe30bb4a282",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 153,
+                        "result": 7650,
+                        "_id": "665d963537ebd8c811143f75"
+                    }
+                ],
+                "total": 15300,
+                "_id": "665d95a537ebd8c811143f0a"
+            },
+            {
+                "title": "bathroom",
+                "positions": [
+                    {
+                        "id": "1a9d3a60-bb91-414a-ac6f-0ea4c41ea45b",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 153,
+                        "result": 7650,
+                        "_id": "665d995c551a989f38c904d0"
+                    },
+                    {
+                        "id": "33d2e793-d316-4e61-8a68-6d627e25df36",
+                        "title": "Шпаклювання",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 153,
+                        "result": 7650,
+                        "_id": "665d995e551a989f38c90539"
+                    },
+                    {
+                        "id": "fc0760e8-4afb-4815-bdda-0bc4608bcc0f",
+                        "title": "Фарбування",
+                        "unit": "м/п.",
+                        "number": 50,
+                        "price": 81,
+                        "result": 4050,
+                        "_id": "665da562ccadc8716d21460d"
+                    }
+                ],
+                "total": 19350,
+                "_id": "665d9915551a989f38c90485"
             }
         ],
         "materials": [
             {
-                "id": "ca4e7a51-37ad-4323-96f7-369d417f1ecc",
-                "title": "БудХата",
-                "order": "МГЛ_23456765",
-                "date": "24.08.2021",
-                "sum": 35678,
-                "_id": "65f080f945930249618aa37b"
-            },
-            {
-                "id": "facfe2e5-0d28-4170-b26e-0cf72b300f80",
-                "title": "Назар Фарба ",
-                "order": "ДТЛ-98765437",
-                "date": "24.08.2021",
-                "sum": 8790,
-                "_id": "65f0813945930249618aa44c"
+                "id": "e00d5a70-9c0d-4084-89e9-618c163765ed",
+                "title": "fdjdshfjdshfksdhf",
+                "order": "hfdishfsihfisdhfisd",
+                "date": "02.06.2024",
+                "sum": 240,
+                "_id": "665dad5b8851d4abe5e4e398"
             }
         ],
         "advances": [
             {
-                "id": "cd9b4a46-03c5-4d35-bd6c-b904e25730c1",
-                "comment": "Дали на об'єкті",
-                "date": "2024.03.06",
-                "sum": 20000,
-                "_id": "65f334032ed707ac3191c830"
-            },
-            {
-                "id": "20797329-d5f2-4ddc-8423-be31551484ed",
-                "comment": "Отримав біля автостанції",
-                "date": "2024.03.15",
-                "sum": 5000,
-                "_id": "65f334192ed707ac3191c86c"
+                "id": "9ec0bc0b-cfde-47a5-81ca-d6f551f39905",
+                "comment": "fdjdshfjdshfksdhf",
+                "date": "02.06.2024",
+                "sum": 2000,
+                "_id": "665dad818851d4abe5e4e43b"
             }
         ],
-        "createdAt": "2024-03-09T15:27:09.085Z",
-        "updatedAt": "2024-06-15T12:28:34.095Z",
-        "allowList": []
+        "createdAt": "2024-06-03T10:04:46.725Z",
+        "updatedAt": "2024-06-09T15:11:05.591Z"
+    },
+    {
+        "_id": "6663ebb186d6b0e8cf531604",
+        "title": "Андрій Шевченка",
+        "description": "вул. Шевченка 10",
+        "total": 22500,
+        "price": [],
+        "discount": 2700,
+        "discountPercentage": 0.12,
+        "materialsTotal": 17580,
+        "advancesTotal": 10000,
+        "general": 27380,
+        "lowTotal": 20250,
+        "lowGeneral": 27830,
+        "allowList": [
+            "6663ebb186d6b0e8cf531604",
+            "66640f45df64b76e0b595406",
+            "66634d3026d5ff2232f8dc16"
+        ],
+        "owner": "6661ee8a97db4f3115e4ec30",
+        "estimates": [
+            {
+                "title": "Вітальня",
+                "positions": [
+                    {
+                        "id": "87f1ace6-f25f-4e2d-8ae4-dd9313d8810b",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 220,
+                        "result": 9900,
+                        "_id": "6663ec2e86d6b0e8cf5316c2"
+                    },
+                    {
+                        "id": "3b6c94a6-484d-4ee5-a487-4ba2c66cf4d6",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 180,
+                        "result": 8100,
+                        "_id": "6663ec4f86d6b0e8cf531716"
+                    },
+                    {
+                        "id": "536c9af6-ef39-45ac-815a-789ce2485f19",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 100,
+                        "result": 4500,
+                        "_id": "6663ec5f86d6b0e8cf531778"
+                    }
+                ],
+                "total": 22500,
+                "_id": "6663ebc486d6b0e8cf531639"
+            }
+        ],
+        "lowEstimates": [
+            {
+                "title": "Вітальня",
+                "positions": [
+                    {
+                        "id": "87f1ace6-f25f-4e2d-8ae4-dd9313d8810b",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 198,
+                        "result": 8910,
+                        "_id": "6663ec2e86d6b0e8cf5316c2"
+                    },
+                    {
+                        "id": "3b6c94a6-484d-4ee5-a487-4ba2c66cf4d6",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 162,
+                        "result": 7290,
+                        "_id": "6663ec4f86d6b0e8cf531716"
+                    },
+                    {
+                        "id": "536c9af6-ef39-45ac-815a-789ce2485f19",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 45,
+                        "price": 90,
+                        "result": 4050,
+                        "_id": "6663ec5f86d6b0e8cf531778"
+                    }
+                ],
+                "total": 20250,
+                "_id": "6663ebc486d6b0e8cf531639"
+            }
+        ],
+        "materials": [
+            {
+                "id": "79ae554c-c125-4289-8020-0c4cc20e2191",
+                "title": "Матеріали для штукатурки",
+                "order": "Мгл_123456",
+                "date": "2024-05-29",
+                "sum": 8790,
+                "_id": "6663ecaa86d6b0e8cf5317e5"
+            },
+            {
+                "id": "27dbd7f0-e107-4f1f-9037-6d14b1f0ff6a",
+                "title": "fsdfsd",
+                "order": "bvcbcv",
+                "date": "2024-06-06",
+                "sum": 8790,
+                "_id": "6664052286d6b0e8cf53452b"
+            }
+        ],
+        "advances": [
+            {
+                "id": "b744c48a-9e72-4fac-a994-02372b9a4671",
+                "comment": "Дали на об'єкті",
+                "date": "2024-05-29",
+                "sum": 10000,
+                "_id": "6663ed0386d6b0e8cf53187d"
+            }
+        ],
+        "createdAt": "2024-06-08T05:27:13.057Z",
+        "updatedAt": "2024-06-10T10:10:06.850Z"
+    },
+    {
+        "_id": "666598340df40f64f7a1cd84",
+        "title": "Давид Кулява",
+        "description": "вул. Б. Хьельницького, 85",
+        "total": 48510,
+        "price": [
+            {
+                "title": "Штукатурка стін",
+                "price": 200,
+                "owner": "6661ee8a97db4f3115e4ec30",
+                "_id": "6663ebe186d6b0e8cf531666",
+                "createdAt": "2024-06-10T13:04:15.225Z",
+                "updatedAt": "2024-06-10T13:04:15.225Z"
+            },
+            {
+                "title": "Шпаклювання стін",
+                "price": 200,
+                "owner": "6661ee8a97db4f3115e4ec30",
+                "_id": "6663ebee86d6b0e8cf53166b",
+                "createdAt": "2024-06-10T13:04:15.225Z",
+                "updatedAt": "2024-06-10T13:04:15.225Z"
+            },
+            {
+                "title": "Фарбування стін",
+                "price": 90,
+                "owner": "6661ee8a97db4f3115e4ec30",
+                "_id": "6663ebfc86d6b0e8cf531670",
+                "createdAt": "2024-06-10T13:04:15.225Z",
+                "updatedAt": "2024-06-10T13:04:15.225Z"
+            },
+            {
+                "title": "Демонтаж штукатурки",
+                "price": 150,
+                "_id": "6666f21d73a6ebc434d74bb1",
+                "createdAt": "2024-06-10T13:04:15.225Z",
+                "updatedAt": "2024-06-10T13:04:15.225Z"
+            },
+            {
+                "title": "Демонтаж підвіконника",
+                "price": 800,
+                "_id": "6666f6fd73a6ebc434d752c6",
+                "createdAt": "2024-06-10T13:04:15.225Z",
+                "updatedAt": "2024-06-10T13:04:15.225Z"
+            }
+        ],
+        "discount": 4851,
+        "discountPercentage": 0.1,
+        "materialsTotal": 0,
+        "advancesTotal": 0,
+        "general": 43659,
+        "lowTotal": 44193.6,
+        "lowGeneral": 44193.6,
+        "allowList": [
+            "66634d3026d5ff2232f8dc16",
+            "665b1abcbf0bad8dc4cb55f5"
+        ],
+        "owner": "6661ee8a97db4f3115e4ec30",
+        "estimates": [
+            {
+                "title": "Спальня",
+                "positions": [
+                    {
+                        "id": "121ac50b-5233-4144-a0c1-ea5dc17fa4f0",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 200,
+                        "result": 8800,
+                        "_id": "6665985e0df40f64f7a1cecc"
+                    },
+                    {
+                        "id": "1c35f370-e782-4809-9e79-14162df8e379",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 200,
+                        "result": 8800,
+                        "_id": "6665987c0df40f64f7a1cf8b"
+                    },
+                    {
+                        "id": "ecd483ca-45e5-41c3-9571-05e1259d6d86",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 90,
+                        "result": 3960,
+                        "_id": "6665988c0df40f64f7a1d058"
+                    }
+                ],
+                "total": 21560,
+                "_id": "666598480df40f64f7a1ce33"
+            },
+            {
+                "title": "Вітальня",
+                "positions": [
+                    {
+                        "id": "d0374c14-a108-4b1b-a083-109a00d294c5",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 200,
+                        "result": 11000,
+                        "_id": "666598b10df40f64f7a1d1da"
+                    },
+                    {
+                        "id": "6ed4fe7d-8a7b-49e5-91cd-518f1eba6359",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 200,
+                        "result": 11000,
+                        "_id": "666598c20df40f64f7a1d2d1"
+                    },
+                    {
+                        "id": "7b416d71-1627-41f5-ae4c-afc169191cff",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 90,
+                        "result": 4950,
+                        "_id": "666598d20df40f64f7a1d3d6"
+                    }
+                ],
+                "total": 26950,
+                "_id": "666598a10df40f64f7a1d123"
+            }
+        ],
+        "lowEstimates": [
+            {
+                "title": "Спальня",
+                "positions": [
+                    {
+                        "id": "121ac50b-5233-4144-a0c1-ea5dc17fa4f0",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 186,
+                        "result": 8184,
+                        "_id": "6665985e0df40f64f7a1cecc"
+                    },
+                    {
+                        "id": "1c35f370-e782-4809-9e79-14162df8e379",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 167.4,
+                        "result": 7365.6,
+                        "_id": "6665987c0df40f64f7a1cf8b"
+                    },
+                    {
+                        "id": "ecd483ca-45e5-41c3-9571-05e1259d6d86",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 44,
+                        "price": 93,
+                        "result": 4092,
+                        "_id": "6665988c0df40f64f7a1d058"
+                    }
+                ],
+                "total": 19641.6,
+                "_id": "666598480df40f64f7a1ce33"
+            },
+            {
+                "title": "Вітальня",
+                "positions": [
+                    {
+                        "id": "d0374c14-a108-4b1b-a083-109a00d294c5",
+                        "title": "Штукатурка стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 186,
+                        "result": 10230,
+                        "_id": "666598b10df40f64f7a1d1da"
+                    },
+                    {
+                        "id": "6ed4fe7d-8a7b-49e5-91cd-518f1eba6359",
+                        "title": "Шпаклювання стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 167.4,
+                        "result": 9207,
+                        "_id": "666598c20df40f64f7a1d2d1"
+                    },
+                    {
+                        "id": "7b416d71-1627-41f5-ae4c-afc169191cff",
+                        "title": "Фарбування стін",
+                        "unit": "м2",
+                        "number": 55,
+                        "price": 93,
+                        "result": 5115,
+                        "_id": "666598d20df40f64f7a1d3d6"
+                    }
+                ],
+                "total": 24552,
+                "_id": "666598a10df40f64f7a1d123"
+            }
+        ],
+        "materials": [],
+        "advances": [],
+        "createdAt": "2024-06-09T11:55:32.790Z",
+        "updatedAt": "2024-06-10T14:22:42.659Z"
     }
 ]

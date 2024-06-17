@@ -10,7 +10,7 @@ function ProjectPage() {
     const projectId = projects.filter(({_id}) => _id === id);
     const project = projectId[0];
     const[data, setData] = useState(project);
-    console.log(project);
+    // console.log(project);
 
     return(
         <div className={s.container}>

@@ -36,9 +36,9 @@ return (<div className={s.content}>
       
      <nav>
         <ul className={s.navContainer}>
-        <li><NavLink className={({ isActive }) => `link` + (isActive ? ` link-min` : '')} to='/price'>Прайс</NavLink></li>
-        <li><NavLink className={({ isActive }) => `link` + (isActive ? ` link-min` : '')} to='/profile'>Профіль</NavLink></li>
-        <li><NavLink className={({ isActive }) => `link` + (isActive ? ` link-min` : '')} to='/projects'>Кошториси</NavLink></li>
+        <li><NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to='/price'>Прайс</NavLink></li>
+        <li><NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to='/profile'>Профіль</NavLink></li>
+        <li><NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to='/projects'>Кошториси</NavLink></li>
         </ul>
      </nav>
      <button className={s.button}>Вийти</button>
