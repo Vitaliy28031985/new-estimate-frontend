@@ -8,12 +8,25 @@ function DeleteModal({data, nameComponent, onModal}) {
     
 
     const deleteFunction = () => {
+        // Загальний прайс
         if(nameComponent === "price") {
             toast(`"${data.title}" успішно видалена!`);
             console.log(data)
             onModal();
             return;
         }
+
+
+        //прайс кошторису
+        if(nameComponent === "deleteProjectPrice") {
+            toast(`"${data.title}" успішно видалена!`);
+            const deleteProjectPrice = { ProjectId: id, priceId: data.id};  
+            console.log(deleteProjectPrice)
+            onModal();
+            return;
+        }
+
+        //Видалення таблиць і рядків
 
         if(nameComponent === "deleteEstimate") {
             toast(`"${data.title}" успішно видалена!`);

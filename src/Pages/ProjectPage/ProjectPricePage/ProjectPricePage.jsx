@@ -1,7 +1,9 @@
+import ProjectPrice from "../../../components/ProjectPrice/ProjectPrice";
+
 function ProjectPricePage() {
     return(
         <div>
-            ProjectPricePage
+           <ProjectPrice/>
         </div>
     )
 }

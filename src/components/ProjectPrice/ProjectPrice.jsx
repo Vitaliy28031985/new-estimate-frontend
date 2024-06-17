@@ -1,24 +1,28 @@
 import { useState, useEffect } from 'react';
-import AddPrice from '../AddModals/AddPrice/AddPrice';
+import { useParams  } from 'react-router-dom';
+import AddProjectPrice from '../AddModals/AddProjectPrice';
 import Modal from '../Modal/Modal';
 import Add from "../Icons/Add/Add";
 import Update from "../Icons/Update/UpdateIcon";
 import UpdateOk from "../Icons/UpdateOk/UpdateOk";
 import Delete from "../Icons/Delete/Delete";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import s from "./PriceComponent.module.scss";
+import s from "./ProjectPrice.module.scss";
 
+import projects from "../../db/projects.json";
 
-
-import price from "../../db/price.json";
-
-function PriceComponent() {
+function ProjectPrice() {
+    const {id} = useParams();
+    const projectId = projects.filter(({_id}) => _id === id);
+     const price = projectId[0].price;
     const [currentData, setCurrentData] = useState({});
     const [data, setData] = useState(price);
     const [operations, setOperations] = useState('');
     const [filter, setFilter] = useState('')
     const [showModal, serShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+
+   
   
     
     const filterChange = e => setFilter(e.target.value);
@@ -34,7 +38,7 @@ function PriceComponent() {
             setOperations(operation);
            return;
         }
-        if(operation === "delete" || operations === "delete") {
+        if(operation === "deleteProjectPrice" || operations === "deleteProjectPrice") {
             setDeleteModal(toggle => !toggle); 
             setOperations(operation);
            return;
@@ -50,7 +54,7 @@ function PriceComponent() {
                     if(name === 'update') {
                         return { ...price, isShow: currentIsShow };
                     }
-                    if(name === 'delete') {
+                    if(name === 'deleteProjectPrice') {
                         return { ...price, isDelete: currentIsShow };
                     }
                 }
@@ -81,17 +85,9 @@ function PriceComponent() {
     }
     
 
-
-// const currentData = (item) => { 
-//     console.log(item);
-// return item;
-// };
-
-// console.log(currentData)
-
     return(
         <div>
-              <div className={s.inputContainer}>
+             <div className={s.inputContainer}>
                     <input type="text" maxLength="20" name="title" id="title"
                     onChange={filterChange} value={filter}  
                     placeholder="Введіть сюди що Ви шукаєте" />
@@ -144,35 +140,14 @@ function PriceComponent() {
             }
                <button className={s.buttonDelete} onClick={() => {
                 isDelete = !isDelete;
-                addIsToggle(_id, isDelete, 'delete');
-                setCurrentData({_id, title}); 
-                handleToggle("delete");
+                addIsToggle(_id, isDelete, 'deleteProjectPrice');
+                setCurrentData({id: _id, title}); 
+                handleToggle("deleteProjectPrice");
             }}>
                 <Delete width={"24"} height={"24"}/>
                 
                 </button>
-               
-                {/* {isDelete && (
-                  <div className={s.deleteModalContainer}>
-                    <h4>{`Ви справді бажаєте видалити: ${title}`}</h4>
-                    <ul className={s.buttonContainer }>
-                        <li><button className={s.onDelete}
-                        onClick={() => {
-                            isDelete = !isDelete;
-                            addIsToggle(_id, isDelete, 'delete');
-                            deletePrice(_id);
-                        }}
-                        >Так</button></li>
-                        <li><button className={s.noDelete}
-                        onClick={() => {
-                            isDelete = !isDelete;
-                            addIsToggle(_id, isDelete, 'delete');
-                        }}
-                        >Ні</button></li>
-                    </ul>
-                </div>   
-                )} */}
-                 
+                                
             </td>
           
 		</tr>    
@@ -180,14 +155,12 @@ function PriceComponent() {
 		
 	</tbody>
 </table>
-{deleteModal && (<DeleteModal data={currentData} nameComponent={"price"} onModal={handleToggle}/>)}
-{showModal && (<Modal onModal={handleToggle}><AddPrice onModal={handleToggle}/></Modal>)}
+{deleteModal && (<DeleteModal data={currentData} nameComponent={"deleteProjectPrice"} onModal={handleToggle}/>)}
+{showModal && (<Modal onModal={handleToggle}><AddProjectPrice onModal={handleToggle}/></Modal>)}
 
 
         </div>
     )
 }
 
-export default PriceComponent;
-
-
+export default ProjectPrice;
