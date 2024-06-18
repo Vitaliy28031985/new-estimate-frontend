@@ -1,4 +1,26 @@
-
+.createPdfFileButton {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 5px;
+    border: solid rgb(58, 95, 86) 1px;
+    background: rgb(58, 95, 86); 
+    color: wheat;
+    cursor: pointer;
+    transition: background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+    @media screen and (min-width: 768px) {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 20px;
+        padding-right: 20px;
+      
+    }
+    &:hover, &:focus {
+        color: rgb(58, 95, 86);
+        background: transparent;
+    }
+    }
 .titleTable {
     margin-top: 30px;
     margin-bottom: 10px;
@@ -46,8 +68,8 @@ table.iksweb td,table.iksweb th {
 	height: 35px;
 }
 table.iksweb th {
-	background: #347c99; 
-	color: #fff; 
+	// background: #347c99; 
+	// color: #fff; 
 	font-weight: normal;
 }
 
@@ -73,7 +95,7 @@ table.iksweb th {
 }
 
 .titleRow {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 800;
     @media screen and (min-width: 768px) {
         font-size: 20px;; 
@@ -81,7 +103,7 @@ table.iksweb th {
 }
 .dataRow {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     color: black;
 }
 .oneRow {
@@ -95,7 +117,38 @@ table.iksweb th {
     }
 
     }
-    
+    .buttonUpdate {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out; 
+        @media screen and (min-width: 1200px) {
+            opacity: 1;
+        }
+      }
+
+      .oneRow:hover .buttonUpdate {
+        opacity: 1;
+      }
+
+      .oneRow:focus .buttonUpdate {
+        opacity: 1;
+      }
+
+      .buttonDeletePosition {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out; 
+        @media screen and (min-width: 1200px) {
+            opacity: 1;
+        }
+      }
+
+      .threeSix:hover .buttonDeletePosition {
+        opacity: 1;
+      }
+
+      .threeSix:focus .buttonDeletePosition {
+        opacity: 1;
+      }
+
 .twoRow {
     @media screen and (min-width: 768px) {
         min-width: 150px; 
@@ -159,7 +212,7 @@ table.iksweb th {
         margin-right: 0px;
         margin-left: 0px;
         gap: 0px;
-        font-size: 40px;  
+        font-size: 28px;  
     }
     @media screen and (min-width: 1200px) {
         max-width: 1200px;
@@ -183,7 +236,7 @@ table.iksweb th {
         margin-right: 0px;
         margin-left: 0px;
         gap: 0px;
-        font-size: 40px;  
+        font-size: 35px;  
     }
     @media screen and (min-width: 1200px) {
         max-width: 1200px;
@@ -200,28 +253,19 @@ table.iksweb th {
     gap: 5px;
 }
 
-
-.createPdfFileButton {
-padding-top: 4px;
-padding-bottom: 4px;
-padding-left: 7px;
-padding-right: 7px;
-border-radius: 5px;
-border: solid rgb(58, 95, 86) 1px;
-background: rgb(58, 95, 86); 
-color: wheat;
-cursor: pointer;
-transition: background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
-@media screen and (min-width: 768px) {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
-  
-}
-&:hover, &:focus {
-    color: rgb(58, 95, 86);
+.buttonAdd {
+    margin-left: 50px;
+    border-color: transparent;
     background: transparent;
+    cursor: pointer;
+    @media screen and (min-width: 768px) {
+        margin-left: 80px;
+    } 
 }
+.buttonAdd svg {
+    fill: black;
+    transition: fill 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+     &:hover, &:focus {
+      fill: #334E68;    
+      } 
 }
-

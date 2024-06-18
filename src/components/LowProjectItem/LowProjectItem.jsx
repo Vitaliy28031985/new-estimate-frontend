@@ -86,8 +86,7 @@ const generatePdf = () => {
         <button className={s.createPdfFileButton} 
         onClick={generatePdf}
         >Створити PDF файл</button>
-     
-       
+            
        </div>
 
        
