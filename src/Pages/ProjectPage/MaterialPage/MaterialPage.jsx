@@ -1,9 +1,10 @@
+import MaterialItem from "../../../components/MaterialItem/MaterialItem";
 import s from "./MaterialPage.module.scss";
 
 function MaterialPage() {
     return(
-        <div>
-            MaterialPage
+        <div className={s.container}>
+            <MaterialItem/>
         </div>
     )
 }

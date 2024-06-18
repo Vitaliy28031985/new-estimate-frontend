@@ -43,6 +43,14 @@ function DeleteModal({data, nameComponent, onModal}) {
             onModal();
             return;
         }
+        // видалення матеріалів
+        if(nameComponent === "deleteMaterial") {
+            toast(`"${data.title}" успішно видалена!`);
+            const deleteMaterial = {projectId: id, materialId: data.id};
+            console.log(deleteMaterial);
+            onModal();
+            return; 
+        }
     }
 
     return (
