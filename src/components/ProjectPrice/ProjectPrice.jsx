@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams  } from 'react-router-dom';
-import AddProjectPrice from '../AddModals/AddProjectPrice';
+import AddProjectPrice from '../AddModals/AddProjectPrice/AddProjectPrice';
 import Modal from '../Modal/Modal';
 import Add from "../Icons/Add/Add";
 import Update from "../Icons/Update/UpdateIcon";

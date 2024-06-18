@@ -1,9 +1,10 @@
+import LowProjectItem from "../../../components/LowProjectItem/LowProjectItem";
 import s from  "./LowProjectPage.module.scss";
 
 function LowProjectPage() {
     return(
-        <div>
-            LowProjectPage
+        <div className={s.container}>
+            <LowProjectItem/>
         </div>
     )
 }
