@@ -51,13 +51,25 @@ function DeleteModal({data, nameComponent, onModal}) {
             onModal();
             return; 
         }
+
+        // видалення авансу
+
+        if(nameComponent === "deleteAdvance") {
+            toast(`"${data.comment}" успішно видалена!`);
+            const deleteAdvance = {projectId: id, advanceId: data.id};
+            console.log(deleteAdvance);
+            onModal();
+            return; 
+        }
     }
 
     return (
     
           <div className={s.container}>
           
-            <h4>Ви бажаєте видалити "{data.title}"?</h4>  
+          {data.title && ( <h4>Ви бажаєте видалити "{data.title}"?</h4>)}
+          {data.comment && (<h4>Ви бажаєте видалити "{data.comment}"?</h4>)}
+              
 
             <div className={s.buttonsContainer}>
                 <button onClick={deleteFunction} className={s.buttonDelete}>Так</button>

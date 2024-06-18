@@ -29,6 +29,14 @@ table.iksweb th {
   position: relative;
   border: 1px solid rgb(58, 95, 86);
 }
+
+.table.iksweb,
+  table.iksweb td,
+  table.iksweb th p {
+    text-align: center;
+  }
+  
+
 table.iksweb td,
 table.iksweb th {
   padding: 8px;
@@ -119,13 +127,7 @@ table.iksweb th {
   background-color: #fff;
 }
 
-// .linksList {
-//   display: flex;
-//   justify-content: center;
-//   gap: 10px;
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-// }
+
 
 .buttonUpdate {
   opacity: 0;

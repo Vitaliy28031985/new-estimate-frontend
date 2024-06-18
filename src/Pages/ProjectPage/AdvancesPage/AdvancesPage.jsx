@@ -1,9 +1,11 @@
+import AdvancesItem from "../../../components/AdvancesItem/AdvancesItem";
 import s from "./AdvancesPage.module.scss";
+
 
 function AdvancesPage() {
     return(
-        <div>
-            AdvancesPage
+        <div className={s.container}>
+            <AdvancesItem/>
         </div>
     )
 }
