@@ -235,26 +235,33 @@ table.iksweb th {
     margin-left: 50px;
     border-color: transparent;
     background: transparent;
+    color: rgb(58, 95, 86);
     cursor: pointer;
+    transition: color 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+     &:hover, &:focus {
+      color: #334E68;    
+      } 
+    
     @media screen and (min-width: 768px) {
         margin-left: 80px;
     } 
 }
 .buttonAdd svg {
-    fill: black;
-    transition: fill 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
-     &:hover, &:focus {
-      fill: #334E68;    
-      } 
+    fill: currentColor;
+  
 }
 
-.buttonAddTitle svg {
-    fill: black;
-    cursor: pointer;
-    transition: fill 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
+.buttonAddTitle {
+    border-color: transparent;
+    background: transparent;
+    color: black;
+    transition: color 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
      &:hover, &:focus {
-      fill: #334E68;    
+      color: #334E68;    
       } 
+}
+.buttonAddTitle svg { 
+    fill: currentColor;
  }
 
 .buttonDeletePosition {
@@ -286,10 +293,7 @@ table.iksweb th {
     }
 }
 
-.buttonAddTitle {
-    border-color: transparent;
-    background: transparent;
-}
+
 
 .createPdfFileButton {
 padding-top: 4px;

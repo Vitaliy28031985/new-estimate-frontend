@@ -196,8 +196,8 @@ const onChange = (e) => {
                 <p className={s.titleTable}>{item.title}</p>
                 {/* {userRole && ( */}
                     <>
-                 <button type='button' className={s.buttonAddTitle} 
-                 
+                 <button type='button' 
+                 className={s.buttonAddTitle }
                  onClick={() => {
                   handleToggle("deleteEstimate");
                   setCurrentData({id: item?._id, title: item?.title})
@@ -228,7 +228,7 @@ const onChange = (e) => {
                     onClick={() => handleToggle('position', {id: item._id})}
                 //    onClick={() => data && item._id && handleTogglePosition(item._id, data._id)}
                     className={s.buttonAdd}>
-                   <Add width={"24"} height={"24"}/>
+                   <Add width={"20"} height={"20"}/>
                   </button> 
                   {/* )} */}
                    </td>

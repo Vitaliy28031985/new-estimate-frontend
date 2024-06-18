@@ -169,12 +169,24 @@ table.iksweb th {
 }
 
 .buttonsContainer button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-color: transparent;
   background: transparent;
+  border-color: transparent;
+  border-radius: 50%;
+  color: rgb(58, 95, 86);
+  &:hover, &:focus {
+    background: rgb(58, 95, 86);
+    color: #fff;
+  }
 }
 
 .buttonsContainer svg {
-  fill: #0b131a;
+  fill: currentColor;
 }
 
 .buttonAddTitle {

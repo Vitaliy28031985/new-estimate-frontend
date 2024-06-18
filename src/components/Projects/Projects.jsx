@@ -25,7 +25,7 @@ function ProjectsComponent () {
         <div>
             <div className={s.title}>
             <h1>Список кошторисів</h1> 
-            <button onClick={handleToggle} className={s.addButton}><Add width={"28"} height={"28"}/></button>
+            <button onClick={handleToggle} className={s.addButton}><Add width={"24"} height={"24"}/></button>
             </div>
         <div className={s.container}>
             

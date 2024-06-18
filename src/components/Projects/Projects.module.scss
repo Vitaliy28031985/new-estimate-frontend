@@ -46,16 +46,16 @@ h1 {
     width: 33px;
     height: 33px;
     border-radius: 24px;
-    background: rgb(58, 95, 86);
-    color: rgb(244, 243, 240);
+    background: transparent;
+    color: rgb(58, 95, 86);
     border-color: transparent;
     cursor: pointer;
     transition: border-color 250ms background 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
     
     &:hover, &:focus {
-        background: rgb(244, 243, 240);
-        color: rgb(58, 95, 86);
-        border-color: rgb(58, 95, 86);
+        background: rgb(58, 95, 86);
+        color: rgb(244, 243, 240);
+        
     }
 }
 
