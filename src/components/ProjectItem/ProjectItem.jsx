@@ -207,6 +207,7 @@ const onChange = (e) => {
                   <Delete width={"24"} height={"24"}/>
                   </button>
                   <button className={s.buttonUpdateEstimate}
+                  id={item._id}
                  
                 //   onClick={() => updateEstimate(data?._id, item?._id, item?.title)}
                   >

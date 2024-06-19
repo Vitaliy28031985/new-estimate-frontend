@@ -232,14 +232,23 @@ table.iksweb th {
 }
 
 .buttonAdd {
+    width: 25px;
+    height: 25px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    border-width: 0;
     margin-left: 50px;
+    padding: 0;
     border-color: transparent;
     background: transparent;
     color: rgb(58, 95, 86);
+    border-radius: 50%;
     cursor: pointer;
     transition: color 250ms  cubic-bezier(0.4, 0, 0.2, 1); 
      &:hover, &:focus {
-      color: #334E68;    
+      background: rgb(58, 95, 86);
+      color: white;    
       } 
     
     @media screen and (min-width: 768px) {
