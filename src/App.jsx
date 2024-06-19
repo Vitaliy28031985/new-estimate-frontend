@@ -21,14 +21,14 @@ const ProjectPrice = lazy(() => import('./Pages/ProjectPage/ProjectPricePage/Pro
 const LowProject = lazy(() => import('./Pages/ProjectPage/LowProjectPage/LowProjectPage' /* webpackChunkName: "LowProject" */));
 const Settings = lazy(() => import('./Pages/SettingsPage/SettingsPage' /* webpackChunkName: "Settings" */));
 
-
+const isAuthorization = true;
 
 function App() {
   return (
     <div className={s.body}>
     <div className={s.container}>
       <ToastContainer />
-      <Header/>
+      {isAuthorization && ( <Header/>)}
       <Suspense fallback={( <Loader/>)}>
       <Routes>
          <Route path="/" element={<Home />} />

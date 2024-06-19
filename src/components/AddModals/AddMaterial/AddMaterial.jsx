@@ -83,6 +83,7 @@ function AddEstimate({ onModal}) {
           <input
             type="text"
             name="title"
+            maxLength="20"
             onChange={handleChange}
             value={title}
           />
@@ -93,6 +94,7 @@ function AddEstimate({ onModal}) {
           <input
             type="text"
             name="order"
+            maxLength="20"
             onChange={handleChange}
             value={order}
           />

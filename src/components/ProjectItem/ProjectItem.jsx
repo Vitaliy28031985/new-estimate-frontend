@@ -14,6 +14,8 @@ import AddPosition from "../AddModals/AddPosition/AddPosition";
 import DeleteModal from '../DeleteModal/DeleteModal';
 import s from "./ProjectItem.module.scss";
 
+import roundingNumberFn from "../../helpers/roundingNumberFn";
+
 import projects from "../../db/projects.json";
 
 function ProjectItem() {
@@ -297,7 +299,7 @@ const onChange = (e) => {
                     />)
                   }</td>
                   <td className={s.threeSix}>
-                    {result}
+                    {roundingNumberFn(result)}
                     {/* {userRole && ( */}
                      <button className={s.buttonDeletePosition} 
                     onClick={() => {
@@ -320,7 +322,7 @@ const onChange = (e) => {
     
                     <tr className={s.titleRow}>
                       <td colSpan='5'>Всього:</td>
-                      <td className={s.threeSix}>{item.total}</td>
+                      <td className={s.threeSix}>{roundingNumberFn(item.total)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -331,14 +333,14 @@ const onChange = (e) => {
     
         <div className={s.total}>
           <p>Загальна сума: </p>
-          {data && <p>{data.total}</p>}
+          {data && <p>{roundingNumberFn(data.total)}</p>}
         </div>
     
         <div className={s.total}>
         {data?.discount && (
         <>
         <p>Знижка на роботу:</p>
-        <p>{data?.discount}</p> 
+        <p>{roundingNumberFn(data?.discount)}</p> 
           </>)}
         </div> 
     
@@ -346,21 +348,21 @@ const onChange = (e) => {
           <div className={s.total}>
             <p>Витрачено на матеріали:</p>
             {data?.materialsTotal && (
-          <p>{data?.materialsTotal}</p> )}
+          <p>{roundingNumberFn(data?.materialsTotal)}</p> )}
         </div> 
        
         
            <div className={s.total}>
             <p>Аванс:            </p>
             {data?.advancesTotal && (
-          <p>{data?.advancesTotal}</p>)}
+          <p>{roundingNumberFn(data?.advancesTotal)}</p>)}
         </div>
         
         
          <div div className={s.totalGeneral}>
           <p>До оплати:</p>
           {data?.general && (
-          <p>{data?.general}</p>)}
+          <p>{roundingNumberFn(data?.general)}</p>)}
         </div> 
         {deleteEstimate && (<DeleteModal data={currentData} nameComponent={"deleteEstimate"} onModal={handleToggle}/>)}
         {deletePosition && (<DeleteModal data={currentData} nameComponent={"deletePosition"} onModal={handleToggle}/>)}

@@ -4,6 +4,8 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import s from "./LowProjectItem.module.scss";
 
+import roundingNumberFn from "../../helpers/roundingNumberFn";
+
 import projects from "../../db/projects.json";
 
 function LowProjectItem() {
@@ -123,13 +125,13 @@ const generatePdf = () => {
                   <td className={s.threeRow}><p>{number}</p></td>
                  
                   <td className={s.fiveRow}><p>{price}</p></td>
-                  <td className={s.threeSix}>{result}</td>
+                  <td className={s.threeSix}>{roundingNumberFn(result)}</td>
                         </tr>
                       ))}
     
                     <tr className={s.titleRow}>
                       <td colSpan='5'>Всього:</td>
-                      <td className={s.threeSix}>{item.total}</td>
+                      <td className={s.threeSix}>{roundingNumberFn(item.total)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -140,26 +142,26 @@ const generatePdf = () => {
     
         <div className={s.total}>
           <p>Загальна сума: </p>
-          {data && <p>{data.lowTotal}</p>}
+          {data && <p>{roundingNumberFn(data.lowTotal)}</p>}
         </div>        
           <div className={s.total}>
             <p>Витрачено на матеріали:</p>
             {data?.materialsTotal && (
-          <p>{data?.materialsTotal}</p> )}
+          <p>{roundingNumberFn(data?.materialsTotal)}</p> )}
         </div> 
        
         
            <div className={s.total}>
             <p>Аванс:            </p>
             {data?.advancesTotal && (
-          <p>{data?.advancesTotal}</p>)}
+          <p>{roundingNumberFn(data?.advancesTotal)}</p>)}
         </div>
         
         
          <div div className={s.totalGeneral}>
           <p>До оплати:</p>
           {data?.lowGeneral && (
-          <p>{data?.lowGeneral}</p>)}
+          <p>{roundingNumberFn(data?.lowGeneral)}</p>)}
         </div>  
       </div>
 
