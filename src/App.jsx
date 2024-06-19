@@ -4,6 +4,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Header from "./components/Header/Header";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Loader from "./components/Loader/Loader";
 import s from './App.module.scss';
 
@@ -46,7 +47,7 @@ function App() {
          <Route path="/project/settings/:id" element={<Settings/>} />
         
        
-        <Route path="*" element={<p>NotFoundPage</p>} />
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
       </Suspense>
     </div>
