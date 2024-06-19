@@ -17,7 +17,7 @@ function PriceComponent() {
     const [data, setData] = useState(price);
     const [operations, setOperations] = useState('');
     const [filter, setFilter] = useState('')
-    const [showModal, serShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
   
     
@@ -30,7 +30,7 @@ function PriceComponent() {
 
     const handleToggle = (operation) => {
         if(operation === "price" || operations === "price") {
-            serShowModal(toggle => !toggle); 
+            setShowModal(toggle => !toggle); 
             setOperations(operation);
            return;
         }

@@ -1,20 +1,15 @@
 import { useState} from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import AdminFunctions from './AdminFunctions/AdminFunctions';
-import Unit from './Unit/Unit';
-import Line from "../Icons/Line/Line";
-import Update from "../Icons/Update/UpdateIcon";
-import Delete from "../Icons/Delete/Delete";
-import Setting from "../Icons/Setting/Setting";
-import s from "./Profile.module.scss";
-import Modal from "../Modal/Modal";
 
-import projects from "../../db/projects.json";
+import Unit from './Unit/Unit';
+import ProjectsProfile from './ProjectsProfile/ProjectsProfile';
+
+import s from "./Profile.module.scss";
 
 const admin = true; 
 
 function ProfileComponent() {
-    const [data, setData] = useState(projects);
     const [isAdmin, setIsAdmin] = useState(false);
 
     const handleToggle = () => {
@@ -56,38 +51,7 @@ function ProfileComponent() {
         </div>) : (<Unit />)}
        
         </div>
-        {data && (
-         <div className={s.cardContainer}>
-        <ul className={s.cardContent}>
-
-        {data && data.map(({_id, title, description, total}) => (
-            <li className={s.card} key={_id} id={_id}>
-             <div className={s.buttons}>
-            <button className={s.button}><Update width={"20"} height={"20"}/></button>
-            <button className={s.button}><Delete width={"20"} height={"20"}/></button>
-            <button className={s.button}>
-              <NavLink to={`/project/settings/${_id}`}>
-               <Setting width={"20"} height={"20"}/>
-              </NavLink>
-            </button>
-            </div>
-                <div>
-                <p className={s.title}>Назва кошторису:</p> <p className={s.titleData}>{title}</p>
-                </div>
-                <div>
-                <p className={s.address}>Адреса об'єкту:</p> <p className={s.addressData}>{description}</p>
-                </div>
-                <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>{total}</p>
-                </div>
-                <NavLink  className={s.link} to={`/project/${_id}`}>Детальніше <Line/></NavLink >
-        </li>  ))
-
-        }
-      
-        </ul>
-        </div>   
-        )}
+        <ProjectsProfile/>
         
        </div> 
        </div>
