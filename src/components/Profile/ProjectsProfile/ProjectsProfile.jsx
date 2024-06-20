@@ -1,5 +1,10 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useGetProjectsQuery, useUpdateProjectMutation } from '../../../redux/projectSlice/projectSlice';
+import {useCurrentQuery} from "../../../redux/auth/authApi";
 
 import DeleteModal from '../../DeleteModal/DeleteModal';
 
@@ -10,12 +15,27 @@ import Setting from '../../Icons/Setting/Setting';
 
 import s from "./ProjectsProfile.module.scss";
 
-import projects from "../../../db/projects.json";
+
 
 function ProjectsProfile() {
+
+    const {data: projects} = useGetProjectsQuery();
+    const[mutate] = useUpdateProjectMutation();
+    const { data: userData } = useCurrentQuery(); 
     const [currentData, setCurrentData] = useState({});
     const [data, setData] = useState(projects);
+    const [userRole, setUserRole] = useState(false);
     const [toggle, setToggle] = useState(false);
+
+    useEffect(() => {
+        setData(projects); 
+        if (userData) {
+            const role = userData?.role;
+            const isUserRole = role !== "customer";
+               setUserRole(isUserRole);
+          }
+          
+          }, [projects, userData, userRole]);
 
     const handleToggle = () => {
         setToggle(toggle => !toggle);
@@ -66,19 +86,33 @@ function ProjectsProfile() {
 
         {data && data.map(({_id, title, description, total, isShow = false, isDelete = false}) => (
             <li className={s.card} key={_id} id={_id}>
+            {userRole && (
              <div className={s.buttons}>
             <button className={s.button}
-              onClick={() => {
+              onClick={async () => {
                 isShow = !isShow;
                 addIsToggle(_id, isShow, 'update');
                 if(!isShow) {
-                    console.log({id: _id, newData: {title, description}})
+                    try {
+                        const updateProject =  await mutate({id: _id, newData: {title, description}});
+  
+                        if (updateProject && updateProject.data) {
+                          toast(`"${title}" успішно обновлено!`);               
+                          } else {
+                               console.error('Unexpected response:', updateProject.error.data.message);
+                               toast.error(updateProject.error.data.message);
+                              
+                               }
+  
+                      } catch (error) {
+                          toast.error(`У вас немає прав для оновлення ${title}!`, error);
+                          }
                 }
             }}
             >
                 <Update width={"20"} height={"20"}/></button>
             <button className={s.button}
-            onClick={() => {
+            onClick={ async() => {
                 isDelete = !isDelete;
                 addIsToggle(_id, isDelete, 'delete');
                 setCurrentData({_id, title}); 
@@ -91,7 +125,9 @@ function ProjectsProfile() {
                <Setting width={"20"} height={"20"}/>
               </NavLink>
             </button>
-            </div>
+            </div>   
+            )}
+             
                 <div>
                 <p className={s.title}>Назва кошторису:</p>
                 {!isShow ? (<p className={s.titleData}>{title}</p>) : 

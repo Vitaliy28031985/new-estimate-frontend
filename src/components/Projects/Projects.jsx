@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useGetProjectsQuery, useUpdateProjectMutation } from '../../redux/projectSlice/projectSlice';
+import {useCurrentQuery} from "../../redux/auth/authApi";
 import AddProject from '../AddModals/AddProject/AddProject';
 import Modal from '../Modal/Modal';
 import DeleteModal from '../DeleteModal/DeleteModal';
@@ -10,14 +14,30 @@ import Delete from "../Icons/Delete/Delete";
 
 import s from "./Projects.module.scss";
 
-import projects from "../../db/projects.json";
-
 function ProjectsComponent () {
-    const [currentData, setCurrentData] = useState({});
+  
+    const {data: projects} = useGetProjectsQuery();
+    const[mutate] = useUpdateProjectMutation();
+    const { data: userData } = useCurrentQuery(); 
+
     const [data, setData] = useState(projects);
+    const [currentData, setCurrentData] = useState({});
+    const [userRole, setUserRole] = useState(false);
+   
     const [toggle, setToggle] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
 
+    useEffect(() => {
+    setData(projects); 
+    if (userData) {
+        const role = userData?.role;
+        const isUserRole = role !== "customer";
+           setUserRole(isUserRole);
+      }
+      
+      }, [projects, userData, userRole]);
+
+  
     const handleToggle = () => {
         setToggle(toggle => !toggle);
     }
@@ -74,19 +94,34 @@ function ProjectsComponent () {
              <ul className={s.cardContainer}>
                 {data && data.map(({_id, title, description, total, isShow = false, isDelete = false}) => (
             <li className={s.card} key={_id} id={_id}>
-                <div className={s.buttons}>
+                {userRole && (
+                   <div className={s.buttons}>
                 <button className={s.button}
-                onClick={() => {
+                onClick={ async () => {
                     isShow = !isShow;
                     addIsToggle(_id, isShow, 'update');
                     if(!isShow) {
-                        console.log({id: _id, newData: {title, description}})
+                        try {
+                      const updateProject =  await mutate({id: _id, newData: {title, description}});
+
+                      if (updateProject && updateProject.data) {
+                        toast(`"${title}" успішно обновлено!`);               
+                        } else {
+                             console.error('Unexpected response:', updateProject.error.data.message);
+                             toast.error(updateProject.error.data.message);
+                            
+                             }
+
+                    } catch (error) {
+                        toast.error(`У вас немає прав для оновлення ${title}!`, error);
+                        }
+                        
                     }
                 }}
                 >
                     <Update width={"24"} height={"24"}/></button>
                 <button className={s.button}
-                onClick={() => {
+                onClick={async () => {
                 isDelete = !isDelete;
                 addIsToggle(_id, isDelete, 'delete');
                 setCurrentData({_id, title}); 
@@ -94,7 +129,9 @@ function ProjectsComponent () {
                 }}
                 >
                     <Delete width={"24"} height={"24"}/></button>
-                </div>
+                </div>   
+                )}
+              
                 <div>
                 <p className={s.title}>Назва кошторису:</p> 
                 {!isShow ? (<p className={s.titleData}>{title}</p>) : 

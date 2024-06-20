@@ -1,11 +1,24 @@
 import { useState } from 'react';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import {useLoginMutation} from "../../redux/auth/authApi";
+import {setCredentials} from "../../redux/auth/authSlice";
+import {priceApi} from "../../redux/price/priceApi";
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import s from "./Login.module.scss";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const [login] = useLoginMutation();
+
+    const loginData = {
+        password,
+        email
+      };
 
 
     const handleChange = e => {
@@ -34,9 +47,20 @@ function Login() {
             toast.error("введіть пароль з 6 і більше символів")
             return
         }
-        console.log({email, password});
-        setEmail('')
-        setPassword('')
+        try {
+            const dataAnswers = await login(loginData).unwrap();
+            dispatch(setCredentials(dataAnswers));
+            dispatch(projectsApi.util.resetApiState());
+            dispatch(priceApi.util.resetApiState());
+            console.log(dataAnswers);
+            toast(`Користувача з Email: ${email} успішно увійшов в систему!`)
+
+          } catch (error) {
+            toast.error(`Користувача з Email: ${email} не існує, або Ви ввели невірний пароль!`, error);
+          }
+    // console.log({email, password});
+    setEmail('')
+    setPassword('')
     }
 
     const disabled = email === '' && password === '';

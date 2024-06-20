@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {  toast } from 'react-toastify';
+import {useAddProjectsMutation, useGetProjectsQuery} from "../../../redux/projectSlice/projectSlice";
 import 'react-toastify/dist/ReactToastify.css';
 import s from "./AddProject.module.scss"
 
 function AddProject({onModal}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+    const {data} = useGetProjectsQuery();
+    const [addProjects] = useAddProjectsMutation();
 
     const handleChange = e => {
         const {name, value} = e.currentTarget;
@@ -28,12 +32,26 @@ function AddProject({onModal}) {
             return;
         }
     
-        const data = {
-            title,
-            description
-            
+        if (data.find(data => data.title === title)) {
+            toast.error(`Кошторис ${title} вже існує`);
+            setTitle('')
+            setDescription('')
+            return;
         }
-        console.log(data);
+        
+        try {
+    const newProject = {title, description}
+        const add = await addProjects(newProject);
+        
+        if (add && add.data) {
+            toast(`Кошторис ${add.data.title} створено!`);                  
+            } else {
+                 console.error('Unexpected response:', add.error.data.message);
+                 toast.error(add.error.data.message);
+                 }
+          } catch (error) {
+            toast.error(`User with the title: ${title} does not exist!`, error);
+          }
         setTitle('');
         setDescription('');
         onModal()

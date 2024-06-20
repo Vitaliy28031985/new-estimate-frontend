@@ -2,6 +2,11 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import {useSignupMutation, useLoginMutation} from "../../redux/auth/authApi";
+import {setCredentials} from "../../redux/auth/authSlice";
+import {priceApi} from "../../redux/price/priceApi";
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 // import Cropper from 'react-easy-crop';
 // import createImage from "../../helpers/createImage.js";
 import s from "./Register.module.scss";
@@ -13,13 +18,22 @@ function Register() {
     const [phone, setPhone] = useState('');
     const [role, setRole] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordTwo, setPasswordTwo] = useState('')
+    const [passwordTwo, setPasswordTwo] = useState('');
+
+    const dispatch = useDispatch();
+    const [singup] = useSignupMutation();
+    const [login, ] = useLoginMutation();
 
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
         SetAvatar(file);
     }, []);
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+    const loginEl = {
+        password,
+        email
+      };
 
     const handleChange = e => {
         const { name, value } = e.currentTarget;
@@ -72,23 +86,43 @@ function Register() {
 
         // console.log({avatar, name, email, phone, role, password, passwordTwo})
 
-        try {
+        // try {
           
-            console.log('FormData:', formData);
-            formData.forEach((value, key) => {
-                console.log(key, value);
-            });
-        } catch (error) {
-            console.error('Помилка при відправці даних:', error);
-        }
+        //     console.log('FormData:', formData);
+        //     formData.forEach((value, key) => {
+        //         console.log(key, value);
+        //     });
+        // } catch (error) {
+        //     console.error('Помилка при відправці даних:', error);
+        // }
 
-        SetAvatar(null);
+        // SetAvatar(null);
+        // setEmail('');
+        // setName('');
+        // setPhone('');
+        // setRole('');
+        // setPassword('');
+        // setPasswordTwo('');
+
+        try {
+            const user = await singup(formData).unwrap();
+            dispatch(setCredentials(dataAnswers));
+            const dataAnswers = await login(loginEl).unwrap();
+            dispatch(setCredentials(user));
+            dispatch(projectsApi.util.resetApiState());
+            dispatch(priceApi.util.resetApiState());
+            toast("Реєстрація пройшла успішно");
+        } catch (error) {
+            toast.error('Sorry, something went wrong', error);
+        }
+    
         setEmail('');
         setName('');
         setPhone('');
         setRole('');
         setPassword('');
         setPasswordTwo('');
+    
     }
 
     

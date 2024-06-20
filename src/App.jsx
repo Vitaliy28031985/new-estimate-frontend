@@ -1,11 +1,16 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { selectIsLoggedIn } from './redux/auth/authSlice';
 
 import Header from "./components/Header/Header";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Loader from "./components/Loader/Loader";
+import {PrivateRoute} from './routers/PrivateRoute';
+import {PublicRouter} from './routers/PublicRoute';
 import s from './App.module.scss';
 
 
@@ -22,9 +27,10 @@ const ProjectPrice = lazy(() => import('./Pages/ProjectPage/ProjectPricePage/Pro
 const LowProject = lazy(() => import('./Pages/ProjectPage/LowProjectPage/LowProjectPage' /* webpackChunkName: "LowProject" */));
 const Settings = lazy(() => import('./Pages/SettingsPage/SettingsPage' /* webpackChunkName: "Settings" */));
 
-const isAuthorization = true;
+
 
 function App() {
+  const isAuthorization = useSelector(selectIsLoggedIn);
   return (
     <div className={s.body}>
     <div className={s.container}>
@@ -32,17 +38,17 @@ function App() {
       {isAuthorization && ( <Header/>)}
       <Suspense fallback={( <Loader/>)}>
       <Routes>
-         <Route path="/" element={<Home />} />
+         <Route path="/" element={<PublicRouter><Home /></PublicRouter>} />
 
-         <Route path="/price" element={<Price />} />
-         <Route path="/profile" element={<Profile />} />
-         <Route path="/projects" element={<Projects/>} />
-         <Route path="/project/:id" element={<ProjectPage />}>
-            <Route index element={<Project />} />
-            <Route path="price" element={<ProjectPrice />} />
-            <Route path="low" element={<LowProject />} />
-            <Route path="materials" element={<MaterialsPage />} />
-            <Route path="advances" element={<Advances />} />
+         <Route path="/price" element={<PrivateRoute><Price /></PrivateRoute>} />
+         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+         <Route path="/projects" element={<PrivateRoute><Projects/></PrivateRoute>} />
+         <Route path="/project/:id" element={<PrivateRoute><ProjectPage /></PrivateRoute>}>
+            <Route index element={<PrivateRoute><Project /></PrivateRoute>} />
+            <Route path="price" element={<PrivateRoute><ProjectPrice /></PrivateRoute>} />
+            <Route path="low" element={<PrivateRoute><LowProject /></PrivateRoute>} />
+            <Route path="materials" element={<PrivateRoute><MaterialsPage /></PrivateRoute>} />
+            <Route path="advances" element={<PrivateRoute><Advances /></PrivateRoute>} />
           </Route>
          <Route path="/project/settings/:id" element={<Settings/>} />
         

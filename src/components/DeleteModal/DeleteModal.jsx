@@ -1,13 +1,15 @@
 import { useParams  } from 'react-router-dom';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDeleteProjectMutation } from '../../redux/projectSlice/projectSlice';
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
     const {id} = useParams();
     
+    const [deleteProject] = useDeleteProjectMutation();
 
-    const deleteFunction = () => {
+    const deleteFunction = async () => {
         // Загальний прайс
         if(nameComponent === "price") {
             toast(`"${data.title}" успішно видалена!`);
@@ -27,8 +29,10 @@ function DeleteModal({data, nameComponent, onModal}) {
         }
 
         if(nameComponent === "projects") {
-            toast(`"${data.title}" успішно видалена!`);
-            console.log(data);
+                 
+        await deleteProject(data?._id);
+            toast(`"${data.title}" успішно видалена!`);               
+            
             onModal();
             return; 
         }

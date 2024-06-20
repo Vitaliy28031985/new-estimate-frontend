@@ -1,5 +1,11 @@
 import { useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {useLogoutMutation} from "../../redux/auth/authApi";
+import { unsetCredentials, selectIsLoggedIn } from '../../redux/auth/authSlice';
+import {useCurrentQuery} from "../../redux/auth/authApi";
+import {priceApi} from "../../redux/price/priceApi";
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import MobileMenu from './MobileMenu/MobileMenu';
 import Burger from "../Icons/Burger/Burger";
 import Close from '../Icons/Close/Close';
@@ -9,6 +15,17 @@ import s from "./Header.module.scss";
 
 function Header () {
     const [showMenu, setShowMenu] = useState(true);
+
+    const dispatch = useDispatch();
+    const [logout] = useLogoutMutation();
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    const handleCloseNavMenu = async () => {
+        await logout();
+       dispatch(unsetCredentials());
+       dispatch(projectsApi.util.resetApiState());
+       dispatch(priceApi.util.resetApiState());
+        };
 
     const handleToggle = () => {
         setShowMenu(showMenu => !showMenu);
@@ -41,7 +58,7 @@ return (<div className={s.content}>
         <li><NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to='/projects'>Кошториси</NavLink></li>
         </ul>
      </nav>
-     <button className={s.button}>Вийти</button>
+     <button className={s.button} onClick={handleCloseNavMenu} >Вийти</button>
     
      
     </header>
