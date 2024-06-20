@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useParams  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useGetProjectByIdQuery } from '../../../redux/projectSlice/projectSlice';
+import {useAddProjectPriceMutation} from "../../../redux/projectPrice/projectPriceApi";
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
 import Mic from "../../Icons/Mic/Mic";
 import s from "./AddProjectPrice.module.scss";
 
 function AddProjectPrice({onModal}) {
+    const {id} = useParams();
+    const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [recognition, setRecognition] = useState(null);
+
+    const {data} = useGetProjectByIdQuery();
+    const [ addProjectPrice] = useAddProjectPriceMutation();
 
     useEffect(() => {
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -71,13 +81,30 @@ function AddProjectPrice({onModal}) {
             toast.error("Заповніть усі поля!");
             return;
         }
-    
-        const data = {
-            title,
-            price
-            
+
+        if (data?.price.find(data => data.title === title)) {
+            toast.error("Таке найменування роботи вже існує");
+            setTitle('')
+            setPrice('')
+            return;
         }
-        console.log(data);
+    
+        try {
+            const newPrice = Number(price);
+            const newPriceData = {id, newPrice: {title, price: newPrice}}
+                const add = await addProjectPrice(newPriceData);
+                
+                if (add && add.data) {
+                    dispatch(projectsApi.util.resetApiState());
+                    toast(`Найменування роботи ${add.data.title} створено!`);                  
+                    } else {
+                         console.error('Unexpected response:', add.error.data.message);
+                         toast.error(add.error.data.message);
+                         }
+                  } catch (error) {
+                    toast.error(`User with the title: ${title} does not exist!`, error);
+                  }
+
         setTitle('');
         setPrice('');
         onModal()

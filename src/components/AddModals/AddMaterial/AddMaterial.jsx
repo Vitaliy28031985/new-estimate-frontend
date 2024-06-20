@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useParams} from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { useAddMaterialMutation} from '../../redux/material/materialApi';
-// import {projectsApi} from "../../redux/projectSlice/projectSlice";
+import { useAddMaterialMutation} from '../../../redux/material/materialApi';
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
 import s from './AddMaterial.module.scss';
 
 function AddEstimate({ onModal}) {
@@ -13,9 +13,9 @@ function AddEstimate({ onModal}) {
   const [order, setOrder] = useState('');
   const [date, setDate] = useState('');
   const [sum, setSum] = useState('');
-//   const [addMaterial] = useAddMaterialMutation();
+  const [addMaterial] = useAddMaterialMutation();
 
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -57,9 +57,8 @@ function AddEstimate({ onModal}) {
     
     } };
     try {
-    // await addMaterial(newMaterial);
-    console.log(newMaterial);
-    // dispatch(projectsApi.util.resetApiState());
+    await addMaterial(newMaterial);
+    dispatch(projectsApi.util.resetApiState());
     setTitle('');
     setOrder('');
     setDate('');

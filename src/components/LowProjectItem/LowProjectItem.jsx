@@ -3,15 +3,12 @@ import { useState} from 'react';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import s from "./LowProjectItem.module.scss";
-
+import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
 import roundingNumberFn from "../../helpers/roundingNumberFn";
-
-import projects from "../../db/projects.json";
 
 function LowProjectItem() {
     const {id} = useParams();
-    const projectId = projects.filter(({_id}) => _id === id);
-    const project = projectId[0];
+    const { data: project} = useGetProjectByIdQuery(id);
     const[data, setData] = useState(project);
    
     

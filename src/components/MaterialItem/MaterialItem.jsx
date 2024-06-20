@@ -1,11 +1,12 @@
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import Modal from "../Modal/Modal";
 import AddMaterial from "../AddModals/AddMaterial/AddMaterial";
-// import {projectsApi} from "../../redux/projectSlice/projectSlice";
-// import AddEstimate from "../AddMaterial/AddMaterial";
-// import Modal from '../Modal/Modal';
-
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
+import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
+import {useCurrentQuery} from "../../redux/auth/authApi";
+import {useUpdateMaterialMutation} from "../../redux/material/materialApi";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import Add from "../Icons/Add/Add";
 import Delete from "../Icons/Delete/Delete";
@@ -13,15 +14,16 @@ import Update from "../Icons/Update/UpdateIcon";
 import UpdateOk from "../Icons/UpdateOk/UpdateOk";
 import s from "./MaterialItem.module.scss";
 
-import projects from "../../db/projects.json";
 
 function MaterialItem() {
   const { id } = useParams();
-  const projectId = projects.filter(({ _id }) => _id === id);
-  const project = projectId[0];
+  const dispatch = useDispatch();
+  const { data: project} = useGetProjectByIdQuery(id);
+  const { data: userData } = useCurrentQuery();
+  const [mutate] = useUpdateMaterialMutation();
   const [data, setData] = useState(project);
   const [currentData, setCurrentData] = useState({});
-  // const [userRole, setUserRole] = useState(false);
+  const [userRole, setUserRole] = useState(false);
   const [operations, setOperations] = useState('');
   const [isShowAdd, setIsShowAdd] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -39,14 +41,14 @@ function MaterialItem() {
     }
   };
 
-  //   useEffect(() => {
-  //     setData(project);
-  //     if (userData) {
-  //       const role = userData?.user?.role;
-  //       const isUserRole = role !== "customer";
-  //          setUserRole(isUserRole);
-  //     }
-  // }, [project, userData, userRole]);
+    useEffect(() => {
+      setData(project);
+      if (userData) {
+        const role = userData?.role;
+        const isUserRole = role !== "customer";
+           setUserRole(isUserRole);
+      }
+  }, [project, userData, userRole]);
 
   const addIsToggle = (id, currentIsShow, name) => {
     setData((prevData) => {
@@ -88,8 +90,8 @@ function MaterialItem() {
   };
 
   const handleSubmit = async (projId, matId, updateMaterial) => {
-    //   await mutate([projId, matId, updateMaterial]);
-    //   dispatch(projectsApi.util.resetApiState());
+      await mutate([projId, matId, updateMaterial]);
+      dispatch(projectsApi.util.resetApiState());
   };
 
   return (

@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
+import {useUpdateProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import AddProjectPrice from '../AddModals/AddProjectPrice/AddProjectPrice';
 import Modal from '../Modal/Modal';
 import Add from "../Icons/Add/Add";
@@ -9,20 +13,23 @@ import Delete from "../Icons/Delete/Delete";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import s from "./ProjectPrice.module.scss";
 
-import projects from "../../db/projects.json";
+
 
 function ProjectPrice() {
     const {id} = useParams();
-    const projectId = projects.filter(({_id}) => _id === id);
-     const price = projectId[0].price;
+    const dispatch = useDispatch();
+    const { data: project} = useGetProjectByIdQuery(id);
+    const [updateProjectPrice] = useUpdateProjectPriceMutation();
     const [currentData, setCurrentData] = useState({});
-    const [data, setData] = useState(price);
+    const [data, setData] = useState(project?.price);
     const [operations, setOperations] = useState('');
     const [filter, setFilter] = useState('')
     const [showModal, serShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
-   
+    useEffect(() => {
+        setData(project?.price); 
+    }, [project?.price]); 
   
     
     const filterChange = e => setFilter(e.target.value);
@@ -114,12 +121,12 @@ function ProjectPrice() {
                 
                    <button  
                   className={s.buttonUpdate}
-                  onClick={() => {
+                  onClick={async() => {
                     isShow = !isShow;
                     addIsToggle(_id, isShow, 'update');
                     if(!isShow) {
-                        console.log({id: _id, newData: {title, price}})
-                    //    mutate({id: _id, newData: {title, price}});
+                     await updateProjectPrice({idPro: id, idPrice: _id, newData: {price}});
+                     dispatch(projectsApi.util.resetApiState());
                     }
                     }}
                   >

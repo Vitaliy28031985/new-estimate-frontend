@@ -6,6 +6,8 @@ import { useDeleteProjectMutation } from '../../redux/projectSlice/projectSlice'
 import {useDeletePositionMutation} from '../../redux/position/positionApi';
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import {useDeleteEstimateMutation} from '../../redux/estimate/estimateApi';
+import {useDeleteProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
+import {useDeleteMaterialMutation} from "../../redux/material/materialApi";
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
@@ -15,6 +17,8 @@ function DeleteModal({data, nameComponent, onModal}) {
     const [deleteProject] = useDeleteProjectMutation();
     const [deleteEstimate] = useDeleteEstimateMutation();
     const [deletePosition] = useDeletePositionMutation();
+    const [deleteProjectPrice] = useDeleteProjectPriceMutation();
+    const [deleteMaterial] = useDeleteMaterialMutation();
 
     const deleteFunction = async () => {
         // Загальний прайс
@@ -28,9 +32,11 @@ function DeleteModal({data, nameComponent, onModal}) {
 
         //прайс кошторису
         if(nameComponent === "deleteProjectPrice") {
+            
+            const deleteProjectPriceData = { idPro: id, idPrice: data.id}; 
+            await deleteProjectPrice(deleteProjectPriceData);
+            dispatch(projectsApi.util.resetApiState());
             toast(`"${data.title}" успішно видалена!`);
-            const deleteProjectPrice = { ProjectId: id, priceId: data.id};  
-            console.log(deleteProjectPrice)
             onModal();
             return;
         }
@@ -67,9 +73,11 @@ function DeleteModal({data, nameComponent, onModal}) {
         }
         // видалення матеріалів
         if(nameComponent === "deleteMaterial") {
+            
+            const deleteMaterialData = {idPro: id, idMat: data.id};
+            await deleteMaterial(deleteMaterialData);
+            dispatch(projectsApi.util.resetApiState());
             toast(`"${data.title}" успішно видалена!`);
-            const deleteMaterial = {projectId: id, materialId: data.id};
-            console.log(deleteMaterial);
             onModal();
             return; 
         }
