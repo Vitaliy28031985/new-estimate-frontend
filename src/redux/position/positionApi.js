@@ -16,7 +16,7 @@ export const positionApi = createApi({
   endpoints: builder => ({
     addPosition: builder.mutation({
       query: param => ({
-        url: `position/${param.idPos}/${param.idEst}`,
+        url: `position/${param.idProj}/${param.idEst}`,
         method: 'POST',
         body: {position: param.position},
       }),

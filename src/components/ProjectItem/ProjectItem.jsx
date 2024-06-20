@@ -1,9 +1,16 @@
 import { useParams  } from 'react-router-dom';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import {useCurrentQuery} from "../../redux/auth/authApi";
+import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
+import {useAddPositionMutation, useUpdatePositionMutation} from '../../redux/position/positionApi';
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
+
 import Add from "../Icons/Add/Add"
 import Update from "../Icons/Update/UpdateIcon";
 import UpdateOk from "../Icons/UpdateOk/UpdateOk";
@@ -16,22 +23,38 @@ import s from "./ProjectItem.module.scss";
 
 import roundingNumberFn from "../../helpers/roundingNumberFn";
 
-import projects from "../../db/projects.json";
+
 
 function ProjectItem() {
     const {id} = useParams();
-    const projectId = projects.filter(({_id}) => _id === id);
-    const project = projectId[0];
+    const dispatch = useDispatch();
+
+    const { data: project} = useGetProjectByIdQuery(id);
+    const { data: userData } = useCurrentQuery(); 
     const[data, setData] = useState(project);
+    const[addPosition] = useAddPositionMutation();
+    const[mutate] = useUpdatePositionMutation();
+
+    const [userRole, setUserRole] = useState(false);
     const [currentData, setCurrentData] = useState({});
     const [deleteEstimate, setDeleteEstimate] = useState(false);
     const [deletePosition, setDeletePosition] = useState(false);
     const [operations, setOperations] = useState('');
     const [showEstimateAdd, setShowEstimateAdd ] = useState(false);
     const [showPositionAdd, setShowPositionAdd] = useState(false);
-    
+    const [estId, setEstId] = useState('');
 
-    const handleToggle = (operation, data) => {
+    useEffect(() => {
+      setData(project); 
+      if (userData) {
+          const role = userData?.role;
+          const isUserRole = role !== "customer";
+             setUserRole(isUserRole);
+        }
+        
+        }, [project, userData, userRole]);
+    
+    const handleToggle = async (operation, data) => {
    
       if(operation === "estimate" || operations === "estimate") {
         setShowEstimateAdd(toggle => !toggle); 
@@ -42,10 +65,21 @@ function ProjectItem() {
           setShowPositionAdd(toggle => !toggle); 
           setOperations(operation);
           
+          if(data?.id) {
+            await setEstId(data?.id)
+        
+          }
+          
           if(data) {
             if(data.title !== undefined) {
-             toast(`Позицію ${data.title} успішно додано`)
-            console.log(data)
+              const newPosition = {idProj: id, idEst: estId, position: data}
+              const add =  await addPosition(newPosition);
+              if(add) { 
+                toast(`Позицію ${data.title} успішно додано`)
+                dispatch(projectsApi.util.resetApiState());
+                setOperations('');
+              }
+           
           }  
          return;
       }   
@@ -179,12 +213,12 @@ const onChange = (e) => {
         <button className={s.createPdfFileButton} 
         onClick={generatePdf}
         >Створити PDF файл</button>
-       {/* {userRole && ( */}
+       {userRole && (
          <button type='button' 
          className={s.createPdfFileButton} 
          onClick={() => handleToggle("estimate")}
          >Додати таблицю</button>
-       {/* )} */}
+      )}
        
        </div>
 
@@ -192,17 +226,17 @@ const onChange = (e) => {
         {data && (
           <>
         
-            {data.estimates && data.estimates.map(item => (
+            {data.estimates && data?.estimates?.map(item => (
               <div key={item._id}>
                 <div className={s.buttonAddContainer}>
                 <p className={s.titleTable}>{item.title}</p>
-                {/* {userRole && ( */}
+                {userRole && (
                     <>
                  <button type='button' 
                  className={s.buttonAddTitle }
-                 onClick={() => {
+                 onClick={ async () => {
                   handleToggle("deleteEstimate");
-                  setCurrentData({id: item?._id, title: item?.title})
+                  await setCurrentData({id: item?._id, title: item?.title})
                   // onDeleteEstimate(data?._id, item?._id)
                 }}
                  >
@@ -216,7 +250,7 @@ const onChange = (e) => {
                     <Update width='28' height='28'/>
                       </button>
                 </>
-             {/* )} */}
+             )}
                 
                 
                 </div>     
@@ -226,14 +260,14 @@ const onChange = (e) => {
                   <tr className={s.titleRow}>
              <td className={s.oneRow}>№ з/п.</td>
                    <td className={s.twoRow}>Назва 
-                   {/* {userRole && ( */}
+                   {userRole && (
                    <button type='button' 
-                    onClick={() => handleToggle('position', {id: item._id})}
+                    onClick={() => handleToggle('position', {id: item?._id})}
                 //    onClick={() => data && item._id && handleTogglePosition(item._id, data._id)}
                     className={s.buttonAdd}>
                    <Add width={"20"} height={"20"}/>
                   </button> 
-                  {/* )} */}
+                  )}
                    </td>
                    <td className={s.threeRow}><p className={s.threeRowTitleText}>Одиниця</p></td>
                    <td className={s.threeRow}><p className={s.threeRowTitleText}>Кількість</p></td>
@@ -246,15 +280,18 @@ const onChange = (e) => {
                   <tr key={_id} className={s.dataRow}>
                   <td className={s.oneRow}>
                     {index + 1}
-                    {/* {userRole && ( */}
+                    {userRole && (
                       <button  
                     className={s.buttonUpdate}
-                    onClick={() => {
+                    onClick={ async() => {
                       isShow = !isShow;
                       addIsToggle(_id, isShow, 'update');
                       if(!isShow) {
-                        console.log(data._id, item._id, id, {title, unit, number, price})
-                        //  handleSubmit(data._id, item._id, id, {title, unit, number, price}); 
+                        const update = await mutate([data._id, item._id, id, {title, unit, number, price}]);
+                        if(update) { 
+                          toast(`Позицію прайсу: ${update.data.title} оновлено!`);
+                           dispatch(projectsApi.util.resetApiState()); 
+                           }
                       }
                       }}
                     >
@@ -263,7 +300,7 @@ const onChange = (e) => {
                       }
                     
                     </button> 
-                    {/* )} */}
+                    )}
                    
                     </td>
                   <td>
@@ -300,21 +337,20 @@ const onChange = (e) => {
                   }</td>
                   <td className={s.threeSix}>
                     {roundingNumberFn(result)}
-                    {/* {userRole && ( */}
+                    {userRole && (
                      <button className={s.buttonDeletePosition} 
-                    onClick={() => {
+                    onClick={async () => {
                       isDelete = !isDelete;
                       console.log(_id, isDelete)
                       handleToggle("deletePosition");
-                      setCurrentData({estimateId: _id, positionId: id, title})
-                      // addIsToggle(_id, isDelete, 'delete');
+                      await setCurrentData({estimateId: item?._id, positionId: id, title})
                     }
                     }
                     >
                       <Delete width={"20"} height={"20"}/>
                     </button>  
     
-                   {/* )} */}
+                   )}
                                     
                     </td>
                         </tr>
@@ -340,8 +376,10 @@ const onChange = (e) => {
         {data?.discount && (
         <>
         <p>Знижка на роботу:</p>
-        <p>{roundingNumberFn(data?.discount)}</p> 
-          </>)}
+        {data?.discount !== 0 && (<p>{roundingNumberFn(data?.discount)}</p> )}
+        
+          </>
+        )}
         </div> 
     
         

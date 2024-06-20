@@ -1,13 +1,20 @@
 import { useParams  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDeleteProjectMutation } from '../../redux/projectSlice/projectSlice';
+import {useDeletePositionMutation} from '../../redux/position/positionApi';
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
+import {useDeleteEstimateMutation} from '../../redux/estimate/estimateApi';
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
     const {id} = useParams();
+    const dispatch = useDispatch();
     
     const [deleteProject] = useDeleteProjectMutation();
+    const [deleteEstimate] = useDeleteEstimateMutation();
+    const [deletePosition] = useDeletePositionMutation();
 
     const deleteFunction = async () => {
         // Загальний прайс
@@ -40,17 +47,21 @@ function DeleteModal({data, nameComponent, onModal}) {
         //Видалення таблиць і рядків
 
         if(nameComponent === "deleteEstimate") {
+            
+            const deleteEstimateData = {idPro: id, idEst: data.id}
+            await deleteEstimate(deleteEstimateData);
+            dispatch(projectsApi.util.resetApiState());
             toast(`"${data.title}" успішно видалена!`);
-            const deleteEstimate = {projectId: id, estimateId: data.id}
-            console.log(deleteEstimate)
             onModal();
             return;
         }
 
         if(nameComponent === "deletePosition") {
+
+            const deletePositionData = {idPro: id, idEst: data.estimateId, idPos: data.positionId}
+            await deletePosition(deletePositionData);
+            dispatch(projectsApi.util.resetApiState());
             toast(`"${data.title}" успішно видалена!`);
-            const deletePosition = {projectId: id, estimateId: data.estimateId, positionId: data.positionId}
-            console.log(deletePosition)
             onModal();
             return;
         }
