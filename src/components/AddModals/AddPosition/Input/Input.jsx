@@ -4,8 +4,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from "./Input.module.scss"
 
-import projects from "../../../../db/projects.json";
-
 function Input({onModal}) {
     const [title, setTitle] = useState('');
     const [unit, setUnit] = useState('');

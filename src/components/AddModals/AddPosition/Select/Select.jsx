@@ -2,26 +2,26 @@ import { useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useGetProjectByIdQuery } from '../../../../redux/projectSlice/projectSlice';
+import {useGetUnitQuery} from "../../../../redux/unit/unitApi"
 import s from "./Select.module.scss"
-
-import projects from "../../../../db/projects.json";
 
 
 function Select({onModal}) {
     const { id } = useParams();
-    const project = projects.filter(({_id}) => _id === id); 
+    const {data: units} = useGetUnitQuery();
+    const { data: project } = useGetProjectByIdQuery(id);
     const [filter, setFilter] = useState('');
     const [title, setTitle] = useState('');
     const [unit, setUnit] = useState('');
     const [number, setNumber] = useState('');
-   
-    const units = [{title: "м2"}, {title: "м/п."}];
+  
 
     const filterChange = e => setFilter(e.target.value);
 
     const normalizeFilter = filter.toLowerCase();
 
-    const filteredPrices = project[0]?.price?.filter(item =>
+    const filteredPrices = project?.price?.filter(item =>
       item.title.toLowerCase().includes(normalizeFilter)) ?? [];
 
  
@@ -52,7 +52,7 @@ function Select({onModal}) {
       return;
     }
   
-  const currentPrice = await project[0]?.price?.filter(item => item.title === title);
+  const currentPrice = await project?.price?.filter(item => item.title === title);
    
   const priceCurrent = currentPrice[0].price
  
