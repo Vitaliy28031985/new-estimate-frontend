@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams  } from 'react-router-dom';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useAddAllowMutation} from "../../../redux/auth/authApi"
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
 
 import s from "./AddAllow.module.scss";
 
 function AddAllow() {
+    const {id} = useParams();
+    const dispatch = useDispatch();
+
+    const [addAllow] = useAddAllowMutation();
     
     const [email, setEmail] = useState('');
     const [level, setLevel] = useState('');
@@ -38,7 +46,10 @@ function AddAllow() {
             toast.error("Заповніть усі поля!");
             return;
         }
-        console.log({email, level, lookAt, lookAtTotals});
+        await addAllow({id, newData: {email, allowLevel: level, lookAt, lookAtTotals}});
+        dispatch(projectsApi.util.resetApiState()); 
+        toast("Дозвіл до кошторису успішно додано!");
+        
 
         setEmail('');
         setLevel('');

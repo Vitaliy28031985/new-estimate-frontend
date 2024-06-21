@@ -50,7 +50,7 @@ function App() {
             <Route path="materials" element={<PrivateRoute><MaterialsPage /></PrivateRoute>} />
             <Route path="advances" element={<PrivateRoute><Advances /></PrivateRoute>} />
           </Route>
-         <Route path="/project/settings/:id" element={<Settings/>} />
+         <Route path="/project/settings/:id" element={<PrivateRoute><Settings/></PrivateRoute>} />
         
        
         <Route path="*" element={<NotFoundPage/>} />

@@ -1,14 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { useParams  } from 'react-router-dom';
+import {useGetUsersQuery} from '../../../redux/auth/authApi';
+import { useGetProjectByIdQuery } from '../../../redux/projectSlice/projectSlice';
+import {useUpdateAllowUserMutation} from "../../../redux/auth/authApi";
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
+
 import s from "./UpdateAllow.module.scss";
 
 function UpdateAllow() {
-      
+    const {id} = useParams();
+    const dispatch = useDispatch();
+
+    const {data} = useGetUsersQuery();
+    const { data: project } = useGetProjectByIdQuery(id);
+    const [updateAllowUser] = useUpdateAllowUserMutation();
+    
+    const [userData, setUserData] = useState(null);
+    const [projectArr, setProjectArr] =useState(null)
+    
     const [email, setEmail] = useState('');
     const [level, setLevel] = useState('');
     const [lookAt, setLookAt] =useState('');
     const [lookAtTotals, setLookAtTotals] = useState('');
+
+    useEffect(() => {
+        if (data) {
+        setUserData(data);
+       
+        }  
+       
+      }, [data]);
+      
+      useEffect(() => {
+        if(project) {
+          setProjectArr(project);  
+         } 
+      }, [project, id]
+      
+      )
+
+      const userIdList =  projectArr?.allowList;
+      let userEmailList = [];
+
+      const renderData = () => {
+      for(let i = 0; i < userIdList?.length; i++) {
+      const userWithProject = userData?.filter(({_id}) => _id === userIdList[i]) 
+
+      if (userWithProject && userWithProject.length > 0) {
+        userEmailList.push(userWithProject[0].email);
+      }    
+    }
+  
+}
+
+renderData()
+
+
 
     const handleChange = (e) => {
 
@@ -37,7 +87,10 @@ function UpdateAllow() {
             toast.error("Заповніть усі поля!");
             return;
         }
-        console.log("UPDATE", {email, level, lookAt, lookAtTotals});
+        const update =  await updateAllowUser({id, email, allowLevel: level, lookAt, lookAtTotals});
+        dispatch(projectsApi.util.resetApiState()); 
+        toast("Дозвіл до кошторису успішно обновлено!");
+
 
         setEmail('');
         setLevel('');
@@ -45,7 +98,6 @@ function UpdateAllow() {
         setLookAtTotals('');
     
     }
-const emails = ["vitaliy4@i.ua", "David@i.ua", "socil@i.ua"];
 
     const disabled = email === '' && level === '' && lookAt === '' && lookAtTotals === '' ;
     return(
@@ -54,7 +106,7 @@ const emails = ["vitaliy4@i.ua", "David@i.ua", "socil@i.ua"];
                 <div className={s.inputContainer}>
                     <label  for="email">Обновлення даних дозволу до кошторису користувача</label>
                     <select  name="email" id="email" onChange={handleChange}>
-                        {emails?.map(email =>
+                        {userEmailList?.map(email =>
                            (<option value={email} >{email}</option>))}
                             <option value="" selected>Вибери email для обновлення даних</option>
                      </select>
