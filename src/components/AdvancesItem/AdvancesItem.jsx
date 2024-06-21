@@ -1,10 +1,10 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
-// import { useUpdateAdvanceMutation, useDeleteAdvanceMutation} from '../../redux/advances/advancesApi';
-// import {useCurrentQuery} from "../../redux/auth/authApi";
-// import {projectsApi} from "../../redux/projectSlice/projectSlice";
+import { useDispatch } from 'react-redux';
+import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
+import { useUpdateAdvanceMutation, useDeleteAdvanceMutation} from '../../redux/advances/advancesApi';
+import {useCurrentQuery} from "../../redux/auth/authApi";
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import AddAdvance from "../AddModals/AddAdvance/AddAdvance";
 import Modal from '../Modal/Modal';
 import DeleteModal from "../DeleteModal/DeleteModal";
@@ -14,19 +14,19 @@ import Update from '../Icons/Update/UpdateIcon';
 import UpdateOk from '../Icons/UpdateOk/UpdateOk';
 import s from "./AdvancesItem.module.scss";
 
-import projects from "../../db/projects.json";
 
 function AdvancesItem() {
     const { id } = useParams();
-    const projectId = projects.filter(({ _id }) => _id === id);
-    const project = projectId[0];
+    const dispatch = useDispatch();
+    const { data: project} = useGetProjectByIdQuery(id);
+    const { data: userData } = useCurrentQuery();
+    const [mutate] = useUpdateAdvanceMutation(); 
     const [currentData, setCurrentData] = useState({});
     const [operations, setOperations] = useState('');
-    // const { data: project} = useGetProjectByIdQuery(id);
-    // const { data: userData } = useCurrentQuery(); 
+    
     const [data, setData] = useState(project);
-    // const dispatch = useDispatch();
-    // const [mutate] = useUpdateAdvanceMutation();
+   
+    
     // const [deleteAdvance] = useDeleteAdvanceMutation();
 
     const [isShowAdd, setIsShowAdd] = useState(false);
@@ -46,14 +46,14 @@ function AdvancesItem() {
       }
     };
 
-//   useEffect(() => {
-//     setData(project);
-//     if (userData) {
-//       const role = userData?.user?.role;
-//       const isUserRole = role !== "customer";
-//          setUserRole(isUserRole);
-//     }   
-// }, [project, userData, userRole]); 
+  useEffect(() => {
+    setData(project);
+    if (userData) {
+      const role = userData?.user?.role;
+      const isUserRole = role !== "customer";
+         setUserRole(isUserRole);
+    }   
+}, [project, userData, userRole]); 
 
 const addIsToggle = (id, currentIsShow, name) => {
   setData(prevData => {
@@ -180,7 +180,7 @@ const onChange = (e) => {
                 </tbody>
               </table>
               {isDelete && (<DeleteModal data={currentData} nameComponent={"deleteAdvance"} onModal={handleToggle}/>)}
-              {isShowAdd && (<Modal onModal={handleToggle}><AddAdvance isShowModal={handleToggle }/></Modal>)}
+              {isShowAdd && (<Modal onModal={handleToggle}><AddAdvance onModal={handleToggle }/></Modal>)}
         </div>
     )
 }

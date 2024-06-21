@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useParams} from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { useAddAdvanceMutation} from '../../redux/advances/advancesApi';
-// import {projectsApi} from "../../redux/projectSlice/projectSlice";
+import { useAddAdvanceMutation} from '../../../redux/advances/advancesApi';
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
 
 import s from './AddAdvance.module.scss';
 
 function AddAdvance({ onModal}) {
-    const { id } = useParams();
-  
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [addAdvance] = useAddAdvanceMutation();
   const [comment, setComment] = useState('');
   const [date, setDate] = useState('');
   const [sum, setSum] = useState('');
-//   const [addAdvance] = useAddAdvanceMutation();
 
-//   const dispatch = useDispatch();
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -54,18 +55,19 @@ function AddAdvance({ onModal}) {
     } };
    
     try {
-    // await addAdvance(newAdvance);
-    // dispatch(projectsApi.util.resetApiState());
-     toast(`Позицію ${comment} додано!`) 
-    console.log(newAdvance);
-    setComment('');
-    setDate('');
-    setSum('');
-    onModal();
+    await addAdvance(newAdvance);
+    dispatch(projectsApi.util.resetApiState());
+    toast(`Позицію ${comment} додано!`) 
+   
+   
    
     } catch (error) {
       toast.error('Error adding advance:', error);
     }  
+    setComment('');
+    setDate('');
+    setSum('');
+    onModal();
   };
 
   const disabled = comment === '' && date === '' && sum ==='';
