@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useParams  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useAddLowMutation} from "../../../redux/projectSlice/projectSlice";
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
 import s from "./AddLowEstimate.module.scss";
 
 function AddLowEstimate() {
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const currentId = id;
+
+    const [addLow] = useAddLowMutation();
+
     const [discount, setDiscount] = useState('');
 
     const handleChange = e => {
@@ -26,9 +36,26 @@ function AddLowEstimate() {
     
         const data = {
             discount,
-            
+            id: currentId
         }
-        console.log(data);
+       try {
+       const discount = await addLow(data);
+        
+        if (discount && discount.data) {
+            toast(`Кошторис знижений на ${data.discount}% створено!`);
+            dispatch(projectsApi.util.resetApiState());
+        
+            } else {
+                 console.error('Unexpected response:', discount.error.data.message);
+                 toast.error(discount.error.data.message);
+                
+                 }
+                 } catch (error) {          
+                 console.error('Error add discount:', error);
+                 
+             } 
+        
+        setDiscount('');
     }
 
     const disabled = discount === '';

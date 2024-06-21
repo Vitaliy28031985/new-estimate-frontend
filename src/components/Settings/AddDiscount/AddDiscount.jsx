@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useParams  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {projectsApi} from "../../../redux/projectSlice/projectSlice";
+import {useAddDiscountMutation} from "../../../redux/projectSlice/projectSlice";
 import s from "./AddDiscount.module.scss";
 
 function AddDiscount() {
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const [addDiscount] = useAddDiscountMutation();
     const [discount, setDiscount] = useState('');
+    const currentId = id;
 
     const handleChange = e => {
         const {name, value} = e.currentTarget;
@@ -26,9 +34,26 @@ function AddDiscount() {
     
         const data = {
             discount,
-            
+            id: currentId
         }
-        console.log(data);
+        try {
+       const discount = await addDiscount(data);
+       
+       if (discount && discount.data) {
+        toast(discount.data.message);
+      
+        dispatch(projectsApi.util.resetApiState());
+        setDiscount('');
+    
+        } else {
+             console.error('Unexpected response:', discount.error.data.message);
+             toast.error(discount.error.data.message);
+            
+             }
+             } catch (error) {          
+             console.error('Error add discount:', error);
+             
+         } 
     }
 
     const disabled = discount === '';

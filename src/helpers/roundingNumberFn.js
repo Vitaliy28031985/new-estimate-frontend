@@ -15,6 +15,9 @@ function roundingNumberFn (number) {
   newNumber = newArray.join('');
   return Number(newNumber);
   }
+  if(numberArray[numberArray.length - 1] !== "0") {
+   return convertNumber;
+  }
 
   }
   
