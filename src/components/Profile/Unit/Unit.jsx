@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useGetUnitQuery, useAddUnitMutation, useDeleteUnitMutation} from "../../../redux/unit/unitApi";
+
 import price from "../../../db/price.json";
 
 import s from "./Unit.module.scss";
 
 function Unit() {
+    const {data} = useGetUnitQuery();
+    const [addUnit] = useAddUnitMutation();
+    const [deleteUnit] = useDeleteUnitMutation();
     const [id, setId] = useState('');
     const [unit, setUnit] = useState('');
-    const [deleteUnit, setDeleteUnit] = useState('');
+    const [deleteUnitToggle, setDeleteUnitToggle] = useState('');
 
     const handleChange = (e) => {
 
@@ -20,7 +25,7 @@ function Unit() {
             setId(id);
             break;
         case 'delete':
-             setDeleteUnit(value);
+            setDeleteUnitToggle(value);
              setId(id);
              break;
       
@@ -32,23 +37,22 @@ function Unit() {
       const handleSubmit = async (e) => {
         e.preventDefault();
         if(id === "unit") {
-            
-            console.log(unit);
+            await addUnit({ title: unit });
             toast("Одиницю додано!");
             setUnit('');
             return;
         } 
-        if(deleteUnit !== '') {
-            console.log(deleteUnit)
+        if(deleteUnitToggle !== '') {
+            await deleteUnit(deleteUnitToggle)
             toast("Одиницю видалено!");
-            setDeleteUnit('');
+            setDeleteUnitToggle('');
             return;
         }
        }
 
-       console.log(deleteUnit)
+    //    console.log(deleteUnit)
 
-       const empty = unit === '' && deleteUnit === '';
+       const empty = unit === '' && deleteUnitToggle === '';
 
     return(
         <div className={s.adminFunction}>
@@ -61,9 +65,9 @@ function Unit() {
             <div className={s.input}>
                     <label  for="delete">Видалити одиницю</label>
                     <select  name="delete" id="delete" onChange={handleChange}>
-                        {price?.map(({title, _id}) =>
+                        {data?.map(({title, _id}) =>
                            (<option value={_id} >{title}</option>))}
-                           {deleteUnit === '' && (<option value="" selected>Вибери для видалення</option>)}
+                           {deleteUnitToggle === '' && (<option value="" selected>Вибери для видалення</option>)}
                      </select>
                 </div>
          <button disabled={empty} className={empty ? "button-disabled-unit" : "unit-Button"} type="submit">{unit !== ''  ? "Додати" : "Видалити"}</button>

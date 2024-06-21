@@ -4,8 +4,6 @@ import Unit from '../Unit/Unit';
 import AdminFunctions from '../AdminFunctions/AdminFunctions';
 import s from "./ProfileInfo.module.scss";
 
-const admin = true; 
-
 function ProfileInfo() {
     const {data} = useCurrentQuery();
     const [userRole, setUserRole] = useState(false);
@@ -43,39 +41,7 @@ function ProfileInfo() {
       }
 
       const defaultAvatar = "https://www.shutterstock.com/image-illustration/avatar-modern-young-guy-working-260nw-2015853839.jpg";
-      const avatarUrl = data?.avatar || defaultAvatar;
-  
-  
-    //   const handleChange = e => {
-    //       const {name, value} = e.currentTarget;
-    //       switch (name) {
-    //          case 'email':
-    //              setEmail(value);
-    //              break;
-    //          case 'time':
-    //              setTime(value);
-    //              break;
-    //          default:
-    //              return;  
-    //       }
-    //   }
-  
-    //   const handleSubmit = async e => {
-    //       e.preventDefault();
-    //       if (email === '' || time === '') {
-    //           toast("Заповніть усі поля!");
-    //           return;
-    //       }
-    //       const allowObj = {
-    //           email,
-    //           time: Number(time)
-    //       }
-    //       await addAllowUser(allowObj);
-  
-    //       setEmail('');
-    //       setTime('');
-    //   }
-      
+      const avatarUrl = data?.avatar || defaultAvatar;      
 
     return(
         <div>
