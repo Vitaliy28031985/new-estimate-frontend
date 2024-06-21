@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+
+import {useGetPriceQuery, useUpdatePriceMutation} from "../../redux/price/priceApi";
+
 import AddPrice from '../AddModals/AddPrice/AddPrice';
 import Modal from '../Modal/Modal';
 import Add from "../Icons/Add/Add";
@@ -9,16 +12,20 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import s from "./PriceComponent.module.scss";
 
 
-
-import price from "../../db/price.json";
-
 function PriceComponent() {
-    const [currentData, setCurrentData] = useState({});
+    const {data: price} = useGetPriceQuery();
+    const[mutate] = useUpdatePriceMutation();
     const [data, setData] = useState(price);
+    const [currentData, setCurrentData] = useState({});
     const [operations, setOperations] = useState('');
     const [filter, setFilter] = useState('')
     const [showModal, setShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+
+    useEffect(() => {
+        setData(price); 
+    }, [price]); 
+    
   
     
     const filterChange = e => setFilter(e.target.value);
@@ -118,12 +125,11 @@ function PriceComponent() {
                 
                    <button  
                   className={s.buttonUpdate}
-                  onClick={() => {
+                  onClick={async () => {
                     isShow = !isShow;
                     addIsToggle(_id, isShow, 'update');
                     if(!isShow) {
-                        console.log({id: _id, newData: {title, price}})
-                    //    mutate({id: _id, newData: {title, price}});
+                        await mutate({id: _id, newData: {title, price}});
                     }
                     }}
                   >
@@ -150,29 +156,7 @@ function PriceComponent() {
             }}>
                 <Delete width={"24"} height={"24"}/>
                 
-                </button>
-               
-                {/* {isDelete && (
-                  <div className={s.deleteModalContainer}>
-                    <h4>{`Ви справді бажаєте видалити: ${title}`}</h4>
-                    <ul className={s.buttonContainer }>
-                        <li><button className={s.onDelete}
-                        onClick={() => {
-                            isDelete = !isDelete;
-                            addIsToggle(_id, isDelete, 'delete');
-                            deletePrice(_id);
-                        }}
-                        >Так</button></li>
-                        <li><button className={s.noDelete}
-                        onClick={() => {
-                            isDelete = !isDelete;
-                            addIsToggle(_id, isDelete, 'delete');
-                        }}
-                        >Ні</button></li>
-                    </ul>
-                </div>   
-                )} */}
-                 
+                </button>                 
             </td>
           
 		</tr>    

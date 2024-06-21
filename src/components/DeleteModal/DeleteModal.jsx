@@ -2,18 +2,20 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDeletePriceMutation} from "../../redux/price/priceApi";
 import { useDeleteProjectMutation } from '../../redux/projectSlice/projectSlice';
 import {useDeletePositionMutation} from '../../redux/position/positionApi';
-import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import {useDeleteEstimateMutation} from '../../redux/estimate/estimateApi';
 import {useDeleteProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
 import {useDeleteMaterialMutation} from "../../redux/material/materialApi";
+import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import s from "./DeleteModal.module.scss";
 
 function DeleteModal({data, nameComponent, onModal}) {
     const {id} = useParams();
     const dispatch = useDispatch();
     
+    const [deletePrice] = useDeletePriceMutation();
     const [deleteProject] = useDeleteProjectMutation();
     const [deleteEstimate] = useDeleteEstimateMutation();
     const [deletePosition] = useDeletePositionMutation();
@@ -23,8 +25,8 @@ function DeleteModal({data, nameComponent, onModal}) {
     const deleteFunction = async () => {
         // Загальний прайс
         if(nameComponent === "price") {
+            await deletePrice(data._id);
             toast(`"${data.title}" успішно видалена!`);
-            console.log(data)
             onModal();
             return;
         }
@@ -32,7 +34,6 @@ function DeleteModal({data, nameComponent, onModal}) {
 
         //прайс кошторису
         if(nameComponent === "deleteProjectPrice") {
-            
             const deleteProjectPriceData = { idPro: id, idPrice: data.id}; 
             await deleteProjectPrice(deleteProjectPriceData);
             dispatch(projectsApi.util.resetApiState());
@@ -43,9 +44,8 @@ function DeleteModal({data, nameComponent, onModal}) {
 
         if(nameComponent === "projects") {
                  
-        await deleteProject(data?._id);
-            toast(`"${data.title}" успішно видалена!`);               
-            
+            await deleteProject(data?._id);
+            toast(`"${data.title}" успішно видалена!`);              
             onModal();
             return; 
         }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useGetPriceQuery, useAddPriceMutation} from "../../../redux/price/priceApi";
 import Mic from "../../Icons/Mic/Mic";
 import s from "./AddPrice.module.scss";
 
 function AddPrice({onModal}) {
+    const {data} = useGetPriceQuery();
+    const [addPrice] = useAddPriceMutation();
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [recognition, setRecognition] = useState(null);
@@ -71,16 +74,25 @@ function AddPrice({onModal}) {
             toast.error("Заповніть усі поля!");
             return;
         }
-    
-        const data = {
-            title,
-            price
-            
+
+        if (data.find(data => data.title === title)) {
+            toast.error("Таке найменування роботи вже існує");
+            setTitle('')
+            setPrice('')
+            return;
         }
-        console.log(data);
-        setTitle('');
-        setPrice('');
-        onModal()
+    
+        try {
+            const newPosition = {title, price: Number(price)}
+                 addPrice(newPosition);
+                   
+                    
+                  } catch (error) {
+                    alert(`User with the title: ${title} does not exist!`, error);
+                  }
+            setTitle('')
+            setPrice('')
+            onModal()
     }
 
  

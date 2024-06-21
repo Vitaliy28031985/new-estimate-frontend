@@ -4,8 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useGetUnitQuery, useAddUnitMutation, useDeleteUnitMutation} from "../../../redux/unit/unitApi";
 
-import price from "../../../db/price.json";
-
 import s from "./Unit.module.scss";
 
 function Unit() {
