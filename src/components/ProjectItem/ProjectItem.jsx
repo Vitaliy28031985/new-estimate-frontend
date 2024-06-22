@@ -75,7 +75,8 @@ function ProjectItem() {
               const newPosition = {idProj: id, idEst: estId, position: data}
               try {
               const add =  await addPosition(newPosition);
-              if(add && add.error.data.message) { 
+             
+              if(add && add.data) { 
                 toast(`Позицію ${data.title} успішно додано`)
                 dispatch(projectsApi.util.resetApiState());
                
