@@ -1,9 +1,8 @@
 import { useState} from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {useLogoutMutation} from "../../redux/auth/authApi";
-import { unsetCredentials, selectIsLoggedIn } from '../../redux/auth/authSlice';
-import {useCurrentQuery} from "../../redux/auth/authApi";
+import { unsetCredentials } from '../../redux/auth/authSlice';
 import {priceApi} from "../../redux/price/priceApi";
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import MobileMenu from './MobileMenu/MobileMenu';
@@ -18,7 +17,7 @@ function Header () {
 
     const dispatch = useDispatch();
     const [logout] = useLogoutMutation();
-    const isLoggedIn = useSelector(selectIsLoggedIn);
+   
 
     const handleCloseNavMenu = async () => {
         await logout();
@@ -31,7 +30,7 @@ function Header () {
         setShowMenu(showMenu => !showMenu);
       }
 
-      console.log();
+    
 
 return (<div className={s.content}>
     <header className={s.header}>
