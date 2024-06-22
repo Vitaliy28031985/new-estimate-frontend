@@ -1,7 +1,7 @@
-import { useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect} from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Mic from "../../../Icons/Mic/Mic";
 import s from "./Input.module.scss"
 
 function Input({onModal}) {
@@ -9,6 +9,47 @@ function Input({onModal}) {
     const [unit, setUnit] = useState('');
     const [number, setNumber] = useState('');
     const [price, setPrice] = useState('');
+    const [recognition, setRecognition] = useState(null);
+
+    useEffect(() => {
+      if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognitionInstance = new SpeechRecognition();
+          recognitionInstance.lang = 'uk-UA';
+          recognitionInstance.interimResults = true;
+          setRecognition(recognitionInstance);
+      } else {
+
+          // toast.error("Розпізнавання мови не підтримується в цьому браузері!");
+          console.log('Розпізнавання мови не підтримується в цьому браузері.');
+      }
+  }, []);
+
+  useEffect(() => {
+      if (recognition) {
+          recognition.onresult = (event) => {
+              const transcript = Array.from(event.results)
+                  .map(result => result[0].transcript)
+                  .join('');
+
+              const transcriptArr = transcript.split('');
+              if (transcriptArr.length > 0) {
+                  transcriptArr[0] = transcriptArr[0].toUpperCase();
+              }
+              setTitle(transcriptArr.join(""));
+          };
+      }
+  }, [recognition]);
+
+  const startRecording = () => {
+      if (recognition) {
+          recognition.start();
+      }
+  };
+
+  const handleStartRecordingClick = () => {
+      startRecording();
+  };
    
  
   const handleChange = e => {
@@ -57,9 +98,10 @@ function Input({onModal}) {
     return(
 
 <form action="" onSubmit={handleSubmit}>
-<div>
+<div className={s.titleContainer}>
   <p className={s.label}>Назва роботи</p>
   <input className={s.input}  name="title" value={title} id="title" onChange={handleChange}/>
+  <div className={s.titleButton} onClick={handleStartRecordingClick}><Mic width={"24px"} height={"24px"}/></div>
 </div>
 <div>
   <p className={s.label}>Одиниця</p>
