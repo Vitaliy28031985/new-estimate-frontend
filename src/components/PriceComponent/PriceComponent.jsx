@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {useGetPriceQuery, useUpdatePriceMutation} from "../../redux/price/priceApi";
 
@@ -129,7 +131,18 @@ function PriceComponent() {
                     isShow = !isShow;
                     addIsToggle(_id, isShow, 'update');
                     if(!isShow) {
-                        await mutate({id: _id, newData: {title, price}});
+                      const update =  await mutate({id: _id, newData: {title, price}});
+                      if(update && update.data) { 
+                        toast(`Позицію парайсу: ${update.data.title} оновлено!`);
+                     }  else {
+                        console.error('Unexpected response:', update.error.data.message);
+                        toast.error(update.error.data.message);
+                       
+                        }
+                      try {
+                      } catch (error) {          
+                        console.error('Error delete project:', error);  
+                    } 
                     }
                     }}
                   >
