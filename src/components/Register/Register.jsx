@@ -7,8 +7,6 @@ import {useSignupMutation, useLoginMutation} from "../../redux/auth/authApi";
 import {setCredentials} from "../../redux/auth/authSlice";
 import {priceApi} from "../../redux/price/priceApi";
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
-// import Cropper from 'react-easy-crop';
-// import createImage from "../../helpers/createImage.js";
 import s from "./Register.module.scss";
 function Register() {
     
@@ -61,21 +59,22 @@ function Register() {
         }
     }
 
+   
     const handleSubmit = async e => {
         e.preventDefault();
-        if (name === '' || email === '' || phone === '' || role === '' || password === '' || passwordTwo === '') {
-            toast.error("Заповніть усі поля");
+        if(avatar === '' || name === '' || email === '' || phone === '' || role === '' || password === '' || passwordTwo === '' ) {
+            toast("Заповніть усі поля");
             return;
         }
-        if (password !== passwordTwo) {
-            toast.error("введіть однакові паролі");
+        if(password !== passwordTwo) {
+            toast("введіть однакові паролі");
             return;
         }
-        if (password.length < 6) {
-            toast.error("введіть пароль з 6 і більше символів");
+        if(password.length < 6) {
+            toast("введіть пароль з 6 і більше символів");
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('image', avatar);
         formData.append('name', name);
@@ -83,34 +82,15 @@ function Register() {
         formData.append('phone', phone);
         formData.append('role', role);
         formData.append('password', password);
-
-        // console.log({avatar, name, email, phone, role, password, passwordTwo})
-
-        // try {
-          
-        //     console.log('FormData:', formData);
-        //     formData.forEach((value, key) => {
-        //         console.log(key, value);
-        //     });
-        // } catch (error) {
-        //     console.error('Помилка при відправці даних:', error);
-        // }
-
-        // SetAvatar(null);
-        // setEmail('');
-        // setName('');
-        // setPhone('');
-        // setRole('');
-        // setPassword('');
-        // setPasswordTwo('');
-
+    
         try {
-            const user = await singup(formData).unwrap();
-            dispatch(setCredentials(dataAnswers));
-            const dataAnswers = await login(loginEl).unwrap();
-            dispatch(setCredentials(user));
-            dispatch(projectsApi.util.resetApiState());
-            dispatch(priceApi.util.resetApiState());
+             const user = await singup(formData).unwrap();
+             const dataAnswers = await login(loginEl).unwrap();
+             dispatch(setCredentials(user));
+             dispatch(setCredentials(dataAnswers));
+             dispatch(projectsApi.util.resetApiState());
+             dispatch(priceApi.util.resetApiState());
+             
             toast("Реєстрація пройшла успішно");
         } catch (error) {
             toast.error('Sorry, something went wrong', error);
@@ -123,7 +103,9 @@ function Register() {
         setPassword('');
         setPasswordTwo('');
     
+       
     }
+    
 
     
    
