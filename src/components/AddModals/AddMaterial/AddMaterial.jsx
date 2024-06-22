@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddMaterialMutation} from '../../../redux/material/materialApi';
 import {projectsApi} from "../../../redux/projectSlice/projectSlice";
+import dataFormat from "../../../helpers/dataFormat";
 import s from './AddMaterial.module.scss';
 
 function AddEstimate({ onModal}) {
@@ -16,6 +17,7 @@ function AddEstimate({ onModal}) {
   const [addMaterial] = useAddMaterialMutation();
 
   const dispatch = useDispatch();
+
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -52,7 +54,7 @@ function AddEstimate({ onModal}) {
     const newMaterial = { id, materials: { 
         title: title || '',
         order: order || '',
-        date: date   || '',
+        date: dataFormat(date)   || '',
         sum:  sum    || ''
     
     } };
@@ -70,6 +72,7 @@ function AddEstimate({ onModal}) {
     }  
   };
 
+ 
   const disabled =   title === '' &&  order === '' &&  date   === '' &&  sum  === '';
 
   return (

@@ -8,6 +8,7 @@ import {useDeletePositionMutation} from '../../redux/position/positionApi';
 import {useDeleteEstimateMutation} from '../../redux/estimate/estimateApi';
 import {useDeleteProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
 import {useDeleteMaterialMutation} from "../../redux/material/materialApi";
+import { useDeleteAdvanceMutation} from '../../redux/advances/advancesApi';
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import s from "./DeleteModal.module.scss";
 
@@ -21,6 +22,7 @@ function DeleteModal({data, nameComponent, onModal}) {
     const [deletePosition] = useDeletePositionMutation();
     const [deleteProjectPrice] = useDeleteProjectPriceMutation();
     const [deleteMaterial] = useDeleteMaterialMutation();
+    const [deleteAdvance] = useDeleteAdvanceMutation();
 
     const deleteFunction = async () => {
         // Загальний прайс
@@ -85,9 +87,11 @@ function DeleteModal({data, nameComponent, onModal}) {
         // видалення авансу
 
         if(nameComponent === "deleteAdvance") {
+            
+            const deleteAdvanceData = {idPro: id, idAdv: data.id};
+            await deleteAdvance(deleteAdvanceData);
             toast(`"${data.comment}" успішно видалена!`);
-            const deleteAdvance = {projectId: id, advanceId: data.id};
-            console.log(deleteAdvance);
+            dispatch(projectsApi.util.resetApiState());
             onModal();
             return; 
         }

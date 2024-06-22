@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddAdvanceMutation} from '../../../redux/advances/advancesApi';
 import {projectsApi} from "../../../redux/projectSlice/projectSlice";
+import dataFormat from "../../../helpers/dataFormat";
 
 import s from './AddAdvance.module.scss';
 
@@ -49,7 +50,7 @@ function AddAdvance({ onModal}) {
 
     const newAdvance = { id, advances: { 
         comment: comment || '',
-        date: date   || '',
+        date: dataFormat(date)   || '',
         sum:  sum    || ''
     
     } };
