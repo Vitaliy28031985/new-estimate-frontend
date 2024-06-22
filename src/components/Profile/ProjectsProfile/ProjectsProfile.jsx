@@ -138,9 +138,9 @@ function ProjectsProfile() {
                 {!isShow ? (<p className={s.addressData}>{description}</p>) : 
                 (<input id={_id} maxLength="30" name='description' className={s.inputAddress} value={description} disabled={!isShow} onChange={onChange} />)}
                 </div>
-                <div>
+                {/* <div>
                 <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>{total}</p>
-                </div>
+                </div> */}
                 <NavLink  className={s.link} to={`/project/${_id}`}>Детальніше <Line/></NavLink >
         </li>  ))
 

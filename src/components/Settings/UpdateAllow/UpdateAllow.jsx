@@ -108,7 +108,7 @@ renderData()
                     <select  name="email" id="email" onChange={handleChange}>
                         {userEmailList?.map(email =>
                            (<option value={email} >{email}</option>))}
-                            <option value="" selected>Вибери email для обновлення даних</option>
+                           {email === '' && (<option value="" selected>Вибери email для обновлення даних</option>)}
                      </select>
                 </div>
 

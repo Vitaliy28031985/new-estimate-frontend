@@ -76,7 +76,6 @@ renderData()
        
         const res = await deleteAllow({id, newData: {email}});
         dispatch(projectsApi.util.resetApiState());  
-        // console.log("DELETE", res );
         toast(`Дозвіл до кошторису користувача з email: ${email}  скасовано!`);
         if(res.error) {
             toast.error(res.error.data.message)
@@ -88,8 +87,6 @@ renderData()
            
     }
 
-
-    // const emails = ["vitaliy4@i.ua", "David@i.ua", "socil@i.ua"];
     
     const disabled = email === '';
 
@@ -101,7 +98,7 @@ renderData()
                     <select  name="email" id="email" onChange={handleChange}>
                         {userEmailList?.map(email =>
                            (<option value={email} >{email}</option>))}
-                            <option value="" selected>Вибери email для видалення даних</option>
+                             {email === '' && (<option value="" selected>Вибери email для обновлення даних</option>)}
                      </select>
                 </div>
                 <button disabled={disabled} className={disabled ? "button-disabled" : "button"} type="submit">Забрати</button>
