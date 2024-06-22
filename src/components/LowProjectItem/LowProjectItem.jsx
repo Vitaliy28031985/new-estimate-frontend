@@ -1,17 +1,25 @@
 import { useParams  } from 'react-router-dom';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import s from "./LowProjectItem.module.scss";
-import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
+import {useGetProjectLowByIdQuery} from '../../redux/projectSlice/projectSlice';
 import roundingNumberFn from "../../helpers/roundingNumberFn";
 
 function LowProjectItem() {
     const {id} = useParams();
-    const { data: project} = useGetProjectByIdQuery(id);
+    const { data: project} = useGetProjectLowByIdQuery(id);
     const[data, setData] = useState(project);
    
-    
+    useEffect(() => {
+      try{
+      setData(project); 
+     } catch (error) {
+      console.error('Error adding material:', error);
+    }  
+        
+        }, [project]);
+        
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -92,7 +100,7 @@ const generatePdf = () => {
         {data && (
           <>
         
-            {data.lowEstimates && data.lowEstimates.map(item => (
+            {data?.lowEstimates && data?.lowEstimates?.map(item => (
               <div key={item._id}>
                 <div className={s.buttonAddContainer}>
                 <p className={s.titleTable}>{item.title}</p>
@@ -140,26 +148,26 @@ const generatePdf = () => {
         <div className={s.total}>
           <p>Загальна сума: </p>
           {data && <p>{roundingNumberFn(data.lowTotal)}</p>}
-        </div>        
+        </div>    
+           {data?.materialsTotal && ( 
           <div className={s.total}>
             <p>Витрачено на матеріали:</p>
-            {data?.materialsTotal && (
-          <p>{roundingNumberFn(data?.materialsTotal)}</p> )}
-        </div> 
-       
-        
-           <div className={s.total}>
+            
+          <p>{roundingNumberFn(data?.materialsTotal)}</p> 
+        </div> )}
+        {data?.advancesTotal && (
+        <div className={s.total}>    
             <p>Аванс:            </p>
-            {data?.advancesTotal && (
-          <p>{roundingNumberFn(data?.advancesTotal)}</p>)}
+            
+          <p>{roundingNumberFn(data?.advancesTotal)}</p>
         </div>
-        
-        
+        )}
+        {data?.lowGeneral && (
          <div div className={s.totalGeneral}>
           <p>До оплати:</p>
-          {data?.lowGeneral && (
-          <p>{roundingNumberFn(data?.lowGeneral)}</p>)}
-        </div>  
+          
+          <p>{roundingNumberFn(data?.lowGeneral)}</p>
+        </div>  )}
       </div>
 
     </>

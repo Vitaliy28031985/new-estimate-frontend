@@ -336,7 +336,7 @@ const onChange = (e) => {
                     />)
                   }</td>
                   <td className={s.threeSix}>
-                    {roundingNumberFn(result)}
+                    {result && roundingNumberFn(result)}
                     {userRole && (
                      <button className={s.buttonDeletePosition} 
                     onClick={async () => {
@@ -358,7 +358,7 @@ const onChange = (e) => {
     
                     <tr className={s.titleRow}>
                       <td colSpan='5'>Всього:</td>
-                      <td className={s.threeSix}>{roundingNumberFn(item.total)}</td>
+                      <td className={s.threeSix}>{item.total && roundingNumberFn(item.total)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -369,7 +369,7 @@ const onChange = (e) => {
     
         <div className={s.total}>
           <p>Загальна сума: </p>
-          {data && <p>{roundingNumberFn(data.total)}</p>}
+          {data && <p>{data?.total && roundingNumberFn(data?.total)}</p>}
         </div>
     
         <div className={s.total}>
@@ -386,21 +386,21 @@ const onChange = (e) => {
           <div className={s.total}>
             <p>Витрачено на матеріали:</p>
             {data?.materialsTotal && (
-          <p>{roundingNumberFn(data?.materialsTotal)}</p> )}
+          <p>{data?.materialsTotal && roundingNumberFn(data?.materialsTotal)}</p> )}
         </div> 
        
         
            <div className={s.total}>
             <p>Аванс:            </p>
             {data?.advancesTotal && (
-          <p>{roundingNumberFn(data?.advancesTotal)}</p>)}
+          <p>{data?.advancesTotal && roundingNumberFn(data?.advancesTotal)}</p>)}
         </div>
         
         
          <div div className={s.totalGeneral}>
           <p>До оплати:</p>
           {data?.general && (
-          <p>{roundingNumberFn(data?.general)}</p>)}
+          <p>{data?.general && roundingNumberFn(data?.general)}</p>)}
         </div> 
         {deleteEstimate && (<DeleteModal data={currentData} nameComponent={"deleteEstimate"} onModal={handleToggle}/>)}
         {deletePosition && (<DeleteModal data={currentData} nameComponent={"deletePosition"} onModal={handleToggle}/>)}

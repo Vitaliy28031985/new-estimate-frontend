@@ -22,6 +22,10 @@ export const projectsApi = createApi({
         query: id => `projects/${id}`, 
         providesTags: (result, error, id) => [{ type: 'Project', id }],
       }),
+      getProjectLowById: builder.query({
+        query: id => `projects/small/${id}`, 
+        providesTags:  ['Project'],
+      }),
       addProjects: builder.mutation({
         query: newProjects => ({
           url: `projects`,
@@ -68,6 +72,7 @@ export const projectsApi = createApi({
   export const {
     useGetProjectsQuery,
     useGetProjectByIdQuery,
+    useGetProjectLowByIdQuery,
     useAddProjectsMutation,
     useDeleteProjectMutation,
     useUpdateProjectMutation,
