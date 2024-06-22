@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
 import {useUpdateProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
@@ -125,8 +127,19 @@ function ProjectPrice() {
                     isShow = !isShow;
                     addIsToggle(_id, isShow, 'update');
                     if(!isShow) {
-                     await updateProjectPrice({idPro: id, idPrice: _id, newData: {price}});
+                    const update =  await updateProjectPrice({idPro: id, idPrice: _id, newData: {price}});
+                    if(update && update.data) { 
+                        toast(`Позицію парайсу: ${update.data.title} оновлено!`);
                      dispatch(projectsApi.util.resetApiState());
+                    }  else {
+                        console.error('Unexpected response:', update.error.data.message);
+                        toast.error(update.error.data.message);
+                       
+                        }
+                      try {
+                      } catch (error) {          
+                        console.error('Error delete project:', error);  
+                    } 
                     }
                     }}
                   >

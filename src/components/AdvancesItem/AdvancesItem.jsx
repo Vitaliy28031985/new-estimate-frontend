@@ -1,8 +1,10 @@
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
-import { useUpdateAdvanceMutation, useDeleteAdvanceMutation} from '../../redux/advances/advancesApi';
+import { useUpdateAdvanceMutation} from '../../redux/advances/advancesApi';
 import {useCurrentQuery} from "../../redux/auth/authApi";
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
 import AddAdvance from "../AddModals/AddAdvance/AddAdvance";
@@ -96,8 +98,20 @@ const onChange = (e) => {
 
      const handleSubmit = async (projId, advId, updateAdvance) => {
      
-    //   await mutate([projId, advId, updateAdvance]);
-    //   dispatch(projectsApi.util.resetApiState());
+      const update = await mutate([projId, advId, updateAdvance]);
+      if(update && update.data) { 
+        toast(`Коментар: ${update.data.title} оновлено!`);
+        dispatch(projectsApi.util.resetApiState());
+        }  else {
+        console.error('Unexpected response:', update.error.data.message);
+        toast.error(update.error.data.message);
+       
+          }
+         try {
+        } catch (error) {          
+        console.error('Error delete project:', error);  
+        } 
+
      }
 
     return (

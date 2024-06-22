@@ -1,6 +1,8 @@
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Modal from "../Modal/Modal";
 import AddMaterial from "../AddModals/AddMaterial/AddMaterial";
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
@@ -90,8 +92,19 @@ function MaterialItem() {
   };
 
   const handleSubmit = async (projId, matId, updateMaterial) => {
-      await mutate([projId, matId, updateMaterial]);
+     const update = await mutate([projId, matId, updateMaterial]);
+     if(update && update.data) { 
+      toast(`Чек на матеріал: ${update.data.title} оновлено!`);
       dispatch(projectsApi.util.resetApiState());
+      }  else {
+      console.error('Unexpected response:', update.error.data.message);
+      toast.error(update.error.data.message);
+     
+        }
+       try {
+      } catch (error) {          
+      console.error('Error delete project:', error);  
+      } 
   };
 
   return (

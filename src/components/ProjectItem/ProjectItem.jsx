@@ -288,10 +288,20 @@ const onChange = (e) => {
                       addIsToggle(_id, isShow, 'update');
                       if(!isShow) {
                         const update = await mutate([data._id, item._id, id, {title, unit, number, price}]);
-                        if(update) { 
-                          toast(`Позицію прайсу: ${update.data.title} оновлено!`);
+                                                
+                        if(update && update.data) { 
+                          toast(`Позицію кошторису: ${update.data.title} оновлено!`);
                            dispatch(projectsApi.util.resetApiState()); 
-                           }
+                           }  else {
+                            console.error('Unexpected response:', update.error.data.message);
+                            toast.error(update.error.data.message);
+                           
+                            }
+                          try {
+                          } catch (error) {          
+                            console.error('Error delete project:', error);  
+                        } 
+          
                       }
                       }}
                     >
