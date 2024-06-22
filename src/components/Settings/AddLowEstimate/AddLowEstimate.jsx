@@ -40,6 +40,7 @@ function AddLowEstimate() {
         }
        try {
        const discount = await addLow(data);
+       console.log(discount);
         
         if (discount && discount.data) {
             toast(`Кошторис знижений на ${data.discount}% створено!`);

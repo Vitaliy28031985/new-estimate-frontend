@@ -46,10 +46,20 @@ function AddAllow() {
             toast.error("Заповніть усі поля!");
             return;
         }
-        await addAllow({id, newData: {email, allowLevel: level, lookAt, lookAtTotals}});
-        dispatch(projectsApi.util.resetApiState()); 
-        toast("Дозвіл до кошторису успішно додано!");
+        try {
+       const add = await addAllow({id, newData: {email, allowLevel: level, lookAt, lookAtTotals}});
+       
         
+        if (add && add.data) {
+            dispatch(projectsApi.util.resetApiState());
+            toast("Дозвіл до кошторису успішно додано!");                 
+            } else {
+                 console.error('Unexpected response:', add.error.data.message);
+                 toast.error(add.error.data.message);
+                 }
+          } catch (error) {
+            toast.error(`User with the title: ${email} does not exist!`, error);
+          } 
 
         setEmail('');
         setLevel('');

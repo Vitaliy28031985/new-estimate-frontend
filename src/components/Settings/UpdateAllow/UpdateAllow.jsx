@@ -87,9 +87,19 @@ renderData()
             toast.error("Заповніть усі поля!");
             return;
         }
+        try {
         const update =  await updateAllowUser({id, email, allowLevel: level, lookAt, lookAtTotals});
-        dispatch(projectsApi.util.resetApiState()); 
-        toast("Дозвіл до кошторису успішно обновлено!");
+        
+        if (update && update.data) {
+            dispatch(projectsApi.util.resetApiState());
+            toast("Дозвіл до кошторису успішно обновлено!");                 
+            } else {
+                 console.error('Unexpected response:', update.error.data.message);
+                 toast.error(update.error.data.message);
+                 }
+          } catch (error) {
+            toast.error(`User with the title: ${email} does not exist!`, error);
+          } 
 
 
         setEmail('');

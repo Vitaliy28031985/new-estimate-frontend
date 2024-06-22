@@ -73,15 +73,21 @@ renderData()
             toast.error("Заповніть усі поля!");
             return;
         }
+
+        try {
        
-        const res = await deleteAllow({id, newData: {email}});
-        dispatch(projectsApi.util.resetApiState());  
-        toast(`Дозвіл до кошторису користувача з email: ${email}  скасовано!`);
-        if(res.error) {
-            toast.error(res.error.data.message)
-        } else{
-        
-    }
+        const res = await deleteAllow({id, newData: {email}});  
+     
+        if (res && res.data) {
+          dispatch(projectsApi.util.resetApiState());
+          toast(`Дозвіл до кошторису користувача з email: ${email}  скасовано!`);                
+          } else {
+               console.error('Unexpected response:', res.error.data.message);
+               toast.error(res.error.data.message);
+               }
+        } catch (error) {
+          toast.error(`User with the title: ${email} does not exist!`, error);
+        } 
 
         setEmail('');
            
