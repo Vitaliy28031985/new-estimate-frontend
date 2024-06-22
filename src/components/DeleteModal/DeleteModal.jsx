@@ -26,9 +26,15 @@ function DeleteModal({data, nameComponent, onModal}) {
 
     const deleteFunction = async () => {
         // Загальний прайс
+
         if(nameComponent === "price") {
-            await deletePrice(data._id);
-            toast(`"${data.title}" успішно видалена!`);
+            const deletePriceMain = await deletePrice(data._id);
+            try {
+             toast(`"${data.title}" успішно видалена!`);   
+            } catch (error) {
+                toast.error(`Сталась помилка, вид роботи не видалено!`, error);
+              }
+            
             onModal();
             return;
         }
@@ -37,17 +43,50 @@ function DeleteModal({data, nameComponent, onModal}) {
         //прайс кошторису
         if(nameComponent === "deleteProjectPrice") {
             const deleteProjectPriceData = { idPro: id, idPrice: data.id}; 
-            await deleteProjectPrice(deleteProjectPriceData);
-            dispatch(projectsApi.util.resetApiState());
-            toast(`"${data.title}" успішно видалена!`);
+
+            try {
+                const deletePriceProject = await deleteProjectPrice(deleteProjectPriceData);
+                
+                if (deletePriceProject && deletePriceProject.data) {
+                 toast(deletePriceProject.data.message);
+               
+                 dispatch(projectsApi.util.resetApiState());
+             
+                 } else {
+                      console.error('Unexpected response:', deletePriceProject.error.data.message);
+                      toast.error(deletePriceProject.error.data.message);
+                     
+                      }
+                      } catch (error) {          
+                      console.error('Error delete price:', error);
+                      
+                  }  
             onModal();
             return;
         }
+       // видалення кошторису
 
         if(nameComponent === "projects") {
                  
-            await deleteProject(data?._id);
-            toast(`"${data.title}" успішно видалена!`);              
+        
+        
+        try {
+            const projectDelete = await deleteProject(data?._id);
+            
+            if (projectDelete && projectDelete.data) {
+                toast(`"${data.title}" успішно видалена!`);
+           
+             dispatch(projectsApi.util.resetApiState());
+         
+             } else {
+                  console.error('Unexpected response:', projectDelete.error.data.message);
+                  toast.error(projectDelete.error.data.message);
+                 
+                  }
+                  } catch (error) {          
+                  console.error('Error delete project:', error);  
+              } 
+
             onModal();
             return; 
         }
@@ -57,9 +96,23 @@ function DeleteModal({data, nameComponent, onModal}) {
         if(nameComponent === "deleteEstimate") {
             
             const deleteEstimateData = {idPro: id, idEst: data.id}
-            await deleteEstimate(deleteEstimateData);
-            dispatch(projectsApi.util.resetApiState());
-            toast(`"${data.title}" успішно видалена!`);
+
+            try {
+                const estimateDelete = await deleteEstimate(deleteEstimateData);
+                
+                if (estimateDelete && estimateDelete.data) {
+                    toast(`"${data.title}" успішно видалена!`);
+               
+                 dispatch(projectsApi.util.resetApiState());
+             
+                 } else {
+                      console.error('Unexpected response:', estimateDelete.error.data.message);
+                      toast.error(estimateDelete.error.data.message);
+                     
+                      }
+                      } catch (error) {          
+                      console.error('Error delete project:', error);  
+                  } 
             onModal();
             return;
         }
@@ -67,9 +120,25 @@ function DeleteModal({data, nameComponent, onModal}) {
         if(nameComponent === "deletePosition") {
 
             const deletePositionData = {idPro: id, idEst: data.estimateId, idPos: data.positionId}
-            await deletePosition(deletePositionData);
-            dispatch(projectsApi.util.resetApiState());
-            toast(`"${data.title}" успішно видалена!`);
+            
+
+            try {
+                const positionDelete = await deletePosition(deletePositionData);
+                
+                if (positionDelete && positionDelete.data) {
+                    toast(`"${data.title}" успішно видалена!`);
+               
+                 dispatch(projectsApi.util.resetApiState());
+             
+                 } else {
+                      console.error('Unexpected response:', positionDelete.error.data.message);
+                      toast.error(positionDelete.error.data.message);
+                     
+                      }
+                      } catch (error) {          
+                      console.error('Error delete project:', error);  
+                  } 
+
             onModal();
             return;
         }
@@ -77,9 +146,24 @@ function DeleteModal({data, nameComponent, onModal}) {
         if(nameComponent === "deleteMaterial") {
             
             const deleteMaterialData = {idPro: id, idMat: data.id};
-            await deleteMaterial(deleteMaterialData);
-            dispatch(projectsApi.util.resetApiState());
-            toast(`"${data.title}" успішно видалена!`);
+            
+            try {
+                const materialDelete = await deleteMaterial(deleteMaterialData);
+                
+                if (materialDelete && materialDelete.data) {
+                    toast(`"${data.title}" успішно видалена!`);
+               
+                 dispatch(projectsApi.util.resetApiState());
+             
+                 } else {
+                      console.error('Unexpected response:', materialDelete.error.data.message);
+                      toast.error(materialDelete.error.data.message);
+                     
+                      }
+                      } catch (error) {          
+                      console.error('Error delete project:', error);  
+                  } 
+
             onModal();
             return; 
         }
@@ -89,9 +173,24 @@ function DeleteModal({data, nameComponent, onModal}) {
         if(nameComponent === "deleteAdvance") {
             
             const deleteAdvanceData = {idPro: id, idAdv: data.id};
-            await deleteAdvance(deleteAdvanceData);
-            toast(`"${data.comment}" успішно видалена!`);
-            dispatch(projectsApi.util.resetApiState());
+           
+            try {
+                const advanceDelete = await deleteAdvance(deleteAdvanceData);
+                
+                if (advanceDelete && advanceDelete.data) {
+                    toast(`"${data.comment}" успішно видалена!`);
+               
+                 dispatch(projectsApi.util.resetApiState());
+             
+                 } else {
+                      console.error('Unexpected response:', advanceDelete.error.data.message);
+                      toast.error(advanceDelete.error.data.message);
+                     
+                      }
+                      } catch (error) {          
+                      console.error('Error delete project:', error);  
+                  }
+
             onModal();
             return; 
         }
