@@ -56,15 +56,19 @@ function AddAdvance({ onModal}) {
     } };
    
     try {
-    await addAdvance(newAdvance);
-    dispatch(projectsApi.util.resetApiState());
-    toast(`Позицію ${comment} додано!`) 
+   const add = await addAdvance(newAdvance);
    
-   
-   
+  
+    if (add && add.data) {
+      dispatch(projectsApi.util.resetApiState());
+      toast(`Позицію ${comment} додано!`)                  
+      } else {
+           console.error('Unexpected response:', add.error.data.message);
+           toast.error(add.error.data.message);
+           }
     } catch (error) {
-      toast.error('Error adding advance:', error);
-    }  
+      toast.error(`User with the title: ${comment} does not exist!`, error);
+    } 
     setComment('');
     setDate('');
     setSum('');

@@ -82,14 +82,22 @@ function AddPrice({onModal}) {
             return;
         }
     
-        try {
             const newPosition = {title, price: Number(price)}
-                 addPrice(newPosition);
-                   
-                    
-                  } catch (error) {
-                    alert(`User with the title: ${title} does not exist!`, error);
-                  }
+               const add = await addPrice(newPosition);
+
+               if(add && add.data) { 
+                toast(`Позицію парайсу: ${add.data.title} додано!`);
+             
+            }  else {
+                console.error('Unexpected response:', add.error.data.message);
+                toast.error(add.error.data.message);
+               
+                }
+              try {
+              } catch (error) {          
+                console.error('Error delete project:', error);  
+            } 
+           
             setTitle('')
             setPrice('')
             onModal()

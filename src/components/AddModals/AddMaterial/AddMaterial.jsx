@@ -59,17 +59,24 @@ function AddEstimate({ onModal}) {
     
     } };
     try {
-    await addMaterial(newMaterial);
-    dispatch(projectsApi.util.resetApiState());
+  const add = await addMaterial(newMaterial);
+       
+    if (add && add.data) {
+      dispatch(projectsApi.util.resetApiState());
+      toast(`Чек з №: ${order} успішно додано!`)                   
+      } else {
+           console.error('Unexpected response:', add.error.data.message);
+           toast.error(add.error.data.message);
+           }
+    } catch (error) {
+      toast.error(`User with the title: ${title} does not exist!`, error);
+    }
+
     setTitle('');
     setOrder('');
     setDate('');
     setSum('');
     onModal();
-    toast(`Чек з №: ${order} успішно додано!`) 
-    } catch (error) {
-      toast.error('Error adding material:', error);
-    }  
   };
 
  
