@@ -1,6 +1,7 @@
 import { useParams, Outlet, NavLink,  useNavigate  } from 'react-router-dom';
 import { useState, useEffect} from 'react';
 import { useGetProjectByIdQuery, useGetProjectLowByIdQuery } from '../../redux/projectSlice/projectSlice';
+import ForbiddenPage from '../ForbiddenPage/ForbiddenPage';
 import s from "./ProjectPage.module.scss";
 
 function ProjectPage() {
@@ -11,6 +12,7 @@ function ProjectPage() {
    
     const[data, setData] = useState(project);
     const [dataLow, setDataLow] = useState(projectSmall);
+    const [showForbidden, setShowForbidden] = useState(false);
   
     
     useEffect(() => {
@@ -25,14 +27,24 @@ function ProjectPage() {
         else{
             navigate(`/project/${id}`);
         }
+
+        if (!data) {
+            const timer = setTimeout(() => {
+              setShowForbidden(true);
+            }, 1500); 
+      
+            return () => clearTimeout(timer); 
+          }
         
-          }, [project, dataLow]);
+          }, [project, dataLow, showForbidden]);
 
          
 
     return(
         <div className={s.container}>
-           <div>
+            {data ? (
+                <>
+            <div>
             <div>
                 <p className={s.title}>Назва кошторису: <span>{data?.title}</span></p>
                 <p className={s.description}>Адреса об'єкту: <span>{data?.description}</span></p>
@@ -65,28 +77,14 @@ function ProjectPage() {
            </div>
 
             <Outlet />
+            </>
+            ) : 
+            (<div>{showForbidden && (<ForbiddenPage />)}</div>)}
+            
+          
         </div>
     )
 }
 export default ProjectPage;
 
 
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// import s from './YourStyles.module.scss';
-
-// function YourComponent({ id, someCondition }) {
-//     return (
-//         <li>
-//             <NavLink 
-//                 className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link}
-//                 to={`/project/${id}`}
-//                 end={someCondition} // тут ваш тернарний оператор для визначення значення `end`
-//             >
-//                 Кошторис
-//             </NavLink>
-//         </li>
-//     );
-// }
-
-// export default YourComponent;
