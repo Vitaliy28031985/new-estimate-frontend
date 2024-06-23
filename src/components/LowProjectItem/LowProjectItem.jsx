@@ -111,65 +111,6 @@ function LowProjectItem() {
     };
     
 
-// const generatePdf = () => {
-//   if (data) {
-//     const content = [
-//       { text: `Назва об'єкту:          ${data?.title}`, fontSize: 25 },
-//       { text: `Адреса:                                                 ${data?.description}`, fontSize: 14, marginTop: 10 },
-//     ];
-
-//     data.lowEstimates.forEach((estimate) => {
-//       content.push(
-//         { text: estimate?.title, fontSize: 16, bold: true, marginTop: 30, marginBottom: 10, marginLeft: 200},
-//         {
-//           table: {
-//             headerRows: 1,
-//             widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
-//             body: [
-//               ['№ з/п.', 'Назва', 'Одиниця', 'Кількість', 'Ціна в грн.', 'Сума в грн.'],
-//               ...(estimate?.positions?.map(
-//                 ({ title, unit, price, number, result  }, index) => [
-//                   index + 1,
-//                   title || '',        
-//                   unit || '',          
-//                   number || '',
-//                   price || '',        
-//                   result || '',       
-//                 ]
-//               ) || []),
-//               [{}, {}, {}, {}, 'Всього:', estimate?.total],
-              
-//             ],
-//           },
-//           layout: 'lightHorizontalLines',
-//           style: 'tableExample', 
-
-//         }
-//       );
-//     });
-//     content.push({ text: `Загальна сума:                       ${data?.lowTotal}`, fontSize: 30, marginTop: 30},)
-//     if(data?.discount) {
-//     }
-//     content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal}`, fontSize: 30, marginTop: 30},)
-//     content.push({ text: `Аванс:                                             ${data?.advancesTotal}`, fontSize: 30, marginTop: 30},)
-//     content.push({ text: `До оплати:                                ${data?.lowGeneral}`, fontSize: 30, marginTop: 30},)
-//     const styles = {
-//       tableExample: {
-//         margin: [0, 5, 0, 15],
-//         fontSize: 12,                   
-//         color: '#333',           
-//       },
-//     };
-//     const pdfDoc = {
-//       content,
-//       styles
-//     };
-
-//     pdfMake.createPdf(pdfDoc).download(`${data?.title}.pdf`);
-//   }
- 
-// };
-
 
     return (
         <>
