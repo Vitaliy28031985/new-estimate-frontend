@@ -139,10 +139,10 @@ function ProjectItem() {
                       { text: unit || '', style: 'tableCell' },
                       { text: number || '', style: 'tableCell' },
                       { text: price || '', style: 'tableCell' },
-                      { text: result || '', style: 'tableCell' }
+                      { text: result && roundingNumberFn(result) || '', style: 'tableCell' }
                     ]
                   ) || []),
-                  [{}, {}, {}, {}, { text: 'Всього:', style: 'tableTotal' }, { text: estimate?.total, style: 'tableTotal' }]
+                  [{}, {}, {}, {}, { text: 'Всього:', style: 'tableTotal' }, { text:  estimate?.total && roundingNumberFn(estimate?.total), style: 'tableTotal' }]
                 ],
               },
               layout: 'lightHorizontalLines',

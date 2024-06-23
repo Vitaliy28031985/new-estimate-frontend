@@ -23,64 +23,152 @@ function LowProjectItem() {
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-const generatePdf = () => {
-  if (data) {
-    const content = [
-      { text: `Назва об'єкту:          ${data?.title}`, fontSize: 25 },
-      { text: `Адреса:                                                 ${data?.description}`, fontSize: 14, marginTop: 10 },
-    ];
-
-    data.lowEstimates.forEach((estimate) => {
-      content.push(
-        { text: estimate?.title, fontSize: 16, bold: true, marginTop: 30, marginBottom: 10, marginLeft: 200},
-        {
-          table: {
-            headerRows: 1,
-            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
-            body: [
-              ['№ з/п.', 'Назва', 'Одиниця', 'Кількість', 'Ціна в грн.', 'Сума в грн.'],
-              ...(estimate?.positions?.map(
-                ({ title, unit, price, number, result  }, index) => [
-                  index + 1,
-                  title || '',        
-                  unit || '',          
-                  number || '',
-                  price || '',        
-                  result || '',       
-                ]
-              ) || []),
-              [{}, {}, {}, {}, 'Всього:', estimate?.total],
-              
-            ],
-          },
-          layout: 'lightHorizontalLines',
-          style: 'tableExample', 
-
+    const generatePdf = () => {
+      if (data) {
+        const content = [
+          { text: `Назва кошторису:          ${data?.title}`, fontSize: 25, bold: true },
+          { text: `Адреса об'єкту:                                                 ${data?.description}`, fontSize: 14, margin: [0, 10, 0, 20] },
+        ];
+    
+        if (data.lowEstimates && data.lowEstimates.length > 0) {
+          data.lowEstimates.forEach((estimate) => {
+            content.push(
+              { text: estimate?.title, fontSize: 20, bold: true, margin: [0, 30, 0, 10] },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto'],
+                  body: [
+                    [
+                      { text: '№ з/п.', style: 'tableHeader' },
+                      { text: 'Назва', style: 'tableHeader' },
+                      { text: 'Одиниця', style: 'tableHeader' },
+                      { text: 'Кількість', style: 'tableHeader' },
+                      { text: 'Ціна в грн.', style: 'tableHeader' },
+                      { text: 'Сума в грн.', style: 'tableHeader' }
+                    ],
+                    ...(estimate?.positions?.map(
+                      ({ title, unit, price, number, result }, index) => [
+                        { text: index + 1, style: 'tableCell' },
+                        { text: title || '', style: 'tableCell' },
+                        { text: unit || '', style: 'tableCell' },
+                        { text: number || '', style: 'tableCell' },
+                        { text: price || '', style: 'tableCell' },
+                        { text: result && roundingNumberFn(result) || '', style: 'tableCell' }
+                      ]
+                    ) || []),
+                    [{}, {}, {}, {}, { text: 'Всього:', style: 'tableTotal' }, { text: estimate?.total && roundingNumberFn(estimate?.total), style: 'tableTotal' }]
+                  ],
+                },
+                layout: 'lightHorizontalLines',
+                style: 'tableExample',
+              }
+            );
+          });
         }
-      );
-    });
-    content.push({ text: `Загальна сума:                       ${data?.lowTotal}`, fontSize: 30, marginTop: 30},)
-    if(data?.discount) {
-    }
-    content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal}`, fontSize: 30, marginTop: 30},)
-    content.push({ text: `Аванс:                                             ${data?.advancesTotal}`, fontSize: 30, marginTop: 30},)
-    content.push({ text: `До оплати:                                ${data?.lowGeneral}`, fontSize: 30, marginTop: 30},)
-    const styles = {
-      tableExample: {
-        margin: [0, 5, 0, 15],
-        fontSize: 12,                   
-        color: '#333',           
-      },
+        
+        content.push({ text: `Загальна сума:                            ${data?.lowTotal && roundingNumberFn(data?.lowTotal)}`, fontSize: 30, marginTop: 30});
+        if (data?.materialsTotal) {
+          content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal && roundingNumberFn(data?.materialsTotal)}`, fontSize: 30, marginTop: 30});
+        }
+        if (data?.advancesTotal) {
+          content.push({ text: `Аванс:                                             ${data?.advancesTotal && roundingNumberFn(data?.advancesTotal)}`, fontSize: 30, marginTop: 30});
+        }
+        if (data?.general) {
+          content.push({ text: `До оплати:                                    ${data?.lowGeneral && roundingNumberFn(data?.lowGeneral)}`, fontSize: 30, marginTop: 30});
+        }
+        const styles = {
+          tableExample: {
+            margin: [0, 5, 0, 15],
+            fontSize: 12,
+            color: '#333',
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 14,
+            color: 'white',
+            fillColor: '#4CAF50', // Header background color
+            alignment: 'center'
+          },
+          tableCell: {
+            fontSize: 12,
+            margin: [0, 5, 0, 5]
+          },
+          tableTotal: {
+            bold: true,
+            fontSize: 12,
+            alignment: 'right'
+          }
+        };
+    
+        const pdfDoc = {
+          content,
+          styles
+        };
+    
+        pdfMake.createPdf(pdfDoc).download(`${data?.title}.pdf`);
+      }
     };
-    const pdfDoc = {
-      content,
-      styles
-    };
+    
 
-    pdfMake.createPdf(pdfDoc).download(`${data?.title}.pdf`);
-  }
+// const generatePdf = () => {
+//   if (data) {
+//     const content = [
+//       { text: `Назва об'єкту:          ${data?.title}`, fontSize: 25 },
+//       { text: `Адреса:                                                 ${data?.description}`, fontSize: 14, marginTop: 10 },
+//     ];
+
+//     data.lowEstimates.forEach((estimate) => {
+//       content.push(
+//         { text: estimate?.title, fontSize: 16, bold: true, marginTop: 30, marginBottom: 10, marginLeft: 200},
+//         {
+//           table: {
+//             headerRows: 1,
+//             widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+//             body: [
+//               ['№ з/п.', 'Назва', 'Одиниця', 'Кількість', 'Ціна в грн.', 'Сума в грн.'],
+//               ...(estimate?.positions?.map(
+//                 ({ title, unit, price, number, result  }, index) => [
+//                   index + 1,
+//                   title || '',        
+//                   unit || '',          
+//                   number || '',
+//                   price || '',        
+//                   result || '',       
+//                 ]
+//               ) || []),
+//               [{}, {}, {}, {}, 'Всього:', estimate?.total],
+              
+//             ],
+//           },
+//           layout: 'lightHorizontalLines',
+//           style: 'tableExample', 
+
+//         }
+//       );
+//     });
+//     content.push({ text: `Загальна сума:                       ${data?.lowTotal}`, fontSize: 30, marginTop: 30},)
+//     if(data?.discount) {
+//     }
+//     content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal}`, fontSize: 30, marginTop: 30},)
+//     content.push({ text: `Аванс:                                             ${data?.advancesTotal}`, fontSize: 30, marginTop: 30},)
+//     content.push({ text: `До оплати:                                ${data?.lowGeneral}`, fontSize: 30, marginTop: 30},)
+//     const styles = {
+//       tableExample: {
+//         margin: [0, 5, 0, 15],
+//         fontSize: 12,                   
+//         color: '#333',           
+//       },
+//     };
+//     const pdfDoc = {
+//       content,
+//       styles
+//     };
+
+//     pdfMake.createPdf(pdfDoc).download(`${data?.title}.pdf`);
+//   }
  
-};
+// };
 
 
     return (
