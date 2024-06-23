@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {useCurrentQuery} from "../../redux/auth/authApi";
+import { useUpdateEstimateMutation } from '../../redux/estimate/estimateApi';
 import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
 import {useAddPositionMutation, useUpdatePositionMutation} from '../../redux/position/positionApi';
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
@@ -34,6 +35,7 @@ function ProjectItem() {
     const[data, setData] = useState(project);
     const[addPosition] = useAddPositionMutation();
     const[mutate] = useUpdatePositionMutation();
+    const[updateEstimate] = useUpdateEstimateMutation();
 
     const [userRole, setUserRole] = useState(false);
     const [currentData, setCurrentData] = useState({});
@@ -43,6 +45,7 @@ function ProjectItem() {
     const [showEstimateAdd, setShowEstimateAdd ] = useState(false);
     const [showPositionAdd, setShowPositionAdd] = useState(false);
     const [estId, setEstId] = useState('');
+    const [isShowEstimate, setIsShowEstimate] = useState({});
 
     useEffect(() => {
       setData(project); 
@@ -148,13 +151,13 @@ function ProjectItem() {
           );
         });
     
-        content.push({ text: `Загальна сума:                            ${data?.total}`, fontSize: 30, marginTop: 30},)
+        content.push({ text: `Загальна сума:                            ${data?.total && roundingNumberFn(data?.total)}`, fontSize: 30, marginTop: 30},)
         if(data?.discount) {
-        content.push({ text: `Знижка:                                            ${data?.discount}`, fontSize: 30, marginTop: 30},)
+        content.push({ text: `Знижка:                                            ${data?.discount && roundingNumberFn(data?.discount)}`, fontSize: 30, marginTop: 30},)
         }
-        content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal}`, fontSize: 30, marginTop: 30},)
-        content.push({ text: `Аванс:                                             ${data?.advancesTotal}`, fontSize: 30, marginTop: 30},)
-        content.push({ text: `До оплати:                                    ${data?.general}`, fontSize: 30, marginTop: 30},)
+        content.push({ text: `Витрачено на матеріали:          ${data?.materialsTotal && roundingNumberFn(data?.materialsTotal)}`, fontSize: 30, marginTop: 30},)
+        content.push({ text: `Аванс:                                             ${data?.advancesTotal && roundingNumberFn(data?.advancesTotal)}`, fontSize: 30, marginTop: 30},)
+        content.push({ text: `До оплати:                                    ${data?.general && roundingNumberFn(data?.general)}`, fontSize: 30, marginTop: 30},)
     
         const styles = {
           tableExample: {
@@ -190,55 +193,55 @@ function ProjectItem() {
     };
     
 
-const addIsToggle = (id, currentIsShow, name) => {
+const addIsToggle = (id, currentIsShow, name, type = 'position') => {
   setData(prevData => {
-      const newData = { ...prevData }; 
+      const newData = { ...prevData };
       const newEstimates = newData.estimates.map(estimate => {
+          if (type === 'estimate' && estimate._id === id) {
+              return { ...estimate, isShow: currentIsShow };
+          }
           const newPositions = estimate.positions.map(position => {
               if (position._id === id) {
-                if(name === 'update') {
-                  return { ...position, isShow: currentIsShow }; 
-                }
-                if(name === 'delete') {
-                  return { ...position, isDelete: currentIsShow };
-              }
+                  if (name === 'update') {
+                      return { ...position, isShow: currentIsShow };
+                  }
+                  if (name === 'delete') {
+                      return { ...position, isDelete: currentIsShow };
+                  }
               }
               return position;
           });
-          return { ...estimate, positions: newPositions }; 
+          return { ...estimate, positions: newPositions };
       });
-      newData.estimates = newEstimates; 
-      return newData; 
+      newData.estimates = newEstimates;
+      return newData;
   });
 };
 
 const onChange = (e) => {
   const { name, value, id } = e.currentTarget;
   setData(prevData => {
-      const newData = { ...prevData }; 
+      const newData = { ...prevData };
       const newEstimates = newData.estimates.map(estimate => {
+          if (estimate._id === id && name === 'title') {
+              return { ...estimate, title: value };
+          }
           const newPositions = estimate.positions.map(position => {
               if (position._id === id) {
-                  switch (name) {
-                      case name:
-                          return  {...position, [name]: value};
-                      default:
-                        return position;
-                    }
-                  }
+                  return { ...position, [name]: value };
+              }
               return position;
           });
-          return { ...estimate, positions: newPositions }; 
+          return { ...estimate, positions: newPositions };
       });
-      newData.estimates = newEstimates; 
-      return newData; 
-  }); 
-}
+      newData.estimates = newEstimates;
+      return newData;
+  });
+};
 
     return (
         <>
-        {/* {error ? (<ForbiddenPage/>) :  */}
-      {/* (  */}
+    
         <div>
 
         <div className={s.buttonAddContainer}>
@@ -258,29 +261,68 @@ const onChange = (e) => {
         {data && (
           <>
         
-            {data.estimates && data?.estimates?.map(item => (
+            {data.estimates && data?.estimates?.map((item, index) => (
               <div key={item._id}>
                 <div className={s.buttonAddContainer}>
-                <p className={s.titleTable}>{item.title}</p>
+                {isShowEstimate[item._id] ? (
+                          
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={item.title}
+                                    id={item._id}
+                                    onChange={onChange}
+                                    className={s.titleInputTablet}
+                                />) : (
+                                  <p className={s.titleTable}>{item.title}</p>
+                              )}
                 {userRole && (
                     <>
                  <button type='button' 
                  className={s.buttonAddTitle }
                  onClick={ async () => {
                   handleToggle("deleteEstimate");
-                  await setCurrentData({id: item?._id, title: item?.title})
-                  // onDeleteEstimate(data?._id, item?._id)
+                  await setCurrentData({id: item?._id, title: item?.title});
                 }}
                  >
                   <Delete width={"24"} height={"24"}/>
                   </button>
+                  {!isShowEstimate[item._id] ? (
                   <button className={s.buttonUpdateEstimate}
                   id={item._id}
-                 
-                //   onClick={() => updateEstimate(data?._id, item?._id, item?.title)}
+                  onClick={() => {
+                    setIsShowEstimate(prevState => ({ ...prevState, [item._id]: true }))
+                    console.log(item.title)
+                   
+                }}
                   >
                     <Update width='28' height='28'/>
-                      </button>
+                      </button>) : (
+                  <button className={s.buttonUpdateEstimate}
+                  id={item._id}
+                  onClick={async() => {
+                    const update = await updateEstimate([data?._id, item?._id, {title: item?.title}]);
+                    if(update && update.data) { 
+                      toast(`Таблицю кошторису: ${item?.title} оновлено!`);
+                       dispatch(projectsApi.util.resetApiState()); 
+                       setIsShowEstimate(prevState => ({ ...prevState, [item._id]: false }))
+                       }  else {
+                        console.error('Unexpected response:', update.error.data.message);
+                        toast.error(update.error.data.message);
+                       
+                        }
+                      try {
+                      } catch (error) {          
+                        console.error('Error delete project:', error);  
+                    } 
+                   
+                    console.log(item.title)
+                   
+                }}
+                  >
+                    <UpdateOk width='28' height='28'/>
+                      </button>)}
+
                 </>
              )}
                 
@@ -295,7 +337,6 @@ const onChange = (e) => {
                    {userRole && (
                    <button type='button' 
                     onClick={() => handleToggle('position', {id: item?._id})}
-                //    onClick={() => data && item._id && handleTogglePosition(item._id, data._id)}
                     className={s.buttonAdd}>
                    <Add width={"20"} height={"20"}/>
                   </button> 
@@ -449,22 +490,8 @@ const onChange = (e) => {
         {showEstimateAdd && (<Modal onModal={handleToggle}><AddEstimate onModal={handleToggle}/></Modal>)}
         {showPositionAdd && (<Modal onModal={handleToggle}><AddPosition onModal={handleToggle}/></Modal>)}
        
-{/*        
-        {showPosition && (
-         <Modal onModal={handleTogglePosition}><AddPosition isShowModal={handleTogglePosition} add={addFunction} /></Modal> 
-        )}
-    
-         {updateEstimateModal && (
-         <Modal onModal={handleToggleUpdateEstimate}><UpdateEstimate isShowModal={handleToggleUpdateEstimate} idData={newUpdateEstimate} /></Modal> 
-        )}
-    
-        {showEstimate && (<Modal onModal={handleToggleEstimate}><AddEstimate idData={id} isShowModal={handleToggleEstimate}/></Modal>)}
-         */}
-        
-        
       </div>
-      {/* ) */}
-    {/* } */}
+     
     </>
         
       );
