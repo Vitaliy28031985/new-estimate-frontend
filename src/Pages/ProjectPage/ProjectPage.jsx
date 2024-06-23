@@ -4,6 +4,7 @@ import { useGetProjectByIdQuery, useGetProjectLowByIdQuery } from '../../redux/p
 import ForbiddenPage from '../ForbiddenPage/ForbiddenPage';
 import s from "./ProjectPage.module.scss";
 
+
 function ProjectPage() {
     const {id} = useParams();
     const navigate = useNavigate();   
@@ -13,19 +14,22 @@ function ProjectPage() {
     const[data, setData] = useState(project);
     const [dataLow, setDataLow] = useState(projectSmall);
     const [showForbidden, setShowForbidden] = useState(false);
+
+    const navigateLow = () => navigate(`/project/${id}/low`);
+    const navigateLarge = () =>  navigate(`/project/${id}`);
+    const emptyLargeEstimates = !project?.estimates?.length;  
   
-    
     useEffect(() => {
         setData(project);
         if(projectSmall) {
             setDataLow(projectSmall) 
         } 
    
-          if (!project?.estimates?.length) {
-            navigate(`/project/${id}/low`);
+        if (emptyLargeEstimates) {
+            navigateLow();
         } 
         else{
-            navigate(`/project/${id}`);
+            navigateLarge();
         }
 
         if (!data) {
@@ -36,9 +40,7 @@ function ProjectPage() {
             return () => clearTimeout(timer); 
           }
         
-          }, [project, dataLow, showForbidden]);
-
-         
+          }, [project, dataLow, showForbidden, data]);
 
     return(
         <div className={s.container}>
@@ -56,23 +58,29 @@ function ProjectPage() {
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} end   to={`/project/${id}`}>Кошторис</NavLink>
                 </li>   
                 )}
-                
-                <li>
+                {data?.estimates && (
+                 <li>
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to={`/project/${id}/price`}>Прайс</NavLink>
-                </li>
+                </li>    
+                )}
+               
                 {dataLow?.lowEstimates.length !== 0 && (
                 <li>
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to={`/project/${id}/low`}>{!project?.estimates?.length ? "Кошторис" : "Знижений кошторис"}</NavLink>
                 </li>
                 )} 
                    
-                
-                <li>
+                {data?.estimates && (
+                 <li>
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to={`/project/${id}/materials`}>Матеріали</NavLink>
-                </li>
+                </li>    
+                )}
+               {data?.estimates && (
                 <li>
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to={`/project/${id}/advances`}>Аванс</NavLink>
                 </li>
+               )}
+                
             </ul>
            </div>
 

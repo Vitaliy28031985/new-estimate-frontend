@@ -139,7 +139,7 @@ function ProjectItem() {
                       { text: unit || '', style: 'tableCell' },
                       { text: number || '', style: 'tableCell' },
                       { text: price || '', style: 'tableCell' },
-                      { text: result && roundingNumberFn(result) || '', style: 'tableCell' }
+                      { text: result && roundingNumberFn(result), style: 'tableCell' }
                     ]
                   ) || []),
                   [{}, {}, {}, {}, { text: 'Всього:', style: 'tableTotal' }, { text:  estimate?.total && roundingNumberFn(estimate?.total), style: 'tableTotal' }]
@@ -266,16 +266,16 @@ const onChange = (e) => {
                 <div className={s.buttonAddContainer}>
                 {isShowEstimate[item._id] ? (
                           
-                                <input
-                                    type="text"
-                                    name="title"
-                                    value={item.title}
-                                    id={item._id}
-                                    onChange={onChange}
-                                    className={s.titleInputTablet}
-                                />) : (
-                                  <p className={s.titleTable}>{item.title}</p>
-                              )}
+                 <input
+                  type="text"
+                  name="title"
+                  value={item.title}
+                  id={item._id}
+                  onChange={onChange}
+                  className={s.titleInputTablet}
+                  />) : (
+                  <p className={s.titleTable}>{item.title}</p>
+                )}
                 {userRole && (
                     <>
                  <button type='button' 
@@ -314,10 +314,7 @@ const onChange = (e) => {
                       try {
                       } catch (error) {          
                         console.error('Error delete project:', error);  
-                    } 
-                   
-                    console.log(item.title)
-                   
+                    }                   
                 }}
                   >
                     <UpdateOk width='28' height='28'/>
@@ -454,17 +451,14 @@ const onChange = (e) => {
           <p>Загальна сума: </p>
           {data && <p>{data?.total && roundingNumberFn(data?.total)}</p>}
         </div>
-    
+
+
+       {data?.discount && (
         <div className={s.total}>
-        {data?.discount && (
-        <>
         <p>Знижка на роботу:</p>
-        {data?.discount !== 0 && (<p>{roundingNumberFn(data?.discount)}</p> )}
-        
-          </>
-        )}
+         <p>{roundingNumberFn(data?.discount)}</p>
         </div> 
-    
+         )}
         
           <div className={s.total}>
             <p>Витрачено на матеріали:</p>

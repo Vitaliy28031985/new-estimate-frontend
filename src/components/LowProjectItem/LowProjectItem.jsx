@@ -54,7 +54,7 @@ function LowProjectItem() {
                         { text: unit || '', style: 'tableCell' },
                         { text: number || '', style: 'tableCell' },
                         { text: price || '', style: 'tableCell' },
-                        { text: result && roundingNumberFn(result) || '', style: 'tableCell' }
+                        { text: result && roundingNumberFn(result), style: 'tableCell' }
                       ]
                     ) || []),
                     [{}, {}, {}, {}, { text: 'Всього:', style: 'tableTotal' }, { text: estimate?.total && roundingNumberFn(estimate?.total), style: 'tableTotal' }]

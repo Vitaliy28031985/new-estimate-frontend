@@ -1,18 +1,14 @@
 .container {
     display: flex;
     justify-content: center;
-    margin-left: 12px;
-    @media screen and (min-width: 768px) {
-        margin-left: 0;
-     }
-    
+      
 }
 .allowContainer {
     display: grid;
     grid-row-gap: 8px;
 
     @media screen and (min-width: 1200px) {
-        grid-template-columns: 520px 520px;
+        grid-template-columns: 530px 530px;
         grid-gap: 16px;
      }
 

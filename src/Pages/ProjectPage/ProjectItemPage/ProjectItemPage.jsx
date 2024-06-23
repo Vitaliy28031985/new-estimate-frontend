@@ -1,4 +1,3 @@
-import s from "./ProjectItemPage.module.scss";
 
 function ProjectItemPage() {
     return(

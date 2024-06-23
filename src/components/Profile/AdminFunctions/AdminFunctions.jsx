@@ -1,14 +1,12 @@
 import { useState} from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import {useCurrentQuery, useAddAllowUserMutation} from "../../../redux/auth/authApi";
+import { toast } from 'react-toastify';
+import {useAddAllowUserMutation} from "../../../redux/auth/authApi";
 import s from "./AdminFunctions.module.scss";
 
 function AdminFunctions() {
     const [email, setEmail] = useState('');
     const [time, setTime] = useState('');
 
-
-    const {data} = useCurrentQuery();
     const [addAllowUser] = useAddAllowUserMutation();
 
     const handleChange = e => {
