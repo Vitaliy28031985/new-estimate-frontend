@@ -64,7 +64,7 @@ function ProjectPage() {
                 </li>    
                 )}
                
-                {dataLow?.lowEstimates.length !== 0 && (
+                {dataLow?.lowEstimates.length !== 0 && dataLow?.lowEstimates  && (
                 <li>
                     <NavLink className={({ isActive }) => isActive ? `${s.link} ${s['link-min']}` : s.link} to={`/project/${id}/low`}>{!project?.estimates?.length ? "Кошторис" : "Знижений кошторис"}</NavLink>
                 </li>
