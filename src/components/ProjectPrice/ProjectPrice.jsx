@@ -3,6 +3,7 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useCurrentQuery} from "../../redux/auth/authApi";
 import { useGetProjectByIdQuery } from '../../redux/projectSlice/projectSlice';
 import {useUpdateProjectPriceMutation} from '../../redux/projectPrice/projectPriceApi';
 import {projectsApi} from "../../redux/projectSlice/projectSlice";
@@ -21,6 +22,7 @@ function ProjectPrice() {
     const {id} = useParams();
     const dispatch = useDispatch();
     const { data: project} = useGetProjectByIdQuery(id);
+    const { data: userData } = useCurrentQuery(); 
     const [updateProjectPrice] = useUpdateProjectPriceMutation();
     const [currentData, setCurrentData] = useState({});
     const [data, setData] = useState(project?.price);
@@ -28,10 +30,16 @@ function ProjectPrice() {
     const [filter, setFilter] = useState('')
     const [showModal, serShowModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [userRole, setUserRole] = useState(false);
 
     useEffect(() => {
         setData(project?.price); 
-    }, [project?.price]); 
+        if (userData) {
+            const role = userData?.role;
+            const isUserRole = role !== "customer";
+               setUserRole(isUserRole);
+          }
+    }, [project?.price, userData, userRole]); 
   
     
     const filterChange = e => setFilter(e.target.value);
@@ -104,7 +112,8 @@ function ProjectPrice() {
 
             <div className={s.titleContainer}>
             <h3>Прайс робіт</h3>
-            <button onClick={() => handleToggle("price")} className={s.buttonAdd}><Add width={"27"} height={"27"}/></button>
+            {userRole && (<button onClick={() => handleToggle("price")} className={s.buttonAdd}><Add width={"27"} height={"27"}/></button>)}
+            
             </div> 
             
          <table className={s.iksweb}>
@@ -120,8 +129,8 @@ function ProjectPrice() {
         <tr key={_id}>
              
 			<td className={s.rowOne} >
-                
-                   <button  
+                {userRole && (
+                  <button  
                   className={s.buttonUpdate}
                   onClick={async() => {
                     isShow = !isShow;
@@ -147,7 +156,9 @@ function ProjectPrice() {
                     (<Update width='22' height='22'/>)
                     }
                   
-                  </button>
+                  </button>  
+                )}
+                   
                   {!isShow ? 
                   (<p className={s.inputTitle}>{title}</p>) :
                   (<input id={_id} name='title' className={s.inputTitle} value={title} disabled={!isShow} onChange={onChange} />)
@@ -158,7 +169,8 @@ function ProjectPrice() {
             (<p className={s.inputPrice}>{price}</p>) :
             (<input id={_id} name='price' className={s.inputPrice} value={price} disabled={!isShow} onChange={onChange} />) 
             }
-               <button className={s.buttonDelete} onClick={() => {
+            {userRole && (
+             <button className={s.buttonDelete} onClick={() => {
                 isDelete = !isDelete;
                 addIsToggle(_id, isDelete, 'deleteProjectPrice');
                 setCurrentData({id: _id, title}); 
@@ -166,7 +178,9 @@ function ProjectPrice() {
             }}>
                 <Delete width={"24"} height={"24"}/>
                 
-                </button>
+                </button>   
+            )}
+               
                                 
             </td>
           

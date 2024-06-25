@@ -111,11 +111,11 @@ function MaterialItem() {
     <div>
       <div className={s.buttonsContainer}>
         <h3 className={s.title}>Матеріали</h3>
-        {/* {userRole && ( */}
+        {userRole && (
         <button onClick={() => handleToggle("add")}>
           <Add width={"24"} height={"24"} />
         </button>
-        {/* )} */}
+        )} 
       </div>
       <table className={s.iksweb}>
         <tbody>
@@ -144,7 +144,7 @@ function MaterialItem() {
                 <tr key={id} className={s.dataRow}>
                   <td className={s.oneRow}>
                     {index + 1}
-                    {/* {userRole && ( */}
+                    {userRole && (
                     <button
                       className={s.buttonUpdate}
                       onClick={() => {
@@ -166,7 +166,7 @@ function MaterialItem() {
                         <Update width="22" height="22" />
                       )}
                     </button>
-                    {/* )} */}
+                    )}
                   </td>
                   <td className={s.twoRow}>
                     {!isShow ? (
@@ -223,21 +223,19 @@ function MaterialItem() {
                         onChange={onChange}
                       />
                     )}
-                    {/* {userRole &&  (*/}
+                    {userRole &&  (
 
                     <button
                       type="button"
                       className={s.buttonDelete}
                       onClick={() => {
-                        // isDelete = !isDelete;
-                        // addIsToggle(id, isDelete, "delete");
                         handleToggle("delete");
                         setCurrentData({id, title})
                       }}
                     >
                       <Delete width={"24"} height={"24"} />
                     </button>
-                    {/* )}                 */}
+                    )}
                   </td>
                 </tr>
               )

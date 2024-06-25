@@ -28,8 +28,7 @@ function AdvancesItem() {
     
     const [data, setData] = useState(project);
    
-    
-    // const [deleteAdvance] = useDeleteAdvanceMutation();
+   
 
     const [isShowAdd, setIsShowAdd] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
@@ -51,7 +50,7 @@ function AdvancesItem() {
   useEffect(() => {
     setData(project);
     if (userData) {
-      const role = userData?.user?.role;
+      const role = userData?.role;
       const isUserRole = role !== "customer";
          setUserRole(isUserRole);
     }   
@@ -120,9 +119,9 @@ const onChange = (e) => {
 
       <div className={s.buttonsContainer}>
       <h3 className={s.title}>Аванс</h3>
-      {/* {userRole && ( */}
+      {userRole && (
             <button onClick={() => handleToggle("add")}><Add width={'24'} height={'24'}/></button>
-      {/* )} */}
+      )}
   
       </div>
       <table className={s.iksweb}>
@@ -139,7 +138,7 @@ const onChange = (e) => {
                 <tr key={id} className={s.dataRow}>
                 <td className={s.oneRow}>
                   {index + 1}
-                  {/* {userRole && ( */}
+                  {userRole && (
                     <button  
                   className={s.buttonUpdate}
                   onClick={() => {
@@ -154,7 +153,7 @@ const onChange = (e) => {
                     }
                   
                   </button> 
-                  {/* )} */}
+                  )}
                     </td>
                        
                 <td className={s.threeRow}>
@@ -172,7 +171,7 @@ const onChange = (e) => {
                 (<p>{sum}</p>) :
                 (<input id={id} name='sum' className={s.input} value={sum} disabled={!isShow} onChange={onChange}/>)  
               }  
-                {/* {userRole && ( */}
+                {userRole && (
                  <button type='button' className={s.buttonDelete}  onClick={() => 
                   {
                     handleToggle("delete");
@@ -181,7 +180,7 @@ const onChange = (e) => {
                   }>
                 <Delete width={"24"} height={"24"}/>
                 </button> 
-                {/* )} */}
+                )}
 
                 </td>
                       </tr>
