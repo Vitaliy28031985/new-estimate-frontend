@@ -26,6 +26,7 @@ const Advances = lazy(() => import('./Pages/ProjectPage/AdvancesPage/AdvancesPag
 const ProjectPrice = lazy(() => import('./Pages/ProjectPage/ProjectPricePage/ProjectPricePage' /* webpackChunkName: "ProjectPrice" */));
 const LowProject = lazy(() => import('./Pages/ProjectPage/LowProjectPage/LowProjectPage' /* webpackChunkName: "LowProject" */));
 const Settings = lazy(() => import('./Pages/SettingsPage/SettingsPage' /* webpackChunkName: "Settings" */));
+const MassageAllow = lazy(() => import('./Pages/MassageAllow/MassageAllow' /* webpackChunkName: "MassageAllow" */));
 
 
 
@@ -51,6 +52,7 @@ function App() {
             <Route path="advances" element={<PrivateRoute><Advances /></PrivateRoute>} />
           </Route>
          <Route path="/project/settings/:id" element={<PrivateRoute><Settings/></PrivateRoute>} />
+         <Route path="/allow" element={<PrivateRoute><MassageAllow/></PrivateRoute>} />
         
        
         <Route path="*" element={<NotFoundPage/>} />

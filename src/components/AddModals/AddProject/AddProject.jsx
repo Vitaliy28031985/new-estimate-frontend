@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {  toast } from 'react-toastify';
+import { useNavigate  } from 'react-router-dom';
 import {useAddProjectsMutation, useGetProjectsQuery} from "../../../redux/projectSlice/projectSlice";
 import 'react-toastify/dist/ReactToastify.css';
 import s from "./AddProject.module.scss"
 
 function AddProject({onModal}) {
+    const navigate = useNavigate();  
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
@@ -48,6 +50,7 @@ function AddProject({onModal}) {
             } else {
                  console.error('Unexpected response:', add.error.data.message);
                  toast.error(add.error.data.message);
+                 navigate(`/allow`)
                  }
           } catch (error) {
             toast.error(`User with the title: ${title} does not exist!`, error);
