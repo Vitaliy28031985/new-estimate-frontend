@@ -15,50 +15,64 @@ function AddProjectPrice({onModal}) {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [recognition, setRecognition] = useState(null);
+    const [isRecording, setIsRecording] = useState(false);
 
     const {data} = useGetProjectByIdQuery();
     const [ addProjectPrice] = useAddProjectPriceMutation();
 
-    useEffect(() => {
+    useEffect( () => {
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognitionInstance = new SpeechRecognition();
-            recognitionInstance.lang = 'uk-UA';
-            recognitionInstance.interimResults = true;
-            setRecognition(recognitionInstance);
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognitionInstance =  new SpeechRecognition();
+          setRecognition(recognitionInstance);
+                  
         } else {
-
-            // toast.error("Розпізнавання мови не підтримується в цьому браузері!");
-            console.log('Розпізнавання мови не підтримується в цьому браузері.');
+          console.log('Розпізнавання мови не підтримується в цьому браузері.');
         }
-    }, []);
+      }, []);
 
-    useEffect(() => {
-        if (recognition) {
-            recognition.onresult = (event) => {
-                const transcript = Array.from(event.results)
-                    .map(result => result[0].transcript)
-                    .join('');
-
-                const transcriptArr = transcript.split('');
-                if (transcriptArr.length > 0) {
-                    transcriptArr[0] = transcriptArr[0].toUpperCase();
+     
+      if (recognition) {
+        recognition.onresult = (event) => {
+          const transcript = Array.from(event.results)
+            .map(result => result[0].transcript)
+            .join('');
+            
+            const transcriptArr =  transcript.split('');
+            for(let i = 0; i < transcriptArr.length; i++) {
+                if(i === 0) 
+                {
+                    transcriptArr[i] = transcript.charAt(0).toUpperCase();  
                 }
-                setTitle(transcriptArr.join(""));
-            };
-        }
-    }, [recognition]);
+            }
+            setTitle(transcriptArr.join(""))
+         
+        
+        };
+      }
 
-    const startRecording = () => {
-        if (recognition) {
+      const startRecording = () => {
+        if (recognition && !isRecording) {
             recognition.start();
+            setIsRecording(true);
+        }
+    };
+
+    const stopRecording = () => {
+        if (recognition && isRecording) {
+            recognition.stop();
+            setIsRecording(false);
         }
     };
 
     const handleStartRecordingClick = () => {
-        startRecording();
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
     };
-
+    
 
 
     const handleChange = e => {
