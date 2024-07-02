@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const estimateApi = createApi({
   reducerPath: 'estimateApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/api/',
+    baseUrl: 'http://31.131.25.30:4000/api/',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {

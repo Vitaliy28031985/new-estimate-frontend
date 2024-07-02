@@ -10,6 +10,7 @@ import DeleteModal from '../DeleteModal/DeleteModal';
 import Line from "../Icons/Line/Line";
 import Add from "../Icons/Add/Add";
 import Update from "../Icons/Update/UpdateIcon";
+import UpdateOk from "../Icons/UpdateOk/UpdateOk";
 import Delete from "../Icons/Delete/Delete";
 
 import s from "./Projects.module.scss";
@@ -95,7 +96,7 @@ function ProjectsComponent () {
             
             {data && (
              <ul className={s.cardContainer}>
-                {data && data.map(({_id, title, description, total, isShow = false, isDelete = false}) => (
+                {data && data.map(({_id, title, description, isShow = false, isDelete = false}) => (
             <li className={s.card} key={_id} id={_id}>
                 {userRole && (
                    <div className={s.buttons}>
@@ -121,8 +122,11 @@ function ProjectsComponent () {
                         
                     }
                 }}
-                >
-                    <Update width={"24"} height={"24"}/></button>
+                > 
+                {!isShow ? (<Update width={"24"} height={"24"}/>) : (<UpdateOk width={"24"} height={"24"}/>)}
+               </button> 
+                
+                   
                 <button className={s.button}
                 onClick={async () => {
                 isDelete = !isDelete;
@@ -147,9 +151,6 @@ function ProjectsComponent () {
                 (<input id={_id} maxLength="30" name='description' className={s.inputAddress} value={description} disabled={!isShow} onChange={onChange} />)}
                 
                 </div>
-                {/* <div>
-                <p className={s.title}>Сума кошторису:</p> <p className={s.titleData}>{total}</p>
-                </div> */}
                 <NavLink  className={s.link} to={`/project/${_id}`}>Детальніше <Line/></NavLink >
             </li>) 
                 )}

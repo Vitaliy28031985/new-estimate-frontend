@@ -10,6 +10,7 @@ import DeleteModal from '../../DeleteModal/DeleteModal';
 
 import Line from '../../Icons/Line/Line';
 import Update from '../../Icons/Update/UpdateIcon';
+import UpdateOk from "../../Icons/UpdateOk/UpdateOk";
 import Delete from '../../Icons/Delete/Delete';
 import Setting from '../../Icons/Setting/Setting';
 
@@ -110,7 +111,8 @@ function ProjectsProfile() {
                 }
             }}
             >
-                <Update width={"20"} height={"20"}/></button>
+                 {!isShow ? (<Update width={"24"} height={"24"}/>) : (<UpdateOk width={"24"} height={"24"}/>)}
+                </button>
             <button className={s.button}
             onClick={ async() => {
                 isDelete = !isDelete;
