@@ -41,6 +41,17 @@ margin: 0px;
 padding: 0px;
 }
 
+button {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+  padding: 0;
+}
+
+button:hover, button:focus {
+  outline: none;
+}
+
 .link{
   font-weight: 400;
   font-size: 19px;
@@ -147,3 +158,6 @@ padding: 0px;
   box-shadow: 0px 4px 8px 0px rgba(16, 24, 40, 0.05);
  
 }
+
+
+
