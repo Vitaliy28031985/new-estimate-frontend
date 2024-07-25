@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+const apiUrl = process.env.REACT_APP_API_URL;
 export const priceApi = createApi({
     reducerPath: 'priceApi',
     baseQuery: fetchBaseQuery({
-      baseUrl: 'http://31.131.25.30:4000/api/',
+      baseUrl: `${apiUrl}`,
       prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
         if (token) {

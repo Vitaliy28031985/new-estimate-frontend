@@ -25,10 +25,11 @@ import s from "./ProjectItem.module.scss";
 import roundingNumberFn from "../../helpers/roundingNumberFn";
 
 
-
 function ProjectItem() {
     const {id} = useParams();
     const dispatch = useDispatch();
+
+
 
     const { data: project} = useGetProjectByIdQuery(id);
     const { data: userData } = useCurrentQuery(); 

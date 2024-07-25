@@ -82,7 +82,7 @@ function AddAdvance({ onModal}) {
       <form action="" onSubmit={handleSubmit}>
 
         <div className={s.inputContainer}>
-          <label>№ рахунку</label>
+          <label>Коментар</label>
           <input
             type="text"
             name="comment"
